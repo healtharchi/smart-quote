@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スマート見積システム 使い方ガイド</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
+    line-height: 1.85;
+  }
+  .anchor-offset { scroll-margin-top: 2rem; }
+  h2 {
+    border-left: 8px solid #0f172a;
+    padding-left: 1rem;
+    background: linear-gradient(90deg, #f8fafc 0%, transparent 100%);
+  }
+  h3 { border-bottom: 2px solid #e2e8f0; padding-bottom: 0.3rem; }
+  .step {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: #0f172a;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .keycap {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.3rem;
+    font-family: monospace;
+    font-size: 0.85em;
+    color: #0f172a;
+  }
+  .big-arrow {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 1.5rem;
+    margin: 0.25rem 0;
+  }
+  @media print {
+    .no-print { display: none !important; }
+    body { font-size: 11pt; }
+    h2 { break-before: page; page-break-before: always; }
+    h2:first-of-type { break-before: auto; page-break-before: auto; }
+    .box-break-inside { break-inside: avoid; page-break-inside: avoid; }
+    nav { display: none !important; }
+  }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<!-- ヘッダー -->
+<header class="bg-gradient-to-br from-slate-900 to-slate-700 text-white py-10 px-6">
+  <div class="max-w-4xl mx-auto flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <div class="text-sm text-slate-300 mb-1">📘 スマート見積システム</div>
+      <h1 class="text-3xl sm:text-4xl font-bold">使い方ガイド</h1>
+      <p class="text-slate-300 mt-2">木造工務店の新築見積を、誰でも5分で出せるツール</p>
+    </div>
+    <a href="index.html" class="no-print inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white text-sm font-bold px-4 py-2 rounded transition" title="見積システム本体を開く">
+      <span>🏠</span>
+      <span>見積システム本体へ</span>
+    </a>
+  </div>
+</header>
+
+<div class="max-w-4xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8">
+
+  <!-- 目次 -->
+  <nav class="no-print lg:sticky lg:top-6 self-start bg-white rounded-lg shadow-sm border border-slate-200 p-4 text-sm">
+    <div class="font-bold text-slate-900 mb-3">目次</div>
+    <ol class="space-y-2 list-decimal pl-5 text-slate-700">
+      <li><a href="#overview" class="hover:text-blue-600">まず全体像</a></li>
+      <li><a href="#prepare" class="hover:text-blue-600">初期設定（最初に1回だけ）</a></li>
+      <li><a href="#daily" class="hover:text-blue-600">毎回の見積作業</a></li>
+      <li><a href="#screens" class="hover:text-blue-600">各画面の説明</a></li>
+      <li><a href="#scenarios" class="hover:text-blue-600">こんな時どうする?</a></li>
+      <li><a href="#backup" class="hover:text-blue-600">データの保管</a></li>
+      <li><a href="#faq" class="hover:text-blue-600">困ったとき</a></li>
+    </ol>
+    <div class="mt-4 pt-4 border-t border-slate-200 text-xs text-slate-500">
+      💡 印刷もできます。ブラウザの印刷機能でPDF保存可能。
+    </div>
+  </nav>
+
+  <!-- 本文 -->
+  <main class="bg-white rounded-lg shadow-sm border border-slate-200 p-6 sm:p-10 space-y-12">
+
+    <!-- 1. まず全体像 -->
+    <section id="overview" class="anchor-offset">
+      <h2 class="text-2xl font-bold text-slate-900 py-2">1. まず全体像</h2>
+
+      <p class="mt-4 text-lg">このツールは <strong>3ステップ</strong> で見積を作るだけです。</p>
+
+      <div class="my-6 box-break-inside">
+        <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-5">
+          <div class="text-xs font-bold text-blue-700 mb-1">STEP 1：初期設定（最初に1回だけ）</div>
+          <div class="text-lg font-bold">⚙️ 会社情報と単価マスタを設定</div>
+          <div class="text-sm text-slate-600 mt-1">会社名・住所・電話・メール・印鑑などを入れて、自社の標準単価をマスタに登録します。</div>
+        </div>
+        <div class="big-arrow">⬇</div>
+        <div class="bg-amber-50 border-2 border-amber-300 rounded-lg p-5">
+          <div class="text-xs font-bold text-amber-700 mb-1">STEP 2：毎回の見積作業</div>
+          <div class="text-lg font-bold">📁 物件登録 → 見積作成 → お客様情報を入力 → 明細を編集</div>
+          <div class="text-sm text-slate-600 mt-1">物件名を登録し、見積を作成。坪数や仕様などを入力すると、自動で内訳明細が出来上がります。あとは項目を足したり引いたり、単価を微調整するだけ。</div>
+        </div>
+        <div class="big-arrow">⬇</div>
+        <div class="bg-green-50 border-2 border-green-300 rounded-lg p-5">
+          <div class="text-xs font-bold text-green-700 mb-1">STEP 3：見積書を印刷／PDF保存</div>
+          <div class="text-lg font-bold">🖨 3種類の書式から選んで印刷</div>
+          <div class="text-sm text-slate-600 mt-1">シンプル／内訳付き／正式 から選んで印刷ボタン。ブラウザの「PDFとして保存」で電子化もできます。</div>
+        </div>
+      </div>
+
+      <div class="mt-6 bg-slate-100 border-l-4 border-slate-500 p-4 rounded box-break-inside">
+        <div class="font-bold mb-2">📦 同じ物件で何回でも見積を作り直せます</div>
+        <p class="text-sm">「第1回見積」「第2回見積（屋根変更後）」のように、打ち合わせの度に複製して保存。それぞれメモも付けられるので「契約待ち」「失注」などの進捗管理もできます。</p>
+      </div>
+    </section>
+
+    <!-- 2. 初期設定 -->
+    <section id="prepare" class="anchor-offset">
+      <h2 class="text-2xl font-bold text-slate-900 py-2">2. 初期設定（最初に1回だけ）</h2>
+
+      <p class="mt-4">まず、自分の会社の情報と単価を設定しましょう。一度やれば、あとは見積を作るだけになります。</p>
+
+      <h3 class="text-lg font-bold mt-6">2-1. 会社情報を入れる</h3>
+
+      <div class="step box-break-inside">
+        <span class="step-num">1</span>
+        <div>
+          <div class="font-bold">右上のナビから「🔧 設定」をクリック</div>
+          <div class="text-sm text-slate-600 mt-1">画面右上に「📁 物件一覧」「⚙️ マスタ管理」「🔧 設定」の3つボタンがあります。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">2</span>
+        <div>
+          <div class="font-bold">会社情報を入力</div>
+          <div class="text-sm text-slate-600 mt-1">会社名・住所・電話・メール・代表者名を入力。ここで入れた情報が <strong>すべての見積書に自動で印刷</strong>されます。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">3</span>
+        <div>
+          <div class="font-bold">印鑑画像をアップロード（任意）</div>
+          <div class="text-sm text-slate-600 mt-1">透過PNGの印鑑画像を登録しておくと、正式見積書に自動で押印されます。500KB以下推奨。後でも変更可能。</div>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">2-2. 単価マスタを自社仕様に</h3>
+
+      <div class="bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-sm mb-3 box-break-inside">
+        ⚠️ 初期値はあくまで参考値。<strong>必ず自社の実勢価格に見直してから運用</strong>してください。
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">1</span>
+        <div>
+          <div class="font-bold">右上「⚙️ マスタ管理」をクリック</div>
+          <div class="text-sm text-slate-600 mt-1">136項目の標準単価が、A〜AB のカテゴリで並んでいます。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">2</span>
+        <div>
+          <div class="font-bold">単価をクリックして編集</div>
+          <div class="text-sm text-slate-600 mt-1">「内訳名」「規格」「単価」もそれぞれクリックで編集できます。例: 「システムキッチン」→「LIXIL リシェル」のような自社呼称に変更可能。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">3</span>
+        <div>
+          <div class="font-bold">不要な工事項目は「有効」チェックを外す</div>
+          <div class="text-sm text-slate-600 mt-1">例: オール電化の工務店なら「O. ガス引込」「K-3 ガス配管」を無効化。<strong>カテゴリヘッダーの「全無効」ボタン</strong>で一括も可能。無効化した項目は見積書にも出てきません。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">4</span>
+        <div>
+          <div class="font-bold">独自項目を追加する</div>
+          <div class="text-sm text-slate-600 mt-1">各カテゴリの「＋ 内訳追加」で、自社特有の項目を追加できます（ピンク色＋★マークで識別）。例: 「太陽光発電」「外構ガレージ」など。</div>
+          <div class="text-xs text-amber-700 mt-1">⚠️ 追加項目は自動計算されません。見積で数量を手動入力してください。</div>
+        </div>
+      </div>
+
+      <div class="mt-6 bg-blue-50 border-l-4 border-blue-400 p-3 rounded text-sm box-break-inside">
+        📦 <strong>マスタを変更しても、既に作成済みの見積には影響しません。</strong>新しく作る見積からだけ反映されます（過去の見積を守る仕組み）。既存見積を最新マスタで再計算したい場合は、見積編集画面の「🔄 マスタを最新に更新」ボタンを使ってください。
+      </div>
+    </section>
+
+    <!-- 3. 毎回の見積作業 -->
+    <section id="daily" class="anchor-offset">
+      <h2 class="text-2xl font-bold text-slate-900 py-2">3. 毎回の見積作業</h2>
+
+      <p class="mt-4">初期設定が終われば、ここからは毎回の作業。<strong>3〜5分</strong>で見積1本作れます。</p>
+
+      <h3 class="text-lg font-bold mt-6">3-1. 物件を登録</h3>
+
+      <div class="step box-break-inside">
+        <span class="step-num">1</span>
+        <div>
+          <div class="font-bold">右上「📁 物件一覧」→「＋ 物件の登録」</div>
+          <div class="text-sm text-slate-600 mt-1">物件名を入力。例: <span class="keycap">山田様邸 新築工事</span>。物件名は後から物件一覧でいつでも変更できます。</div>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">3-2. 見積を作成</h3>
+
+      <div class="step box-break-inside">
+        <span class="step-num">1</span>
+        <div>
+          <div class="font-bold">登録した物件の中で「＋ この物件で新規見積」をクリック</div>
+          <div class="text-sm text-slate-600 mt-1">「第1回見積」が自動で作られて、編集画面が開きます。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">2</span>
+        <div>
+          <div class="font-bold">お客様情報を入力</div>
+          <div class="text-sm text-slate-600 mt-1">画面上部に <strong>見積名・施主名・現場・担当</strong> の欄があります。施主名は<strong>「様」をつけずに名前だけ</strong>入れてください（見積書には自動で「様」が付きます）。</div>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">3-3. 規模を入力（1. 規模タブ）</h3>
+
+      <div class="step box-break-inside">
+        <span class="step-num">1</span>
+        <div>
+          <div class="font-bold">延床坪数、階数、軒高、屋根形状、建物の形を入力</div>
+          <div class="text-sm text-slate-600 mt-1">既定値: 32坪・2階建・軒高6.5m・切妻・長方形。坪と㎡が両方表示されるので分かりやすい。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">2</span>
+        <div>
+          <div class="font-bold">建築面積を入力（推奨）</div>
+          <div class="text-sm text-slate-600 mt-1">「建築面積」= 1階の床面積。基礎・屋根の計算に使います。空欄なら自動計算されますが、図面の値を入れると精度が上がります。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">3</span>
+        <div>
+          <div class="font-bold">入力したら、右側の自動算出欄を確認</div>
+          <div class="text-sm text-slate-600 mt-1">外周長・外壁面積・屋根面積などが自動で計算されます。図面と大きく違うときは「派生値を直接上書き」で実測値を入れられます。</div>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">3-4. 内訳明細を確認・編集（2. 内訳明細タブ）</h3>
+
+      <p class="text-sm mt-2">ここで全 136項目の内訳が自動表示されます。<strong>触る必要があるのは、特殊な案件で項目を足したり減らしたりする時だけ</strong>。標準的な案件ならスルーしてもOK。</p>
+
+      <div class="step box-break-inside">
+        <span class="step-num">1</span>
+        <div>
+          <div class="font-bold">数量・単価をクリックして編集できる</div>
+          <div class="text-sm text-slate-600 mt-1">編集すると<span class="text-blue-700 font-bold">青色（太字）</span>になり、↺ボタンで自動値に戻せます。<strong>内訳名や規格も編集可能</strong>（その見積限定で変更されます）。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">2</span>
+        <div>
+          <div class="font-bold">不要な項目は「使」チェックを外す</div>
+          <div class="text-sm text-slate-600 mt-1">この案件だけで除外したい項目。チェックを外すと番号が自動で詰まり、印刷時も非表示。</div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">3</span>
+        <div>
+          <div class="font-bold">独自項目を追加</div>
+          <div class="text-sm text-slate-600 mt-1">各カテゴリの「＋追加」ボタンで、この案件限定の項目を追加。ピンク色で表示されます。例: 「特別仕様の暖炉」「敷地外の擁壁工事」など。</div>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">3-5. 結果を確認（3. 結果タブ）</h3>
+
+      <p class="text-sm mt-2">税込総額・坪単価・カテゴリ別小計を確認できます。本体工事／付帯工事／諸経費が色分け表示でひと目で分かります。</p>
+
+      <h3 class="text-lg font-bold mt-8">3-6. 見積書を印刷／PDF保存（🖨 見積書プレビュータブ）</h3>
+
+      <div class="step box-break-inside">
+        <span class="step-num">1</span>
+        <div>
+          <div class="font-bold">書式を選ぶ</div>
+          <div class="text-sm text-slate-600 mt-1">
+            <strong>① シンプル</strong>: カテゴリ別小計だけ。ざっくり提示用<br>
+            <strong>② 内訳付き</strong>: 全内訳まで載せる。詳細を求められた時<br>
+            <strong>③ 正式見積書</strong>: 押印欄・支払条件・工期付き。契約用
+          </div>
+        </div>
+      </div>
+
+      <div class="step box-break-inside">
+        <span class="step-num">2</span>
+        <div>
+          <div class="font-bold">「🖨 印刷」をクリック</div>
+          <div class="text-sm text-slate-600 mt-1">ブラウザの印刷ダイアログが開きます。プリンターを選んで紙に印刷、または<strong>「PDFとして保存」</strong>でPDF化。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 各画面の説明 -->
+    <section id="screens" class="anchor-offset">
+      <h2 class="text-2xl font-bold text-slate-900 py-2">4. 各画面の説明</h2>
+
+      <h3 class="text-lg font-semibold mt-6">📁 物件一覧</h3>
+      <p class="mt-2 text-sm">登録した物件をカード表示。各カードに「最新見積の金額」「見積件数」「最終更新日」が表示されます。</p>
+      <ul class="list-disc pl-6 text-sm mt-2 space-y-1">
+        <li>カードをクリック → その物件の見積一覧へ</li>
+        <li>「物件名変更」 → 物件の全見積で名前を一括変更</li>
+        <li>「物件削除」 → 物件と全見積を削除</li>
+      </ul>
+
+      <h3 class="text-lg font-semibold mt-6">📄 見積一覧（物件の中）</h3>
+      <p class="mt-2 text-sm">物件カードを開くと、その物件の見積一覧が表示されます。</p>
+      <ul class="list-disc pl-6 text-sm mt-2 space-y-1">
+        <li><strong>📝 メモ欄</strong>: 「打ち合わせ前」「契約待ち」など進捗管理</li>
+        <li>「複製」 → 第2回見積として複製、内容は前回と同じ</li>
+        <li>「改名」「削除」 → それぞれの操作</li>
+      </ul>
+
+      <h3 class="text-lg font-semibold mt-6">📋 見積編集画面の4タブ</h3>
+
+      <div class="mt-3 space-y-3">
+        <div class="border border-slate-200 rounded p-3 box-break-inside">
+          <div class="font-bold text-blue-900">1. 規模</div>
+          <div class="text-sm mt-1">坪数・階数・軒高・建築面積などを入力。坪と㎡が併記される。詳細な実測値も上書き可能。</div>
+        </div>
+        <div class="border border-slate-200 rounded p-3 box-break-inside">
+          <div class="font-bold text-blue-900">2. 内訳明細</div>
+          <div class="text-sm mt-1">136項目の全内訳を表示。クリックで編集、「使」チェックで除外、「+追加」でこの案件限定の項目追加。</div>
+        </div>
+        <div class="border border-slate-200 rounded p-3 box-break-inside">
+          <div class="font-bold text-blue-900">3. 結果</div>
+          <div class="text-sm mt-1">本体／付帯／諸経費で色分けされた小計と、税込総額・坪単価を表示。</div>
+        </div>
+        <div class="border border-slate-200 rounded p-3 box-break-inside">
+          <div class="font-bold text-blue-900">🖨 見積書プレビュー</div>
+          <div class="text-sm mt-1">3書式から選択して印刷／PDF保存。</div>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-semibold mt-6">⚙️ マスタ管理</h3>
+      <p class="mt-2 text-sm">単価マスタを編集する画面。会社全体の標準価格表として運用します。</p>
+      <ul class="list-disc pl-6 text-sm mt-2 space-y-1">
+        <li>カテゴリ別に折りたためる</li>
+        <li>各項目の内訳名・規格・単価が編集可能</li>
+        <li>「有効」チェックで全見積から除外</li>
+        <li>「全有効」「全無効」ボタンでカテゴリ一括切替</li>
+        <li>「＋ 内訳追加」で会社独自の項目を追加</li>
+      </ul>
+
+      <h3 class="text-lg font-semibold mt-6">🔧 設定</h3>
+      <p class="mt-2 text-sm">会社情報の入力、印鑑画像のアップロード、データのバックアップ・復元。</p>
+    </section>
+
+    <!-- 5. シナリオ別 -->
+    <section id="scenarios" class="anchor-offset">
+      <h2 class="text-2xl font-bold text-slate-900 py-2">5. こんな時どうする?</h2>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">A. 打ち合わせ後に内容を変更して再見積</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>物件一覧 → 物件カードをクリック</li>
+        <li>前回の見積カードの「複製」ボタンをクリック</li>
+        <li>「第2回見積」が作成される</li>
+        <li>新しい見積を編集（仕様変更や単価調整）</li>
+        <li>見積名を「第2回見積（屋根変更後）」のように分かりやすく改名</li>
+      </ol>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">B. オール電化なのでガス工事を出したくない</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>マスタ管理を開く</li>
+        <li>「O. ガス引込」「K-3 ガス配管」などのカテゴリで「全無効」ボタンをクリック</li>
+        <li>以降の全見積で計算対象外になり、見積書にも出てこない</li>
+      </ol>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">C. この案件だけ「太陽光」を入れたい</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>見積編集 → 「2. 内訳明細」タブ</li>
+        <li>追加したいカテゴリ（例: J. 電気工事）の「＋追加」ボタン</li>
+        <li>ピンク色の新規行が追加される</li>
+        <li>内訳名「太陽光発電 6kW」、単価「1,800,000」、単位「式」を入力</li>
+      </ol>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">D. 実測値で精度を上げたい</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>規模設定タブの下にある「▶ 派生値を直接上書き」を展開</li>
+        <li>図面から計測した「外周長」「外壁面積」「屋根面積」を入力</li>
+        <li>自動値より優先される（マーカー色で表示）</li>
+      </ol>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">E. 進捗管理（メモ機能）</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>見積一覧で、各見積カードに「📝 メモ」欄</li>
+        <li>「打ち合わせ前」「提案中」「契約待ち」「失注」などを記入</li>
+        <li>クリックで保存される</li>
+      </ol>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">F. 単価が値上がりしたので更新</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>マスタ管理で該当項目の単価を更新</li>
+        <li>新規見積からは新単価で計算される</li>
+        <li><strong>過去の見積は守られる</strong>（旧単価のまま）</li>
+        <li>進行中の物件で新単価を反映したい場合は、その見積を開いて「🔄 マスタを最新に更新」</li>
+      </ol>
+    </section>
+
+    <!-- 6. データの保管 -->
+    <section id="backup" class="anchor-offset">
+      <h2 class="text-2xl font-bold text-slate-900 py-2">6. データの保管</h2>
+
+      <p class="mt-4">データは <strong>ブラウザ内</strong> に保存されます。キャッシュ削除やPC変更で消えるので、<strong>定期的にバックアップ</strong>を取ってください。</p>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">📤 バックアップ（エクスポート）</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>「🔧 設定」をクリック</li>
+        <li>「全データをエクスポート」ボタン</li>
+        <li>JSONファイルがダウンロードされる</li>
+        <li>クラウド（Dropbox / Google Drive など）に保存しておくと安心</li>
+      </ol>
+
+      <h3 class="text-lg font-semibold mt-6 mb-2">📥 復元（インポート）</h3>
+      <ol class="list-decimal pl-6 text-sm space-y-1 box-break-inside">
+        <li>「🔧 設定」をクリック</li>
+        <li>「JSONファイルをインポート」ボタン</li>
+        <li>バックアップしたファイルを選択</li>
+      </ol>
+
+      <div class="mt-4 bg-blue-50 border-l-4 border-blue-400 p-3 rounded box-break-inside text-sm">
+        💡 <strong>推奨</strong>: 重要な見積を作った後、または週1回。クラウドに置いておけばPCを変えても引き継げます。
+      </div>
+    </section>
+
+    <!-- 7. 困ったとき -->
+    <section id="faq" class="anchor-offset">
+      <h2 class="text-2xl font-bold text-slate-900 py-2">7. 困ったとき（Q&A）</h2>
+
+      <div class="space-y-5 mt-4">
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. 施主名に「様」が二重に表示される</div>
+          <p class="text-sm text-slate-700 mt-1">施主名には「<strong>名前だけ</strong>」を入れてください。見積書では自動で「様」が付きます。「様」を含めて入力しても自動で除去されます。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. 別のPCでも使いたい</div>
+          <p class="text-sm text-slate-700 mt-1">「設定 → エクスポート」で JSON ファイルを書き出し → 別PCのアプリで「インポート」。アプリ本体（HTMLファイル）は同じものを使えばOK。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. データが消えた</div>
+          <p class="text-sm text-slate-700 mt-1">ブラウザのキャッシュクリアで消えることがあります。日頃から「設定 → エクスポート」でJSONバックアップを取ってください。インポートで復元できます。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. PDFの余白を変えたい</div>
+          <p class="text-sm text-slate-700 mt-1">ブラウザの印刷ダイアログ → 「詳細設定」 → 「余白」で調整できます。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. 単価マスタを変更したら、過去の見積金額も変わってしまうの?</div>
+          <p class="text-sm text-slate-700 mt-1"><strong>変わりません</strong>。各見積は作成時のマスタを内部に保持しています（スナップショット型）。明示的に「🔄 マスタを最新に更新」ボタンを押した時だけ反映されます。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. 軒高って何?</div>
+          <p class="text-sm text-slate-700 mt-1">屋根のいちばん下端（軒）までの高さ。2階建てなら通常 6.5m前後。最高高さ（屋根のてっぺん）とは違います。階数を変えるとデフォルト値が自動更新されます。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. 建築面積と延床面積の違い?</div>
+          <p class="text-sm text-slate-700 mt-1"><strong>建築面積</strong> = 建物を真上から見た面積（≒1階の床面積）。<strong>延床面積</strong> = 全階の床面積の合計。例: 2階建32坪なら、延床=32坪、建築面積=約16坪。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. 計算精度はどのくらい?</div>
+          <p class="text-sm text-slate-700 mt-1">標準的な木造2階建てで±5%程度の概算用途。<strong>正式な施工見積には、現地調査と詳細積算が必要</strong>です。あくまで提案・営業の初期段階のツールとお考えください。</p>
+        </div>
+
+        <div class="border-l-4 border-slate-300 pl-4 box-break-inside">
+          <div class="font-bold">Q. ロゴを入れたい</div>
+          <p class="text-sm text-slate-700 mt-1">現バージョンでは印鑑画像のみ対応。ロゴ画像対応は今後の機能として検討中です。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 巻末 -->
+    <div class="mt-12 pt-6 border-t border-slate-200 text-center text-sm text-slate-500">
+      <p>スマート見積システム v3.x / 使い方ガイド</p>
+      <p class="mt-1 text-xs">分からない時は、まずこのガイドを再読してください。</p>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

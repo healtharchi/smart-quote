@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>スマート見積システム</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif; }
+  .num { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  /* 印刷スタイル */
+  @media print {
+    body { background: white; font-size: 10pt; }
+    .no-print { display: none !important; }
+    .print-only { display: block !important; }
+    .print-page-break { break-before: page; page-break-before: always; }
+    .print-avoid-break { break-inside: avoid; page-break-inside: avoid; }
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; page-break-after: auto; }
+    thead { display: table-header-group; }
+    tfoot { display: table-footer-group; }
+  }
+  .print-only { display: none; }
+  /* スクロール調整 */
+  .scrollable { max-height: 70vh; overflow-y: auto; }
+</style>
+</head>
+<body class="bg-stone-100 text-slate-800 min-h-screen">
+<div id="root"></div>
+
+<script id="app-data" type="application/json">{"version":"1.0.0","generatedAt":"2026-05-16","source":"市場調査.pdf (2026年5月 首都圏木造2階建32坪 中級グレード)","rateMaster":[{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-1","name":"仮設足場","spec":"くさび緊結式・建地〜手摺・昇降階段共","quantity":220.073222435807,"unit":"㎡","price":1200,"amount":264087.866922968,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-2","name":"養生メッシュシート","spec":"防炎1類・建枠共","quantity":220.073222435807,"unit":"㎡","price":350,"amount":77025.6278525323,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-3","name":"仮設電気","spec":"引込・電気使用料(着工〜竣工)","quantity":1,"unit":"式","price":80000,"amount":80000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-4","name":"仮設水道","spec":"引込・水道使用料","quantity":1,"unit":"式","price":45000,"amount":45000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-5","name":"仮設トイレ","spec":"リース・汲取込","quantity":6,"unit":"ヶ月","price":12000,"amount":72000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-6","name":"工事用シート・防塵養生","spec":"ブルーシート他","quantity":1,"unit":"式","price":35000,"amount":35000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-7","name":"遣り方・墨出し","spec":"","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-8","name":"仮設片付・清掃・現場小運搬","spec":"工程中の都度発生","quantity":1,"unit":"式","price":90000,"amount":90000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-9","name":"工程管理諸費","spec":"工事看板・標識・近隣挨拶","quantity":1,"unit":"式","price":92000,"amount":92000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-1","name":"根切り・床付け","spec":"機械掘削・GL-450","quantity":23.80176,"unit":"㎡","price":4200,"amount":99967.392,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-2","name":"残土場外処分","spec":"ダンプ運搬・処分費共","quantity":28.562112,"unit":"㎡","price":6500,"amount":185653.728,"remark":"","quantityFormula":"建築面積×1.2"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-3","name":"砕石地業","spec":"C-40・厚100mm・転圧共","quantity":52.8928,"unit":"㎡","price":1400,"amount":74049.92,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-4","name":"防湿フィルム","spec":"ポリエチレン0.15mm・重ね30cm","quantity":56.066368,"unit":"㎡","price":350,"amount":19623.2288,"remark":"","quantityFormula":"建築面積×1.06"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-5","name":"捨てコンクリート","spec":"18-8-25・厚50mm","quantity":2.64464,"unit":"㎥","price":22000,"amount":58182.08,"remark":"","quantityFormula":"建築面積×0.05"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-6","name":"配筋(底盤)","spec":"D13@200ダブル","quantity":581.8208,"unit":"kg","price":165,"amount":96000.432,"remark":"","quantityFormula":"建築面積×11"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-7","name":"配筋(立上り)","spec":"D13主筋・D10補強","quantity":419.968832,"unit":"kg","price":170,"amount":71394.70144,"remark":"","quantityFormula":"建築面積×7.94"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-8","name":"基礎型枠","spec":"鋼製型枠","quantity":95.20704,"unit":"㎡","price":2800,"amount":266579.712,"remark":"","quantityFormula":"建築面積×1.80"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-9","name":"ベタ基礎コンクリート","spec":"24-18-20N","quantity":11.4777376,"unit":"㎥","price":26500,"amount":304160.0464,"remark":"","quantityFormula":"建築面積×0.217"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-10","name":"ポンプ圧送","spec":"1日","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-11","name":"アンカーボルト","spec":"M12 L=400","quantity":38.082816,"unit":"本","price":850,"amount":32370.3936,"remark":"","quantityFormula":"建築面積×0.72"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-12","name":"ホールダウン金物用アンカー","spec":"HD25 L=600","quantity":14,"unit":"本","price":2800,"amount":39200,"remark":"","quantityFormula":"14"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-13","name":"基礎天端均しモルタル","spec":"レベラー打設","quantity":52.8928,"unit":"m","price":1200,"amount":63471.36,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-14","name":"基礎止水・打継処理","spec":"","quantity":1,"unit":"式","price":25000,"amount":25000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-15","name":"基礎工事手間(鉄筋工・型枠工)","spec":"","quantity":1,"unit":"式","price":320000,"amount":320000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-1","name":"構造材一式","spec":"土台・大引・束・通し柱・管柱・梁桁・母屋","quantity":1.1107488,"unit":"坪","price":65000,"amount":116628.624,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-6","name":"間柱・筋交い・火打ち・羽柄材","spec":"KD杉等","quantity":32,"unit":"坪","price":13500,"amount":432000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-7","name":"構造用合板(壁)","spec":"9mm 耐力壁","quantity":220.073222435807,"unit":"㎡","price":1650,"amount":363120.817019081,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-8","name":"構造用合板(床)","spec":"24mm 根太レス","quantity":110.017024,"unit":"㎡","price":2950,"amount":324550.2208,"remark":"","quantityFormula":"延床面積×1.04"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-9","name":"構造用合板(屋根野地)","spec":"12mm","quantity":69.818496,"unit":"㎡","price":1850,"amount":129164.2176,"remark":"","quantityFormula":"屋根面積"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-10","name":"金物類(Zマーク同等)","spec":"柱頭柱脚・梁受け・羽子板等","quantity":32,"unit":"坪","price":6500,"amount":208000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-11","name":"プレカット加工費","spec":"構造材一式","quantity":32,"unit":"坪","price":10500,"amount":336000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-12","name":"大工手間(建方〜造作)","spec":"","quantity":95.04,"unit":"人日","price":30600,"amount":2908224,"remark":"","quantityFormula":"延床坪数×2.97"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-13","name":"建て方応援・レッカー","spec":"4t車・1日","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-14","name":"木材・建材小運搬・荷揚げ","spec":"","quantity":1,"unit":"式","price":62300,"amount":62300,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-1","name":"改質アスファルトルーフィング","spec":"940品","quantity":69.818496,"unit":"㎡","price":650,"amount":45382.0224,"remark":"","quantityFormula":"屋根面積"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-2","name":"屋根材本体","spec":"ガルバリウム鋼板 横葺・0.4mm","quantity":69.818496,"unit":"㎡","price":5200,"amount":363056.1792,"remark":"","quantityFormula":"屋根面積"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-3","name":"棟・けらば・軒先役物","spec":"ガルバリウム鋼板曲げ加工","quantity":34.909248,"unit":"m","price":1400,"amount":48872.9472,"remark":"","quantityFormula":"屋根面積×0.50"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-4","name":"雨樋(軒樋・縦樋)","spec":"塩ビPC50相当","quantity":1,"unit":"式","price":75000,"amount":75000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-5","name":"屋根まわり防水・小役物","spec":"","quantity":1,"unit":"式","price":18000,"amount":18000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-1","name":"透湿防水シート","spec":"タイベック相当","quantity":165.054916826855,"unit":"㎡","price":380,"amount":62720.8683942049,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-2","name":"通気胴縁","spec":"18×45 杉KD","quantity":165.054916826855,"unit":"㎡","price":580,"amount":95731.8517595759,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-3","name":"窯業系サイディング","spec":"15mm 塗装品 ケイミュー中級","quantity":165.054916826855,"unit":"㎡","price":4800,"amount":792263.600768904,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-4","name":"役物・出隅・見切","spec":"サイディング同色","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-5","name":"シーリング(外壁目地)","spec":"変成シリコン2成分","quantity":220.849951456168,"unit":"m","price":700,"amount":154594.966019318,"remark":"","quantityFormula":"外周長×8.53"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-6","name":"軒天材","spec":"ケイカル板6mm・塗装","quantity":32.000144,"unit":"㎡","price":2400,"amount":76800.3456,"remark":"","quantityFormula":"建築面積×0.605"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-7","name":"破風・鼻隠し板金巻","spec":"ガルバリウム鋼板","quantity":34.909248,"unit":"m","price":2200,"amount":76800.3456,"remark":"","quantityFormula":"屋根面積×0.50"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-8","name":"水切り(土台・サッシ)","spec":"ガルバリウム鋼板","quantity":45.0502831809769,"unit":"m","price":1400,"amount":63070.3964533676,"remark":"","quantityFormula":"外周長×1.74"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-9","name":"サイディング施工手間(取付別途分)","spec":"サッシ工・配管工計上分","quantity":1,"unit":"式","price":103800,"amount":103800,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-1","name":"石膏ボード(壁)","spec":"12.5mm 不燃","quantity":330.051072,"unit":"㎡","price":1300,"amount":429066.3936,"remark":"","quantityFormula":"延床面積×3.12"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-2","name":"石膏ボード(天井)","spec":"9.5mm","quantity":104.9393152,"unit":"㎡","price":1200,"amount":125927.17824,"remark":"","quantityFormula":"延床面積×0.992"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-3","name":"パテ処理","spec":"一般仕上下地","quantity":434.778816,"unit":"㎡","price":250,"amount":108694.704,"remark":"","quantityFormula":"延床面積×4.11"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-4","name":"ビニールクロス","spec":"量産品AA級","quantity":480.266624,"unit":"㎡","price":1150,"amount":552306.6176,"remark":"","quantityFormula":"延床面積×4.54"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-5","name":"複合フローリング","spec":"12mm 中級グレード","quantity":84.62848,"unit":"㎡","price":5800,"amount":490845.184,"remark":"","quantityFormula":"内装床面積"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-6","name":"クッションフロア","spec":"洗面・トイレ","quantity":9,"unit":"㎡","price":3200,"amount":28800,"remark":"","quantityFormula":"IF(階数>1,6,4)"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-7","name":"畳(琉球風 縁無し)","spec":"和室1部屋分・国産表","quantity":6,"unit":"帖","price":16000,"amount":96000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-8","name":"巾木","spec":"ソフト幅木H60","quantity":179.83552,"unit":"m","price":380,"amount":68337.4976,"remark":"","quantityFormula":"延床面積×1.70"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-9","name":"廻り縁","spec":"木製・必要箇所のみ","quantity":59.9804352,"unit":"m","price":450,"amount":26991.19584,"remark":"","quantityFormula":"延床面積×0.567"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-1","name":"玄関ドア","spec":"LIXILジエスタ2 K2 断熱仕様 親子","quantity":1,"unit":"箇所","price":280000,"amount":280000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-2","name":"アルミ樹脂複合サッシ+Low-Eペア","spec":"LIXILサーモスL/YKK APW310相当一式","quantity":1,"unit":"式","price":980000,"amount":980000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-3","name":"室内ドア","spec":"LDK・寝室・各室 / 大建/LIXIL中級・既製品","quantity":7,"unit":"枚","price":52000,"amount":364000,"remark":"","quantityFormula":"7"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-4","name":"引き戸","spec":"既製品上吊","quantity":3,"unit":"枚","price":68000,"amount":204000,"remark":"","quantityFormula":"3"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-5","name":"クローゼット扉","spec":"折戸・引違セット","quantity":4,"unit":"箇所","price":38000,"amount":152000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-6","name":"網戸","spec":"サッシ対応","quantity":8,"unit":"箇所","price":8500,"amount":68000,"remark":"","quantityFormula":"8"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-7","name":"シャッター雨戸","spec":"掃出窓2箇所・手動","quantity":2,"unit":"箇所","price":65000,"amount":130000,"remark":"","quantityFormula":"2"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-8","name":"面格子","spec":"アルミ既製","quantity":4,"unit":"箇所","price":8000,"amount":32000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-1","name":"高性能グラスウール(壁)","spec":"HG16K・105mm","quantity":165.054916826855,"unit":"㎡","price":950,"amount":156802.170985512,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-2","name":"高性能グラスウール(天井)","spec":"HG16K・155mm","quantity":52.8928,"unit":"㎡","price":1250,"amount":66116,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-3","name":"床下断熱(押出法XPS)","spec":"3種b・65mm","quantity":52.8928,"unit":"㎡","price":1650,"amount":87273.12,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-4","name":"防湿気密シート","spec":"0.2mm","quantity":220.073222435807,"unit":"㎡","price":280,"amount":61620.5022820258,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-5","name":"気密テープ・先張シート","spec":"一式","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-6","name":"断熱・気密施工手間","spec":"","quantity":1,"unit":"式","price":102950,"amount":102950,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-1","name":"システムキッチン","spec":"クリナップSTEDIA/LIXILノクト同等 I型2550 食洗機付","quantity":1,"unit":"台","price":720000,"amount":720000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-2","name":"キッチン設置工事","spec":"取付・電気・給排水接続","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-3","name":"ユニットバス","spec":"LIXILアライズ/TOTOサザナ Sタイプ1坪","quantity":1,"unit":"台","price":720000,"amount":720000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-4","name":"UB設置工事","spec":"組立・接続","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-5","name":"洗面化粧台","spec":"LIXILピアラ750/TOTO Vシリーズ","quantity":1,"unit":"台","price":110000,"amount":110000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-6","name":"洗面化粧台設置","spec":"","quantity":1,"unit":"式","price":28000,"amount":28000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-7","name":"トイレ(1階)","spec":"TOTO ZJ1/LIXILアメージュ ウォシュレット一体型","quantity":1,"unit":"台","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-8","name":"トイレ(2階)","spec":"同上","quantity":1,"unit":"台","price":145000,"amount":145000,"remark":"","quantityFormula":"IF(階数>1,1,0)"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-9","name":"トイレ設置工事","spec":"2箇所","quantity":2,"unit":"箇所","price":22000,"amount":44000,"remark":"","quantityFormula":"2"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-10","name":"エコジョーズ給湯器","spec":"リンナイRUF-E2406AW フルオート24号","quantity":1,"unit":"台","price":168000,"amount":168000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-1","name":"屋内配線","spec":"VVF1.6/2.0 一式","quantity":32,"unit":"坪","price":14500,"amount":464000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-2","name":"分電盤","spec":"パナソニックコスモパネル16回路","quantity":1,"unit":"面","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-3","name":"照明器具一式","spec":"LED中級","quantity":1,"unit":"式","price":285000,"amount":285000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-4","name":"スイッチ・コンセント","spec":"コスモシリーズ等","quantity":1,"unit":"式","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-5","name":"インターホン","spec":"パナソニック録画付","quantity":1,"unit":"台","price":38000,"amount":38000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-6","name":"TVアンテナ・分配","spec":"地デジ・BS UHF","quantity":1,"unit":"式","price":75000,"amount":75000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-7","name":"LAN・電話配線","spec":"CAT6 主要4部屋","quantity":1,"unit":"式","price":48000,"amount":48000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-8","name":"火災警報器","spec":"各居室・階段","quantity":6,"unit":"個","price":6500,"amount":39000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-9","name":"換気扇(浴室乾燥含)・24h換気","spec":"3種換気","quantity":1,"unit":"式","price":21000,"amount":21000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-1","name":"屋内給水給湯配管","spec":"架橋ポリエチレン管・さや管ヘッダー","quantity":1,"unit":"式","price":320000,"amount":320000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-2","name":"屋内排水配管","spec":"塩ビVU・VP","quantity":1,"unit":"式","price":240000,"amount":240000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-3","name":"屋内ガス配管","spec":"都市ガス・SGP-VB","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-4","name":"衛生器具取付・接続","spec":"キッチン・洗面・トイレ・浴室","quantity":1,"unit":"式","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-5","name":"給湯器設置・配管接続","spec":"エコジョーズ周り","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-6","name":"通気・排気・防露材巻","spec":"","quantity":1,"unit":"式","price":55000,"amount":55000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-7","name":"試験・調整","spec":"水圧・通水","quantity":1,"unit":"式","price":40000,"amount":40000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-1","name":"玄関タイル","spec":"300角磁器質","quantity":4,"unit":"㎡","price":9500,"amount":38000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-2","name":"玄関ポーチ仕上","spec":"タイル張・モルタル下地","quantity":6,"unit":"㎡","price":12500,"amount":75000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-3","name":"木部塗装(破風・庇等)","spec":"浸透性塗料","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-4","name":"内部塗装(造作部分)","spec":"水性アクリル","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-5","name":"左官(基礎巾木・補修)","spec":"モルタル金鏝","quantity":52.8928,"unit":"㎡","price":1500,"amount":79339.2,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-1","name":"箱階段","spec":"集成材・受桁・側板共","quantity":1,"unit":"式","price":285000,"amount":285000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-2","name":"階段手すり・廊下手すり","spec":"アルミ・木製","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-3","name":"バルコニー(FRP防水)","spec":"2階バルコニー 6㎡","quantity":6,"unit":"㎡","price":18500,"amount":111000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-4","name":"バルコニー手摺(アルミ笠木一体)","spec":"","quantity":4,"unit":"m","price":18000,"amount":72000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-5","name":"造作家具(下足箱)","spec":"既製/造作併用","quantity":1,"unit":"式","price":110000,"amount":110000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-6","name":"カウンター・棚等造作","spec":"","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-7","name":"美装(竣工クリーニング)","spec":"全室","quantity":105.7856,"unit":"㎡","price":850,"amount":89917.76,"remark":"","quantityFormula":"延床面積"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-8","name":"廃材処分費・産廃マニフェスト","spec":"木くず・石膏ボード・金属類","quantity":1,"unit":"式","price":215000,"amount":215000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-9","name":"雑材・消耗品","spec":"ビス・ボンド・養生材","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"N","categoryName":"給排水引込工事","no":"N-1","name":"給水引込工事","spec":"本管→宅地内・口径20mm","quantity":1,"unit":"式","price":240000,"amount":240000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"N","categoryName":"給排水引込工事","no":"N-2","name":"排水引込・公共桝設置","spec":"公共桝1基・取付管","quantity":1,"unit":"式","price":140000,"amount":140000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"O","categoryName":"ガス引込工事","no":"O-1","name":"都市ガス引込工事","spec":"道路本管〜メーターまで","quantity":1,"unit":"式","price":180000,"amount":180000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"P","categoryName":"電気引込工事(宅内側)","no":"P-1","name":"電気引込(宅内側引込口配線・分電盤接続)","spec":"主開閉器盤含む","quantity":1,"unit":"式","price":150000,"amount":150000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"Q","categoryName":"地盤改良","no":"Q-1","name":"地盤調査(SWS試験)","spec":"5点","quantity":1,"unit":"式","price":50000,"amount":50000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"Q","categoryName":"地盤改良","no":"Q-2","name":"柱状改良工事(湿式)","spec":"φ600 L=4m×25本","quantity":25,"unit":"本","price":30000,"amount":750000,"remark":"","quantityFormula":"25"},{"category":"付帯工事","categoryGroup":"Q","categoryName":"地盤改良","no":"Q-3","name":"残土搬出","spec":"","quantity":1,"unit":"式","price":50000,"amount":50000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-1","name":"駐車場土間コン","spec":"普通コン15cm・メッシュ筋 2台分","quantity":30,"unit":"㎡","price":12500,"amount":375000,"remark":"","quantityFormula":"30"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-2","name":"アプローチ(タイル/平板)","spec":"","quantity":8,"unit":"㎡","price":18000,"amount":144000,"remark":"","quantityFormula":"8"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-3","name":"境界フェンス(メッシュ)","spec":"H1200・最低限","quantity":25,"unit":"m","price":9500,"amount":237500,"remark":"","quantityFormula":"25"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-4","name":"門柱・ポスト・表札","spec":"機能ポール","quantity":1,"unit":"式","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-5","name":"残土・整地・暗渠","spec":"","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"S","categoryName":"カーテン・カーテンレール","no":"S-1","name":"カーテン・カーテンレール","spec":"既製/オーダー併用 全居室","quantity":1,"unit":"式","price":280000,"amount":280000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"T","categoryName":"設計料・監理料","no":"T-1","name":"設計料","spec":"工務店プラン・実施設計","quantity":1,"unit":"式","price":250000,"amount":250000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"T","categoryName":"設計料・監理料","no":"T-2","name":"監理料","spec":"現場監理","quantity":1,"unit":"式","price":100000,"amount":100000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"U","categoryName":"建築確認申請費用","no":"U-1","name":"建築確認申請費(申請代行+審査機関)","spec":"民間検査機関","quantity":1,"unit":"式","price":150000,"amount":150000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"V","categoryName":"中間・完了検査費用","no":"V-1","name":"中間検査手数料","spec":"","quantity":1,"unit":"式","price":35000,"amount":35000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"V","categoryName":"中間・完了検査費用","no":"V-2","name":"完了検査手数料","spec":"","quantity":1,"unit":"式","price":45000,"amount":45000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"W","categoryName":"登記費用","no":"W-1","name":"表題登記","spec":"土地家屋調査士","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"W","categoryName":"登記費用","no":"W-2","name":"所有権保存登記","spec":"司法書士・登録免許税共","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"X","categoryName":"住宅瑕疵担保責任保険料","no":"X-1","name":"住宅瑕疵担保責任保険(まもりすまい等)","spec":"保険料・検査料込","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"Y","categoryName":"地盤保証料","no":"Y-1","name":"地盤保証料","spec":"20年保証","quantity":1,"unit":"式","price":50000,"amount":50000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"Z","categoryName":"火災・地震保険","no":"Z-1","name":"火災・地震保険(5年一括・参考計上)","spec":"","quantity":1,"unit":"式","price":180000,"amount":180000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"AA","categoryName":"現場経費","no":"AA-1","name":"現場経費","spec":"現場監督人件費・現場運営費・法定福利費","quantity":1,"unit":"式","price":750000,"amount":750000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"AB","categoryName":"一般管理費","no":"AB-1","name":"一般管理費","spec":"本社経費・利益","quantity":1,"unit":"式","price":850000,"amount":850000,"remark":"","quantityFormula":"1"}]}</script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useMemo, useRef, useCallback } = React;
+const APP_DATA_INITIAL = JSON.parse(document.getElementById('app-data').textContent);
+const LS_KEY = "kentiku_estimate_v1_0";
+const LS_MASTER_KEY = "kentiku_master_v1_0";
+
+// ============ ユーティリティ ============
+function uuid() {
+  return 'id-' + Math.random().toString(36).slice(2, 10) + '-' + Date.now().toString(36);
+}
+
+function fmt(n) {
+  if (n === null || n === undefined || isNaN(n)) return "—";
+  return Math.round(n).toLocaleString('ja-JP');
+}
+
+function fmtDate(iso) {
+  if (!iso) return "";
+  return iso.slice(0, 10);
+}
+
+// 施主名から末尾の敬称(様/さま/殿/御中)を除去して返す
+function cleanClientName(name) {
+  if (!name) return '';
+  return String(name).replace(/[\s　]*(様|さま|サマ|殿|御中)$/, '').trim();
+}
+
+// ============ 計算エンジン ============
+function computeScaleParams(input) {
+  const t = parseFloat(input.tsuboFloor) || 32;
+  const f = parseFloat(input.floorCount) || 2;
+  const h = parseFloat(input.eavesHeight) || (f === 1 ? 3.5 : f === 3 ? 9.5 : 6.5);
+
+  // 建物形状 → 不整形係数
+  const shapeMap = { "正方形": 1.00, "長方形": 0.89, "L字型": 0.82, "コの字型": 0.76 };
+  const buildingShape = input.buildingShape || "長方形";
+  const irregularFactor = shapeMap[buildingShape] || 0.89;
+
+  // 建築面積の決定 (優先順: 直接入力 > 1階面積 > 延床÷階数)
+  const totalFloorArea = t * 3.3058; // 延床面積㎡
+  const baManual = parseFloat(input.buildingAreaInput);
+  const f1Manual = parseFloat(input.floor1Area);
+  const f2Manual = parseFloat(input.floor2Area);
+  const f3Manual = parseFloat(input.floor3Area);
+
+  let buildingArea; // 建築面積=1階の床面積
+  let buildingAreaSource = 'auto';
+  if (!isNaN(baManual) && baManual > 0) {
+    buildingArea = baManual;
+    buildingAreaSource = 'direct';
+  } else if (!isNaN(f1Manual) && f1Manual > 0) {
+    buildingArea = f1Manual;
+    buildingAreaSource = 'floor1';
+  } else {
+    // 階数で均等分配 (粗い概算)
+    buildingArea = totalFloorArea / f;
+  }
+
+  // 軒高+2.0mを外壁高さとして使用 (足場、外壁、断熱壁の計算用)
+  const wallHeight = h + 2.0;
+
+  // 派生値の手動上書き対応
+  const autoPerimeter = Math.sqrt(buildingArea) * 4 * irregularFactor;
+  const perimeter = (input.manualPerimeter && parseFloat(input.manualPerimeter) > 0)
+    ? parseFloat(input.manualPerimeter) : autoPerimeter;
+
+  const autoWallArea = perimeter * wallHeight * 0.75;
+  const wallArea = (input.manualWallArea && parseFloat(input.manualWallArea) > 0)
+    ? parseFloat(input.manualWallArea) : autoWallArea;
+
+  const roofShapeMap = { "切妻": 1.32, "寄棟": 1.40, "片流れ": 1.20, "陸屋根": 1.05 };
+  const roofShape = input.roofShape || "切妻";
+  const autoRoofArea = buildingArea * (roofShapeMap[roofShape] || 1.32);
+  const roofArea = (input.manualRoofArea && parseFloat(input.manualRoofArea) > 0)
+    ? parseFloat(input.manualRoofArea) : autoRoofArea;
+
+  const innerFloorArea = totalFloorArea * 0.80;
+
+  return {
+    tsuboFloor: t,
+    floorCount: f,
+    eavesHeight: h,
+    wallHeight,       // 軒高+2.0m (計算用)
+    buildingShape,
+    irregularFactor,
+    roofShape,
+    buildingArea,
+    perimeter,
+    autoPerimeter,
+    totalFloorArea,
+    wallArea,
+    autoWallArea,
+    roofArea,
+    autoRoofArea,
+    innerFloorArea,
+    floor1Manual: !isNaN(f1Manual) && f1Manual > 0,
+    buildingAreaSource,
+    buildingAreaManual: buildingAreaSource !== 'auto',
+    perimeterManual: !!(input.manualPerimeter && parseFloat(input.manualPerimeter) > 0),
+    wallAreaManual: !!(input.manualWallArea && parseFloat(input.manualWallArea) > 0),
+    roofAreaManual: !!(input.manualRoofArea && parseFloat(input.manualRoofArea) > 0)
+  };
+}
+
+function evalQuantityFormula(formula, sp) {
+  if (!formula) return 1;
+  let expr = String(formula).replace(/^=/, '').replace(/×/g, '*');
+  const vars = {
+    "延床坪数": sp.tsuboFloor, "階数": sp.floorCount,
+    "軒高": sp.wallHeight,  // 計算式の「軒高」は内部で「外壁高さ(軒高+2.0m)」を使用
+    "建築面積": sp.buildingArea, "外周長": sp.perimeter, "延床面積": sp.totalFloorArea,
+    "外壁面積": sp.wallArea, "屋根面積": sp.roofArea, "内装床面積": sp.innerFloorArea
+  };
+  for (const [name, val] of Object.entries(vars)) {
+    expr = expr.split(name).join(String(val));
+  }
+  expr = expr.replace(/IF\(([^,]+),([^,]+),([^)]+)\)/g, (_, cond, t, f) => {
+    try { return new Function('return (' + cond + ') ? (' + t + ') : (' + f + ')')(); } catch (e) { return f; }
+  });
+  try {
+    const result = new Function('return ' + expr)();
+    return typeof result === 'number' && isFinite(result) ? result : 1;
+  } catch (e) { return 1; }
+}
+
+function getEffectivePrice(item, manualOverride) {
+  if (manualOverride !== undefined && manualOverride !== null && manualOverride !== '') {
+    return { price: parseFloat(manualOverride) || 0, source: 'manual' };
+  }
+  return { price: item.price, source: 'default' };
+}
+
+function computeEstimate(project, masters) {
+  const sp = computeScaleParams(project.scale);
+  // スナップショットがあればそれを優先、なければマスタを使う(後方互換)
+  const effectiveRateMaster = project.rateMasterSnapshot || masters.rateMaster;
+
+  const lines = effectiveRateMaster.map(item => {
+    const enabled = !(project.excludedItems || []).includes(item.no) && !item.disabled;
+    const autoQuantity = evalQuantityFormula(item.quantityFormula, sp);
+    const manualQty = (project.manualQuantities || {})[item.no];
+    const quantity = (manualQty !== undefined && manualQty !== null && manualQty !== '') ? parseFloat(manualQty) : autoQuantity;
+    const quantitySource = (manualQty !== undefined && manualQty !== null && manualQty !== '') ? 'manual' : 'auto';
+    const manualOverride = (project.manualPrices || {})[item.no];
+    const priceInfo = getEffectivePrice(item, manualOverride);
+    const amount = enabled ? Math.round(quantity * priceInfo.price) : 0;
+    return { ...item, quantity, autoQuantity, quantitySource, effectivePrice: priceInfo.price, priceSource: priceInfo.source, enabled, masterDisabled: !!item.disabled, amount };
+  });
+
+  const customLines = (project.customItems || []).map(c => {
+    const qty = c.quantity === '' || c.quantity === null || c.quantity === undefined ? 0 : (parseFloat(c.quantity) || 0);
+    const price = c.price === '' || c.price === null || c.price === undefined ? 0 : (parseFloat(c.price) || 0);
+    return {
+      no: c.no || ('*-' + (c.id || '').slice(-3)),
+      category: c.category || "本体工事",
+      categoryGroup: c.categoryGroup || "M",
+      categoryName: c.categoryName || "カスタム",
+      name: c.name !== undefined && c.name !== null ? c.name : '',
+      spec: c.spec !== undefined && c.spec !== null ? c.spec : '',
+      quantity: qty,
+      autoQuantity: qty,
+      quantitySource: 'custom',
+      unit: c.unit !== undefined && c.unit !== null ? c.unit : '式',
+      effectivePrice: price,
+      priceSource: 'custom',
+      enabled: c.enabled !== false,
+      amount: (c.enabled !== false) ? Math.round(qty * price) : 0,
+      isCustom: true,
+      customId: c.id,
+      remark: c.remark || ""
+    };
+  });
+
+  const allLines = [...lines, ...customLines];
+
+  // 表示用連番を付与
+  // - マスタで無効化された項目はカウントから除外（元の番号を保持、UIでは非表示）
+  // - 案件単位で無効化された(enabled=false)項目もカウントから除外
+  // - 有効な項目だけに連番を振る
+  const displayCounters = {};
+  allLines.forEach(l => {
+    if (l.masterDisabled || !l.enabled) {
+      l.displayNo = l.no; // 表示しない/番号ふらない、内部キーをそのまま使う
+      return;
+    }
+    const g = l.categoryGroup;
+    displayCounters[g] = (displayCounters[g] || 0) + 1;
+    l.displayNo = `${g}-${displayCounters[g]}`;
+  });
+
+  const bodyTotal = allLines.filter(l => l.category === '本体工事').reduce((s, l) => s + l.amount, 0);
+  const sideTotal = allLines.filter(l => l.category === '付帯工事').reduce((s, l) => s + l.amount, 0);
+  const overheadTotal = allLines.filter(l => l.category === '諸経費').reduce((s, l) => s + l.amount, 0);
+
+  const optionsTotal = (project.options || []).reduce((s, o) => s + (parseFloat(o.amount) || 0), 0);
+  const subtotal = bodyTotal + sideTotal + overheadTotal + optionsTotal;
+  const tax = Math.round(subtotal * 0.1);
+  const total = subtotal + tax;
+  const tsuboCost = sp.tsuboFloor > 0 ? total / sp.tsuboFloor : 0;
+
+  return { scale: sp, lines: allLines, bodyTotal, sideTotal, overheadTotal, optionsTotal, subtotal, tax, total, tsuboCost };
+}
+
+// ============ Storage ============
+function loadAll() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (!parsed.properties) parsed.properties = [];
+      return parsed;
+    }
+  } catch (e) {}
+  return { projects: [], properties: [], companyInfo: { name: '', address: '', phone: '', email: '', representative: '', stampImage: '' } };
+}
+function saveAll(state) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { console.error(e); }
+}
+function loadMasters() {
+  try {
+    const raw = localStorage.getItem(LS_MASTER_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      // 古いデータから不要なフィールドを除去
+      return { rateMaster: parsed.rateMaster || APP_DATA_INITIAL.rateMaster };
+    }
+  } catch (e) {}
+  return {
+    rateMaster: APP_DATA_INITIAL.rateMaster
+  };
+}
+function saveMasters(masters) {
+  try { localStorage.setItem(LS_MASTER_KEY, JSON.stringify(masters)); } catch (e) { console.error(e); }
+}
+
+function defaultProject(name, masters) {
+  return {
+    id: uuid(),
+    name: name || '第1回見積',
+    propertyName: '',
+    revisionNumber: 1,
+    memo: '',
+    clientName: '', siteAddress: '', staffName: '',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    rateMasterSnapshot: JSON.parse(JSON.stringify(masters.rateMaster)),
+    snapshotAt: new Date().toISOString(),
+    scale: {
+      tsuboFloor: 32,
+      floorCount: 2,
+      eavesHeight: 6.5,
+      buildingShape: '長方形',
+      roofShape: '切妻',
+      buildingAreaInput: '',
+      floor1Area: '',
+      floor2Area: '',
+      floor3Area: '',
+      manualPerimeter: '',
+      manualWallArea: '',
+      manualRoofArea: ''
+    },
+    excludedItems: [],
+    customItems: [],
+    manualPrices: {},
+    manualQuantities: {},
+    options: [],
+    printFormat: 'standard'
+  };
+}
+
+// ============ Components ============
+function App() {
+  const [state, setState] = useState(loadAll);
+  const [masters, setMasters] = useState(loadMasters);
+  const [view, setView] = useState({ name: 'property-list' });
+  const [savedAt, setSavedAt] = useState(null);
+
+  useEffect(() => { saveAll(state); setSavedAt(new Date()); }, [state]);
+  useEffect(() => { saveMasters(masters); }, [masters]);
+
+  const updateProject = (id, updater) => {
+    setState(s => ({
+      ...s,
+      projects: s.projects.map(p =>
+        p.id === id ? { ...updater(p), updatedAt: new Date().toISOString() } : p
+      )
+    }));
+  };
+
+  // 物件のみ新規登録 (見積は作らない)
+  const addProperty = () => {
+    const name = prompt('物件名を入力してください', '');
+    if (!name) return;
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    // 既存物件名と重複チェック
+    const exists = (state.properties || []).some(prop => prop.name === trimmed) ||
+                   state.projects.some(p => p.propertyName === trimmed);
+    if (exists) { alert('同名の物件が既に存在します'); return; }
+    setState(s => ({
+      ...s,
+      properties: [...(s.properties || []), { name: trimmed, createdAt: new Date().toISOString() }]
+    }));
+    // 登録後、その物件の見積一覧に遷移
+    setView({ name: 'list', propertyName: trimmed });
+  };
+
+  // 指定した物件で新規見積を作る
+  const addProjectForProperty = (propertyName) => {
+    // 同じ物件の見積数を数えて名前を決める
+    const sameCount = state.projects.filter(p => (p.propertyName || '') === (propertyName || '')).length;
+    const newName = sameCount === 0 ? '第1回見積' : `第${sameCount + 1}回見積`;
+    const p = defaultProject(newName, masters);
+    p.propertyName = propertyName || '';
+    p.revisionNumber = sameCount + 1;
+    setState(s => ({ ...s, projects: [p, ...s.projects] }));
+    setView({ name: 'edit', id: p.id });
+  };
+
+  const duplicateProject = (id) => {
+    const orig = state.projects.find(p => p.id === id); if (!orig) return;
+    const propertyKey = orig.propertyName || orig.id;
+    const sameCount = state.projects.filter(p => (p.propertyName || p.id) === propertyKey).length;
+    const copy = {
+      ...JSON.parse(JSON.stringify(orig)),
+      id: uuid(),
+      revisionNumber: sameCount + 1,
+      name: `第${sameCount + 1}回見積`,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    setState(s => ({ ...s, projects: [copy, ...s.projects] }));
+  };
+  const deleteProject = (id) => {
+    if (!confirm('この見積を削除しますか?')) return;
+    setState(s => ({ ...s, projects: s.projects.filter(p => p.id !== id) }));
+  };
+  const renameProject = (id) => {
+    const p = state.projects.find(x => x.id === id);
+    const newName = prompt('見積名', p?.name || ''); if (!newName) return;
+    updateProject(id, p => ({ ...p, name: newName }));
+  };
+  const refreshSnapshot = (id) => {
+    const p = state.projects.find(x => x.id === id);
+    if (!p) return;
+    const itemCount = masters.rateMaster.length;
+    const oldCount = (p.rateMasterSnapshot || []).length;
+    if (!confirm(`この見積の単価マスタを最新版（${itemCount}項目）に更新しますか?\n\n現在この見積に取り込まれているマスタ: ${oldCount}項目\n${p.snapshotAt ? `取り込み日時: ${fmtDate(p.snapshotAt)}` : '(未取り込み)'}\n\n※ 手動編集した数量・単価はそのまま残ります。\n※ カスタム追加項目もそのまま残ります。`)) return;
+    updateProject(id, p => ({
+      ...p,
+      rateMasterSnapshot: JSON.parse(JSON.stringify(masters.rateMaster)),
+      snapshotAt: new Date().toISOString()
+    }));
+    alert('マスタを最新に更新しました。');
+  };
+  const deleteProperty = (propName) => {
+    if (!confirm(`「${propName}」と、その物件のすべての見積を削除しますか?この操作は取り消せません。`)) return;
+    setState(s => ({
+      ...s,
+      properties: (s.properties || []).filter(prop => prop.name !== propName),
+      projects: s.projects.filter(p => (p.propertyName || '(物件名なし)') !== propName)
+    }));
+  };
+  const renameProperty = (oldName) => {
+    const newName = prompt('物件名を変更', oldName === '(物件名なし)' ? '' : oldName);
+    if (newName === null) return;
+    const trimmed = newName.trim();
+    setState(s => ({
+      ...s,
+      properties: (s.properties || []).map(prop =>
+        prop.name === oldName ? { ...prop, name: trimmed } : prop
+      ),
+      projects: s.projects.map(p =>
+        (p.propertyName || '(物件名なし)') === oldName
+          ? { ...p, propertyName: trimmed, updatedAt: new Date().toISOString() }
+          : p
+      )
+    }));
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header view={view} setView={setView} savedAt={savedAt} />
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6">
+        {view.name === 'property-list' && (
+          <PropertyList projects={state.projects} properties={state.properties || []} masters={masters}
+            onOpen={(propName) => setView({ name: 'list', propertyName: propName })}
+            onAddProperty={addProperty}
+            onDeleteProperty={deleteProperty}
+            onRenameProperty={renameProperty} />
+        )}
+        {view.name === 'list' && (
+          <ProjectList projects={state.projects} masters={masters}
+            propertyFilter={view.propertyName}
+            onBack={() => setView({ name: 'property-list' })}
+            onOpen={id => setView({ name: 'edit', id })}
+            onAdd={() => addProjectForProperty(view.propertyName === '(物件名なし)' ? '' : view.propertyName)}
+            onDuplicate={duplicateProject}
+            onDelete={deleteProject} onRename={renameProject}
+            onUpdateMemo={(id, memo) => updateProject(id, p => ({ ...p, memo }))} />
+        )}
+        {view.name === 'edit' && (
+          <ProjectEditor
+            project={state.projects.find(p => p.id === view.id)}
+            masters={masters}
+            companyInfo={state.companyInfo}
+            onChange={updater => updateProject(view.id, updater)}
+            onRefreshSnapshot={() => refreshSnapshot(view.id)}
+            onBack={() => {
+              const p = state.projects.find(p => p.id === view.id);
+              setView({ name: 'list', propertyName: p?.propertyName || '(物件名なし)' });
+            }} />
+        )}
+        {view.name === 'masters' && (
+          <MasterManager masters={masters} setMasters={setMasters} />
+        )}
+        {view.name === 'settings' && (
+          <Settings state={state} setState={setState} masters={masters} setMasters={setMasters} />
+        )}
+      </main>
+      <footer className="border-t border-slate-200 bg-white text-xs text-slate-500 py-3 text-center no-print">
+        v1.0 / データはブラウザ内に保存されます / 初期値: 2026年5月 首都圏中級32坪 標準仕様
+      </footer>
+    </div>
+  );
+}
+
+function Header({ view, setView, savedAt }) {
+  const navs = [
+    { id: 'property-list', label: '物件一覧', icon: '📁' },
+    { id: 'masters', label: 'マスタ管理', icon: '⚙️' },
+    { id: 'settings', label: '設定', icon: '🔧' }
+  ];
+  return (
+    <header className="bg-white border-b border-slate-200 no-print">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-3">
+          <div className="text-base sm:text-lg font-bold text-slate-900">🏠 スマート見積システム</div>
+          <div className="text-xs text-slate-400">v1.0</div>
+        </div>
+        <nav className="flex gap-1 items-center">
+          {navs.map(n => {
+            const isActive = view.name === n.id ||
+              (n.id === 'property-list' && (view.name === 'list' || view.name === 'edit'));
+            return (
+              <button key={n.id} onClick={() => setView({ name: n.id })}
+                className={`px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded transition ${
+                  isActive ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
+                }`}>
+                <span className="mr-1">{n.icon}</span>
+                <span className="hidden sm:inline">{n.label}</span>
+              </button>
+            );
+          })}
+          <a href="guide.html" target="_blank" rel="noopener"
+            className="px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded transition text-blue-700 hover:bg-blue-50 border border-blue-200"
+            title="新しいタブで使い方ガイドを開く">
+            <span className="mr-1">📖</span>
+            <span className="hidden sm:inline">使い方ガイド</span>
+          </a>
+        </nav>
+        {savedAt && (
+          <div className="text-xs text-slate-400 w-full sm:w-auto sm:order-last text-right">
+            💾 自動保存: {savedAt.toLocaleTimeString('ja-JP')}
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
+
+function PropertyList({ projects, properties, masters, onOpen, onAddProperty, onDeleteProperty, onRenameProperty }) {
+  // 物件名でグループ化（properties 配列 + projects から集計）
+  const propMap = useMemo(() => {
+    const g = {};
+    // properties から先に登録 (見積0件でも表示)
+    (properties || []).forEach(prop => {
+      g[prop.name] = { name: prop.name, projects: [], latestUpdate: prop.createdAt, clientName: '', latestTotal: 0, latestEstimate: null };
+    });
+    // projects から追加
+    projects.forEach(p => {
+      const key = p.propertyName || '(物件名なし)';
+      if (!g[key]) g[key] = { name: key, projects: [], latestUpdate: '', clientName: '' };
+      g[key].projects.push(p);
+      if (!g[key].latestUpdate || p.updatedAt > g[key].latestUpdate) {
+        g[key].latestUpdate = p.updatedAt;
+        g[key].clientName = p.clientName || g[key].clientName;
+      }
+    });
+    // 最新見積の総額
+    Object.values(g).forEach(prop => {
+      if (prop.projects.length > 0) {
+        const sorted = [...prop.projects].sort((a, b) => (b.revisionNumber || 1) - (a.revisionNumber || 1));
+        const latest = sorted[0];
+        prop.latestEstimate = latest;
+        prop.latestTotal = computeEstimate(latest, masters).total;
+      }
+    });
+    return Object.values(g).sort((a, b) => (b.latestUpdate || '').localeCompare(a.latestUpdate || ''));
+  }, [projects, properties, masters]);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">物件一覧</h2>
+          <p className="text-sm text-slate-500 mt-1">登録物件: {propMap.length} 件 / 見積: {projects.length} 件</p>
+        </div>
+        <button onClick={onAddProperty} className="px-4 py-2 text-sm bg-slate-900 text-white rounded-md hover:bg-slate-700">＋ 物件の登録</button>
+      </div>
+      {propMap.length === 0 ? (
+        <div className="bg-white border border-slate-200 rounded-lg p-12 text-center">
+          <p className="text-slate-500">物件がまだ登録されていません</p>
+          <p className="text-xs text-slate-400 mt-2">右上の「＋ 物件の登録」から始めてください</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {propMap.map(prop => (
+            <div key={prop.name} className="border border-slate-200 rounded-lg bg-white overflow-hidden hover:border-slate-400 transition">
+              <div onClick={() => onOpen(prop.name)} className="p-4 cursor-pointer">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="text-xs text-slate-500">{prop.latestUpdate ? `最終更新: ${fmtDate(prop.latestUpdate)}` : '新規物件'}</div>
+                  <span className="text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded font-semibold">
+                    {prop.projects.length === 0 ? '見積なし' : `${prop.projects.length} 件の見積`}
+                  </span>
+                </div>
+                <h4 className="font-bold text-slate-900 text-base truncate flex items-center gap-1">
+                  🏠 {prop.name}
+                </h4>
+                {prop.clientName && (
+                  <p className="text-xs text-slate-500 mt-1 truncate">{cleanClientName(prop.clientName)} 様</p>
+                )}
+                <div className="mt-3 pt-3 border-t border-slate-100">
+                  {prop.latestEstimate ? (
+                    <>
+                      <div className="text-xs text-slate-500">最新見積</div>
+                      <div className="num text-lg font-bold text-slate-900 mt-0.5">
+                        {fmt(prop.latestTotal)}<span className="text-sm font-normal text-slate-500 ml-1">円(税込)</span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-xs text-slate-400">クリックして見積を作成</div>
+                  )}
+                </div>
+              </div>
+              <div className="border-t border-slate-100 flex divide-x divide-slate-100 text-xs">
+                <button onClick={(e) => { e.stopPropagation(); onRenameProperty(prop.name); }}
+                  className="flex-1 py-2 hover:bg-slate-50 text-slate-600">物件名変更</button>
+                <button onClick={(e) => { e.stopPropagation(); onDeleteProperty(prop.name); }}
+                  className="flex-1 py-2 hover:bg-red-50 text-red-600">物件削除</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProjectList({ projects, masters, propertyFilter, onBack, onOpen, onAdd, onDuplicate, onDelete, onRename, onUpdateMemo }) {
+  // 指定された物件名の見積だけ抽出
+  const filtered = useMemo(() => {
+    return projects
+      .filter(p => (p.propertyName || '(物件名なし)') === propertyFilter)
+      .sort((a, b) => (a.revisionNumber || 1) - (b.revisionNumber || 1));
+  }, [projects, propertyFilter]);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+        <button onClick={onBack} className="text-sm text-slate-600 hover:text-slate-900">← 物件一覧へ</button>
+      </div>
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+        <div>
+          <div className="text-xs text-slate-500 mb-1">🏠 物件</div>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">{propertyFilter}</h2>
+          <p className="text-sm text-slate-700 mt-2 font-semibold">📄 見積一覧 <span className="text-slate-500 font-normal">({filtered.length} 件)</span></p>
+        </div>
+        <button onClick={onAdd} className="px-4 py-2 text-sm bg-slate-900 text-white rounded-md hover:bg-slate-700">＋ この物件で新規見積</button>
+      </div>
+      {filtered.length === 0 ? (
+        <div className="bg-white border border-slate-200 rounded-lg p-12 text-center">
+          <p className="text-slate-500">この物件にはまだ見積がありません</p>
+          <button onClick={onAdd} className="mt-4 px-4 py-2 bg-slate-900 text-white rounded text-sm">最初の見積を作る</button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filtered.map(p => {
+            const r = computeEstimate(p, masters);
+            return (
+              <div key={p.id} className="border border-slate-200 rounded-lg bg-white overflow-hidden hover:border-slate-400 transition flex flex-col">
+                <div onClick={() => onOpen(p.id)} className="p-4 cursor-pointer">
+                  <div className="text-xs text-slate-500 mb-1">{fmtDate(p.updatedAt)} 更新</div>
+                  <h4 className="font-semibold text-slate-900 truncate">{p.name}</h4>
+                  <p className="text-xs text-slate-500 mt-1 truncate">
+                    {p.scale.tsuboFloor}坪・{p.scale.floorCount}階建
+                    {p.clientName && ` / ${cleanClientName(p.clientName)}様`}
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-slate-100">
+                    <div className="text-xs text-slate-500">税込総額</div>
+                    <div className="num text-xl font-bold text-slate-900 mt-0.5">
+                      {fmt(r.total)}<span className="text-sm font-normal text-slate-500 ml-1">円</span>
+                    </div>
+                  </div>
+                </div>
+                {/* メモ欄 */}
+                <div className="px-4 pb-2">
+                  <div className="text-xs text-slate-500 mb-1 flex items-center gap-1">
+                    <span>📝 メモ</span>
+                    <span className="text-slate-400 text-[10px]">(進捗・状況など)</span>
+                  </div>
+                  <textarea
+                    value={p.memo || ''}
+                    onChange={e => onUpdateMemo(p.id, e.target.value)}
+                    onClick={e => e.stopPropagation()}
+                    placeholder="例: 打ち合わせ前/提案中/契約待ち..."
+                    rows="2"
+                    className="w-full text-xs border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 resize-none"
+                  />
+                </div>
+                <div className="border-t border-slate-100 flex divide-x divide-slate-100 text-xs mt-auto">
+                  <button onClick={() => onRename(p.id)} className="flex-1 py-2 hover:bg-slate-50 text-slate-600">改名</button>
+                  <button onClick={() => onDuplicate(p.id)} className="flex-1 py-2 hover:bg-slate-50 text-slate-600">複製</button>
+                  <button onClick={() => onDelete(p.id)} className="flex-1 py-2 hover:bg-red-50 text-red-600">削除</button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProjectEditor({ project, masters, companyInfo, onChange, onBack, onRefreshSnapshot }) {
+  const [tab, setTab] = useState('scale');
+  if (!project) return <div>見積が見つかりません</div>;
+  const result = useMemo(() => computeEstimate(project, masters), [project, masters]);
+
+  const tabs = [
+    { id: 'scale', label: '1. 規模' },
+    { id: 'details', label: '2. 内訳明細' },
+    { id: 'result', label: '3. 結果' },
+    { id: 'print', label: '🖨 見積書プレビュー' }
+  ];
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-3 no-print flex-wrap gap-2">
+        <button onClick={onBack} className="text-sm text-slate-600 hover:text-slate-900">← この物件の見積一覧へ</button>
+        <div className="text-xs text-slate-500">最終更新: {fmtDate(project.updatedAt)}</div>
+      </div>
+      {/* マスタスナップショット情報 */}
+      <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-3 no-print flex items-center justify-between flex-wrap gap-2 text-sm">
+        <div className="flex items-center gap-2">
+          <span>📦</span>
+          <span className="text-slate-700">
+            この見積は {project.snapshotAt ? <strong>{fmtDate(project.snapshotAt)}</strong> : <span className="text-amber-700">(未取り込み)</span>} 時点の単価マスタを使用中
+          </span>
+          <span className="text-xs text-slate-500">({(project.rateMasterSnapshot || masters.rateMaster).length} 項目)</span>
+        </div>
+        <button onClick={onRefreshSnapshot}
+          className="text-xs px-3 py-1 border border-blue-400 bg-white text-blue-700 rounded hover:bg-blue-100">
+          🔄 マスタを最新に更新
+        </button>
+      </div>
+      <div className="bg-white border border-slate-200 rounded-t-lg p-4 no-print">
+        <div className="space-y-3">
+          {/* 物件名（読み取り専用表示） */}
+          <div>
+            <label className="text-xs text-slate-600 font-semibold">🏠 物件名</label>
+            <div className="text-xl sm:text-2xl font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded px-3 py-2 w-full">
+              {project.propertyName || <span className="text-slate-400 text-base font-normal">(物件名なし)</span>}
+              <span className="text-xs text-slate-400 font-normal ml-2">※変更は物件一覧から</span>
+            </div>
+          </div>
+          {/* 見積名 */}
+          <div>
+            <label className="text-xs text-slate-600 font-semibold">📄 見積名</label>
+            <input type="text" value={project.name}
+              onChange={e => onChange(p => ({ ...p, name: e.target.value }))}
+              className="text-base font-semibold bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 focus:outline-none rounded px-3 py-1.5 w-full" />
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-3 mt-3 text-sm">
+          <label className="flex items-center gap-2 flex-1 min-w-fit">
+            <span className="text-slate-600 whitespace-nowrap">施主名</span>
+            <input type="text" value={project.clientName || ''} onChange={e => onChange(p => ({ ...p, clientName: e.target.value }))}
+              className="border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 flex-1 min-w-0" placeholder="例: 山田太郎(敬称不要)" />
+          </label>
+          <label className="flex items-center gap-2 flex-1 min-w-fit">
+            <span className="text-slate-600 whitespace-nowrap">現場</span>
+            <input type="text" value={project.siteAddress || ''} onChange={e => onChange(p => ({ ...p, siteAddress: e.target.value }))}
+              className="border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 flex-1 min-w-0" placeholder="東京都..." />
+          </label>
+          <label className="flex items-center gap-2">
+            <span className="text-slate-600 whitespace-nowrap">担当</span>
+            <input type="text" value={project.staffName || ''} onChange={e => onChange(p => ({ ...p, staffName: e.target.value }))}
+              className="border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 w-32" />
+          </label>
+        </div>
+      </div>
+      <div className="bg-white border-x border-slate-200 px-2 sm:px-4 no-print overflow-x-auto">
+        <div className="flex gap-1">
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)}
+              className={`px-3 sm:px-4 py-3 text-sm whitespace-nowrap ${
+                tab === t.id ? 'font-semibold text-slate-900 border-b-2 border-slate-900' : 'text-slate-500 hover:text-slate-700'
+              }`}>{t.label}</button>
+          ))}
+        </div>
+      </div>
+      <div className={`bg-slate-50 border border-slate-200 rounded-b-lg ${tab === 'print' ? 'p-0' : 'p-3 sm:p-6'}`}>
+        {tab === 'scale' && <TabScale project={project} onChange={onChange} result={result} />}
+        {tab === 'details' && <TabDetails project={project} onChange={onChange} result={result} />}
+        {tab === 'result' && <TabResult project={project} result={result} companyInfo={companyInfo} />}
+        {tab === 'print' && <PrintPreview project={project} result={result} companyInfo={companyInfo} onChange={onChange} />}
+      </div>
+    </div>
+  );
+}
+
+function TabScale({ project, onChange, result }) {
+  const sp = result.scale;
+  const setScale = (key, val) => onChange(p => ({ ...p, scale: { ...p.scale, [key]: val } }));
+  const opts = project.options || [];
+  const setOptions = (newOpts) => onChange(p => ({ ...p, options: newOpts }));
+
+  // 階数を変更したとき、軒高のデフォルトも更新
+  const setFloorCount = (val) => {
+    const newFloor = parseInt(val);
+    const defaultEaves = { 1: 3.5, 2: 6.5, 3: 9.5 }[newFloor] || 6.5;
+    onChange(p => ({ ...p, scale: { ...p.scale, floorCount: newFloor, eavesHeight: defaultEaves } }));
+  };
+
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const floorCount = parseInt(project.scale.floorCount) || 2;
+  const defaultFloorArea = (sp.totalFloorArea / floorCount).toFixed(2);
+
+  return (
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <div className="bg-white border border-slate-200 rounded-lg p-4 sm:p-5">
+          <h4 className="text-sm font-bold text-slate-900 mb-4">📝 入力欄</h4>
+          <div className="space-y-4">
+            <Field label="延床坪数" value={project.scale.tsuboFloor} unit="坪"
+              conversion={`= ${(parseFloat(project.scale.tsuboFloor || 0) * 3.3058).toFixed(2)} ㎡`}
+              onChange={v => setScale('tsuboFloor', parseFloat(v) || 0)} />
+            <SelectField label="階数" value={project.scale.floorCount}
+              options={[{v:1,l:'1階(平屋)'},{v:2,l:'2階'},{v:3,l:'3階'}]}
+              onChange={v => setFloorCount(v)}
+              help="変更すると軒高のデフォルト値も更新されます" />
+
+            <Field label="建築面積" value={project.scale.buildingAreaInput} unit="㎡" step="0.1"
+              conversion={project.scale.buildingAreaInput ? `= ${(parseFloat(project.scale.buildingAreaInput) / 3.3058).toFixed(2)} 坪` : ''}
+              onChange={v => setScale('buildingAreaInput', v)}
+              help={`1階の床面積(建物を真上から見た面積)。基礎・屋根の計算に使用。\n空欄なら自動(現在: ${sp.buildingArea.toFixed(2)}㎡)`} />
+
+            {/* 1階・2階面積を主要入力欄に (平屋では不要) */}
+            {floorCount >= 2 && (
+              <div className="bg-slate-50 border border-slate-200 rounded p-3 space-y-2">
+                <div className="text-xs font-bold text-slate-700">階別面積（任意・詳細入力）</div>
+                <Field label="1階面積" value={project.scale.floor1Area} unit="㎡" step="0.1"
+                  conversion={project.scale.floor1Area ? `= ${(parseFloat(project.scale.floor1Area) / 3.3058).toFixed(2)} 坪` : ''}
+                  onChange={v => setScale('floor1Area', v)} help={`空欄なら自動(${defaultFloorArea}㎡)`} />
+                <Field label="2階面積" value={project.scale.floor2Area} unit="㎡" step="0.1"
+                  conversion={project.scale.floor2Area ? `= ${(parseFloat(project.scale.floor2Area) / 3.3058).toFixed(2)} 坪` : ''}
+                  onChange={v => setScale('floor2Area', v)} help={`空欄なら自動(${defaultFloorArea}㎡)`} />
+                {floorCount >= 3 && (
+                  <Field label="3階面積" value={project.scale.floor3Area} unit="㎡" step="0.1"
+                    conversion={project.scale.floor3Area ? `= ${(parseFloat(project.scale.floor3Area) / 3.3058).toFixed(2)} 坪` : ''}
+                    onChange={v => setScale('floor3Area', v)} help={`空欄なら自動(${defaultFloorArea}㎡)`} />
+                )}
+              </div>
+            )}
+
+            <Field label="軒高" value={project.scale.eavesHeight} unit="m" step="0.1"
+              onChange={v => setScale('eavesHeight', parseFloat(v) || 0)}
+              help={`平屋3.5m / 2階6.5m / 3階9.5m が目安。最高高さではなく軒高です。`} />
+            <SelectField label="屋根形状" value={project.scale.roofShape}
+              options={[{v:'切妻',l:'切妻 (1.32)'},{v:'寄棟',l:'寄棟 (1.40)'},{v:'片流れ',l:'片流れ (1.20)'},{v:'陸屋根',l:'陸屋根 (1.05)'}]}
+              onChange={v => setScale('roofShape', v)} help="数字は屋根面積係数(建築面積×係数)" />
+            <SelectField label="建物の形" value={project.scale.buildingShape || '長方形'}
+              options={[
+                {v:'正方形',l:'正方形 (シンプル、係数1.00)'},
+                {v:'長方形',l:'長方形 (一般的、係数0.89)'},
+                {v:'L字型',l:'L字型 (やや複雑、係数0.82)'},
+                {v:'コの字型',l:'コの字型 (複雑、係数0.76)'}
+              ]}
+              onChange={v => setScale('buildingShape', v)}
+              help="複雑な形ほど、外周長が増えて足場・外壁が高くなります" />
+          </div>
+        </div>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-5">
+          <h4 className="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <span>🔄 自動算出</span>
+            <span className="text-xs text-blue-600">リアルタイム</span>
+          </h4>
+          <div className="space-y-2 text-sm">
+            <Row label="建築面積" value={`${sp.buildingArea.toFixed(2)} ㎡`} bold highlight={sp.buildingAreaManual} />
+            <Row label="外周長" value={`${sp.perimeter.toFixed(2)} m`} bold highlight={sp.perimeterManual} />
+            <Row label="外壁高さ" value={`${sp.wallHeight.toFixed(1)} m`} bold help="軒高+2.0m" />
+            <div className="border-t border-blue-300 my-3"></div>
+            <div className="text-xs text-slate-500 mb-2">📐 派生値（参考）</div>
+            <Row label="延床面積" value={`${sp.totalFloorArea.toFixed(2)} ㎡`} />
+            <Row label="外壁面積" value={`${sp.wallArea.toFixed(2)} ㎡`} highlight={sp.wallAreaManual} />
+            <Row label="屋根面積" value={`${sp.roofArea.toFixed(2)} ㎡`} highlight={sp.roofAreaManual} />
+            <Row label="内装床面積" value={`${sp.innerFloorArea.toFixed(2)} ㎡`} />
+          </div>
+        </div>
+      </div>
+
+      {/* 詳細寸法（派生値の手動上書きのみ） */}
+      <div className="mt-4 bg-white border border-slate-200 rounded-lg overflow-hidden">
+        <button onClick={() => setAdvancedOpen(o => !o)}
+          className="w-full px-4 py-3 flex items-center justify-between hover:bg-slate-50 text-left">
+          <span className="font-bold text-sm">
+            {advancedOpen ? '▼' : '▶'} 派生値を直接上書き（実測値で精度UP）
+          </span>
+          <span className="text-xs text-slate-500">空欄なら自動計算</span>
+        </button>
+        {advancedOpen && (
+          <div className="p-4 border-t border-slate-200 bg-slate-50">
+            <p className="text-xs text-slate-600 mb-3">図面から実測した値を入れると、自動計算より高い精度になります。手動値が入った項目は <span className="bg-amber-100 px-1 rounded font-bold">マーカー表示</span> されます。</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <Field label="外周長" value={project.scale.manualPerimeter} unit="m" step="0.1"
+                onChange={v => setScale('manualPerimeter', v)} help={`空欄なら自動(${sp.autoPerimeter.toFixed(2)}m)`} />
+              <Field label="外壁面積" value={project.scale.manualWallArea} unit="㎡" step="0.1"
+                onChange={v => setScale('manualWallArea', v)} help={`空欄なら自動(${sp.autoWallArea.toFixed(2)}㎡)`} />
+              <Field label="屋根面積" value={project.scale.manualRoofArea} unit="㎡" step="0.1"
+                onChange={v => setScale('manualRoofArea', v)} help={`空欄なら自動(${sp.autoRoofArea.toFixed(2)}㎡)`} />
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-4 bg-amber-50 border-l-4 border-amber-400 p-3 text-xs text-amber-900 rounded">
+        💡 軒高が一定でない場合（部分的に高さが違う等）は、平均的な値を入れてください。大きく違う場合は内訳明細タブで該当項目（足場・外壁・断熱壁）の数量を直接編集できます。
+      </div>
+
+      {/* オプション工事セクション */}
+      <div className="mt-6 bg-orange-50 border border-orange-200 rounded-lg p-4 sm:p-5">
+        <div className="flex items-center justify-between mb-3">
+          <h4 className="text-sm font-bold text-slate-900">🔧 オプション工事</h4>
+          <button onClick={() => setOptions([...opts, { id: uuid(), name: '', amount: 0 }])}
+            className="text-xs px-3 py-1 border border-orange-400 text-orange-700 rounded hover:bg-orange-100">＋ 追加</button>
+        </div>
+        <p className="text-xs text-slate-600 mb-3">太陽光・解体・追加外構など、見積ごとに金額が変わるもの</p>
+        <OptionPresets options={opts} setOptions={setOptions} />
+        {opts.length > 0 && (
+          <div className="space-y-2 mt-3">
+            {opts.map((o, i) => (
+              <div key={o.id || i} className="bg-white rounded p-2 flex items-center gap-2">
+                <input type="text" value={o.name} onChange={e => {
+                  const newOpts = [...opts]; newOpts[i] = { ...o, name: e.target.value }; setOptions(newOpts);
+                }} className="flex-1 border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 text-sm" placeholder="工事名" />
+                <input type="number" value={o.amount} onChange={e => {
+                  const newOpts = [...opts]; newOpts[i] = { ...o, amount: parseFloat(e.target.value) || 0 }; setOptions(newOpts);
+                }} className="border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 text-sm w-32 text-right num font-mono" />
+                <span className="text-xs text-slate-500">円</span>
+                <button onClick={() => setOptions(opts.filter((_, j) => j !== i))}
+                  className="text-xs text-red-600 px-2 hover:bg-red-50 rounded">削除</button>
+              </div>
+            ))}
+            <div className="text-right text-sm font-semibold text-orange-700 mt-2">
+              小計: <span className="num">{fmt(opts.reduce((s, o) => s + (parseFloat(o.amount) || 0), 0))}</span> 円
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function OptionPresets({ options, setOptions }) {
+  const presets = [
+    { name: '太陽光発電 4kW', amount: 1200000 },
+    { name: '太陽光発電 6kW以上', amount: 1800000 },
+    { name: '解体工事 木造30坪', amount: 1200000 },
+    { name: '追加外構（10%枠目安）', amount: 280000 }
+  ];
+  const addPreset = (p) => setOptions([...options, { id: uuid(), name: p.name, amount: p.amount }]);
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {presets.map(p => (
+        <button key={p.name} onClick={() => addPreset(p)}
+          className="text-xs px-2 py-1 bg-white border border-orange-300 text-orange-700 rounded hover:bg-orange-50">
+          ＋ {p.name} ({(p.amount/10000).toFixed(0)}万)
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function Field({ label, value, unit, step, onChange, help, conversion }) {
+  return (
+    <div>
+      <label className="text-xs text-slate-600 font-semibold">{label}</label>
+      <div className="flex items-center gap-2 mt-1">
+        <input type="number" value={value} step={step || 1} onChange={e => onChange(e.target.value)}
+          className="border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-3 py-2 w-28 text-right num font-mono" />
+        {unit && <span className="text-sm text-slate-600">{unit}</span>}
+        {conversion && <span className="text-xs text-slate-500 num">({conversion})</span>}
+      </div>
+      {help && <div className="text-xs text-slate-400 mt-1 whitespace-pre-line">{help}</div>}
+    </div>
+  );
+}
+
+function SelectField({ label, value, options, onChange, help }) {
+  return (
+    <div>
+      <label className="text-xs text-slate-600 font-semibold">{label}</label>
+      <select value={value} onChange={e => onChange(e.target.value)}
+        className="block mt-1 border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-3 py-2 w-full">
+        {options.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
+      </select>
+      {help && <div className="text-xs text-slate-400 mt-1">{help}</div>}
+    </div>
+  );
+}
+
+function Row({ label, value, bold, highlight, help }) {
+  return (
+    <div className="flex justify-between items-center">
+      <span className="text-slate-600 flex items-center gap-1">
+        {label}
+        {help && <span className="text-xs text-slate-400" title={help}>ⓘ</span>}
+      </span>
+      <span className={`num font-mono ${bold ? 'font-semibold text-slate-900' : ''} ${highlight ? 'bg-amber-100 px-2 py-0.5 rounded font-bold' : ''}`}>{value}</span>
+    </div>
+  );
+}
+
+function TabDetails({ project, onChange, result }) {
+  const [filter, setFilter] = useState({ category: 'all', group: 'all' });
+  const [collapsed, setCollapsed] = useState({});
+
+  const filtered = result.lines.filter(l => {
+    if (l.masterDisabled) return false;  // マスタで無効化された項目は表示しない
+    if (filter.category !== 'all' && l.category !== filter.category) return false;
+    if (filter.group !== 'all' && l.categoryGroup !== filter.group) return false;
+    return true;
+  });
+
+  // カテゴリ別グループ化（A, B, C, ... の項目記号ごと）
+  // 注: 全項目がmasterDisabledのカテゴリは表示されない
+  const groups = useMemo(() => {
+    const g = {};
+    filtered.forEach(l => {
+      const key = l.categoryGroup;
+      if (!g[key]) g[key] = { categoryGroup: key, categoryName: l.categoryName, category: l.category, lines: [], total: 0 };
+      g[key].lines.push(l);
+      g[key].total += l.amount;
+    });
+    return Object.values(g);
+  }, [filtered]);
+
+  const toggleItem = (no) => {
+    onChange(p => {
+      const ex = p.excludedItems || [];
+      const newEx = ex.includes(no) ? ex.filter(x => x !== no) : [...ex, no];
+      return { ...p, excludedItems: newEx };
+    });
+  };
+  const editPrice = (no, val) => {
+    onChange(p => {
+      const mp = { ...(p.manualPrices || {}) };
+      if (val === '' || val === null) delete mp[no];
+      else mp[no] = parseFloat(val) || 0;
+      return { ...p, manualPrices: mp };
+    });
+  };
+  const resetManual = (no) => {
+    onChange(p => {
+      const mp = { ...(p.manualPrices || {}) }; delete mp[no];
+      return { ...p, manualPrices: mp };
+    });
+  };
+  const editQuantity = (no, val) => {
+    onChange(p => {
+      const mq = { ...(p.manualQuantities || {}) };
+      if (val === '' || val === null) delete mq[no];
+      else mq[no] = parseFloat(val) || 0;
+      return { ...p, manualQuantities: mq };
+    });
+  };
+  const resetQuantity = (no) => {
+    onChange(p => {
+      const mq = { ...(p.manualQuantities || {}) }; delete mq[no];
+      return { ...p, manualQuantities: mq };
+    });
+  };
+  // この見積限定で、内訳名・規格を編集 (スナップショットを書き換え)
+  const editSnapshotField = (no, key, val) => {
+    onChange(p => {
+      const snapshot = p.rateMasterSnapshot || [];
+      const newSnapshot = snapshot.map(item =>
+        item.no === no ? { ...item, [key]: val } : item
+      );
+      return { ...p, rateMasterSnapshot: newSnapshot };
+    });
+  };
+  const addCustom = (categoryGroup) => {
+    const groupInfo = result.lines.find(l => l.categoryGroup === categoryGroup);
+    // 同カテゴリ内の最大番号を探して+1
+    const existing = result.lines.filter(l => l.categoryGroup === categoryGroup);
+    let maxNum = 0;
+    existing.forEach(l => {
+      const m = String(l.no).match(/-(\d+)$/);
+      if (m) {
+        const n = parseInt(m[1], 10);
+        if (n > maxNum) maxNum = n;
+      }
+    });
+    const newNo = `${categoryGroup}-${maxNum + 1}`;
+    const c = {
+      id: uuid(), no: newNo,
+      name: '新しいカスタム項目', spec: '', quantity: 1, unit: '式', price: 0,
+      category: groupInfo?.category || '本体工事',
+      categoryGroup: categoryGroup || 'M',
+      categoryName: groupInfo?.categoryName || 'カスタム',
+      enabled: true
+    };
+    onChange(p => ({ ...p, customItems: [...(p.customItems || []), c] }));
+  };
+  const updateCustom = (id, key, val) => {
+    onChange(p => ({ ...p, customItems: (p.customItems || []).map(c => c.id === id ? { ...c, [key]: val } : c) }));
+  };
+  const deleteCustom = (id) => {
+    onChange(p => ({ ...p, customItems: (p.customItems || []).filter(c => c.id !== id) }));
+  };
+  const toggleCollapse = (g) => setCollapsed(c => ({ ...c, [g]: !c[g] }));
+
+  const groupCodes = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB'];
+
+  // 共通のセルスタイル
+  const editableCell = "border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1.5 py-0.5";
+  const editableCellNum = editableCell + " text-right num font-mono";
+
+  return (
+    <div>
+      {/* フィルタ */}
+      <div className="bg-white rounded-lg p-3 mb-3 flex gap-2 items-center text-sm flex-wrap border border-slate-200">
+        <span className="text-slate-600 text-xs">カテゴリ:</span>
+        <select value={filter.category} onChange={e => setFilter(f => ({...f, category: e.target.value}))}
+          className="border border-slate-300 rounded px-2 py-1 text-xs bg-slate-50">
+          <option value="all">すべて</option>
+          <option value="本体工事">本体工事</option>
+          <option value="付帯工事">付帯工事</option>
+          <option value="諸経費">諸経費</option>
+        </select>
+        <span className="text-slate-600 text-xs ml-2">項目:</span>
+        <select value={filter.group} onChange={e => setFilter(f => ({...f, group: e.target.value}))}
+          className="border border-slate-300 rounded px-2 py-1 text-xs bg-slate-50">
+          <option value="all">すべて</option>
+          {groupCodes.map(g => <option key={g} value={g}>{g}</option>)}
+        </select>
+        <span className="ml-auto text-xs text-slate-500">{filtered.length} 件表示</span>
+      </div>
+
+      {/* カテゴリ別グループ */}
+      <div className="space-y-3">
+        {groups.map(g => {
+          const isCollapsed = collapsed[g.categoryGroup];
+          const catColor = g.category === '本体工事' ? 'bg-blue-100 text-blue-900 border-blue-300' :
+                           g.category === '付帯工事' ? 'bg-amber-100 text-amber-900 border-amber-300' :
+                           'bg-green-100 text-green-900 border-green-300';
+          return (
+            <div key={g.categoryGroup} className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+              {/* グループヘッダー */}
+              <div className={`${catColor} px-3 py-2 border-b flex items-center justify-between`}>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => toggleCollapse(g.categoryGroup)} className="text-xs hover:bg-white/30 rounded px-1">
+                    {isCollapsed ? '▶' : '▼'}
+                  </button>
+                  <span className="font-mono font-bold text-sm">{g.categoryGroup}.</span>
+                  <span className="font-bold text-sm">{g.categoryName}</span>
+                  <span className="text-xs ml-2">({g.lines.length}件)</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button onClick={() => addCustom(g.categoryGroup)}
+                    className="text-xs px-2 py-0.5 border border-current rounded hover:bg-white/30">＋追加</button>
+                  <span className="num font-mono font-bold text-sm">{fmt(g.total)} 円</span>
+                </div>
+              </div>
+
+              {/* テーブル */}
+              {!isCollapsed && (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs" style={{tableLayout: 'fixed'}}>
+                    <colgroup>
+                      <col style={{width:'32px'}} />
+                      <col style={{width:'56px'}} />
+                      <col style={{width:'180px'}} />
+                      <col />
+                      <col style={{width:'80px'}} />
+                      <col style={{width:'56px'}} />
+                      <col style={{width:'128px'}} />
+                      <col style={{width:'112px'}} />
+                      <col style={{width:'128px'}} />
+                      <col style={{width:'32px'}} />
+                    </colgroup>
+                    <thead className="bg-slate-100 text-slate-600">
+                      <tr>
+                        <th className="px-2 py-1.5 text-center">使</th>
+                        <th className="px-2 py-1.5 text-left">No.</th>
+                        <th className="px-2 py-1.5 text-left">内訳名</th>
+                        <th className="px-2 py-1.5 text-left">規格・仕様</th>
+                        <th className="px-2 py-1.5 text-right">数量</th>
+                        <th className="px-2 py-1.5 text-left">単位</th>
+                        <th className="px-2 py-1.5 text-right">単価</th>
+                        <th className="px-2 py-1.5 text-right">金額</th>
+                        <th className="px-2 py-1.5 text-left">数量式</th>
+                        <th className="px-2 py-1.5"></th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {g.lines.map(l => {
+                        const isCustom = l.isCustom;
+                        const manualVal = (project.manualPrices || {})[l.no];
+                        const priceColor = l.priceSource === 'manual' ? 'text-blue-700 font-bold' :
+                                           l.priceSource === 'custom' ? 'text-pink-700' : 'text-slate-900';
+                        return (
+                          <tr key={isCustom ? l.customId : l.no} className={!l.enabled ? 'opacity-40' : ''}>
+                            <td className="px-2 py-1.5 text-center">
+                              {isCustom ? (
+                                <input type="checkbox" checked={l.enabled} onChange={e => updateCustom(l.customId, 'enabled', e.target.checked)} />
+                              ) : (
+                                <input type="checkbox" checked={l.enabled} onChange={() => toggleItem(l.no)} />
+                              )}
+                            </td>
+                            <td className="px-2 py-1.5 font-mono">
+                              {isCustom ? <span className="text-pink-600">{l.displayNo || l.no}</span> : (l.displayNo || l.no)}
+                            </td>
+                            <td className="px-2 py-1.5">
+                              {isCustom ? (
+                                <input type="text" value={l.name || ''}
+                                  onChange={e => updateCustom(l.customId, 'name', e.target.value)}
+                                  className={editableCell + " w-full bg-pink-50"} />
+                              ) : (
+                                <input type="text" value={l.name || ''}
+                                  onChange={e => editSnapshotField(l.no, 'name', e.target.value)}
+                                  className={editableCell + " w-full"} />
+                              )}
+                            </td>
+                            <td className="px-2 py-1.5 text-slate-500">
+                              {isCustom ? (
+                                <input type="text" value={l.spec || ''}
+                                  onChange={e => updateCustom(l.customId, 'spec', e.target.value)}
+                                  className={editableCell + " w-full bg-pink-50"} />
+                              ) : (
+                                <input type="text" value={l.spec || ''}
+                                  onChange={e => editSnapshotField(l.no, 'spec', e.target.value)}
+                                  className={editableCell + " w-full"} />
+                              )}
+                            </td>
+                            <td className="px-2 py-1.5 text-right">
+                              {isCustom ? (
+                                <input type="number" value={l.quantity}
+                                  onChange={e => updateCustom(l.customId, 'quantity', e.target.value)}
+                                  className={editableCellNum + " w-20 bg-pink-50"} />
+                              ) : (
+                                <div className="flex items-center gap-1 justify-end">
+                                  <input type="number" step="0.01"
+                                    value={(project.manualQuantities || {})[l.no] !== undefined ? project.manualQuantities[l.no] : l.autoQuantity.toFixed(2)}
+                                    onChange={e => editQuantity(l.no, e.target.value)}
+                                    className={editableCellNum + " w-20 " + (l.quantitySource === 'manual' ? 'text-blue-700 font-bold' : '')} />
+                                  {l.quantitySource === 'manual' && (
+                                    <button onClick={() => resetQuantity(l.no)}
+                                      className="text-xs text-blue-600 hover:bg-blue-50 rounded px-1" title="自動値に戻す">↺</button>
+                                  )}
+                                </div>
+                              )}
+                            </td>
+                            <td className="px-2 py-1.5">
+                              {isCustom ? (
+                                <input type="text" value={l.unit}
+                                  onChange={e => updateCustom(l.customId, 'unit', e.target.value)}
+                                  className={editableCell + " w-12 bg-pink-50"} />
+                              ) : (
+                                <span>{l.unit}</span>
+                              )}
+                            </td>
+                            <td className="px-2 py-1.5 text-right">
+                              {isCustom ? (
+                                <input type="number" value={l.effectivePrice}
+                                  onChange={e => updateCustom(l.customId, 'price', e.target.value)}
+                                  className={editableCellNum + " w-24 bg-pink-50 text-pink-700"} />
+                              ) : (
+                                <div className="flex items-center gap-1 justify-end">
+                                  <input type="number"
+                                    value={manualVal !== undefined ? manualVal : l.effectivePrice}
+                                    onChange={e => editPrice(l.no, e.target.value)}
+                                    className={editableCellNum + " w-24 " + priceColor} />
+                                  {manualVal !== undefined && (
+                                    <button onClick={() => resetManual(l.no)}
+                                      className="text-xs text-blue-600 hover:bg-blue-50 rounded px-1" title="自動値に戻す">↺</button>
+                                  )}
+                                </div>
+                              )}
+                            </td>
+                            <td className="px-2 py-1.5 text-right num font-mono font-semibold">{fmt(l.amount)}</td>
+                            <td className="px-2 py-1.5 text-xs text-slate-400 truncate max-w-xs" title={l.quantityFormula || ''}>
+                              {isCustom ? <span className="text-pink-500">カスタム</span> : l.quantityFormula}
+                            </td>
+                            <td className="px-2 py-1.5 text-center">
+                              {isCustom && (
+                                <button onClick={() => deleteCustom(l.customId)}
+                                  className="text-red-500 hover:bg-red-50 rounded px-1.5 py-0.5">×</button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* 凡例 */}
+      <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-600">
+        <div className="bg-white rounded p-2 border border-slate-200">
+          <div className="font-bold mb-1">セルの色:</div>
+          <div className="space-y-0.5">
+            <div>・通常: 自動計算値 / 標準単価</div>
+            <div>・<span className="text-blue-700 font-bold">青(太字)</span>: 手動編集された数量・単価（↺で自動値に戻せる）</div>
+            <div>・<span className="text-pink-700 font-semibold">ピンク</span>: カスタム追加項目</div>
+          </div>
+        </div>
+        <div className="bg-amber-50 rounded p-2 border border-amber-200">
+          💡 灰色の枠が付いているセルは編集可能。数量と単価のどちらも上書きできます。チェックを外すと「使用しない」（金額0）。各カテゴリ右上の「＋追加」でカスタム項目を追加できます（自動で次の連番、例: A-10）。「▶」でカテゴリを折りたためます。
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TabResult({ project, result, companyInfo }) {
+  // カテゴリ別合計を集計、本体/付帯/諸経費で分類
+  const byGroup = {};
+  result.lines.forEach(l => {
+    if (!byGroup[l.categoryGroup]) byGroup[l.categoryGroup] = { name: l.categoryName, category: l.category, total: 0 };
+    byGroup[l.categoryGroup].total += l.amount;
+  });
+
+  // 区分ごとに分類 + 0円カテゴリを除外
+  const body = [];
+  const side = [];
+  const overhead = [];
+  Object.entries(byGroup).forEach(([g, info]) => {
+    if (info.total <= 0) return; // 0円カテゴリは非表示
+    const entry = { ...info, group: g };
+    if (info.category === '本体工事') body.push(entry);
+    else if (info.category === '付帯工事') side.push(entry);
+    else if (info.category === '諸経費') overhead.push(entry);
+  });
+
+  const renderSection = (title, items, sectionTotal, colorClass) => {
+    if (items.length === 0 && sectionTotal === 0) return null;
+    return (
+      <div className="mb-4">
+        <div className={`text-xs font-bold px-2 py-1 rounded mb-1 ${colorClass}`}>{title}</div>
+        <div className="space-y-0.5">
+          {items.map(info => (
+            <div key={info.group} className="grid grid-cols-[3rem_1fr_auto] items-center py-1 text-xs sm:text-sm">
+              <span className="text-slate-500 font-mono">{info.group}.</span>
+              <span className="text-slate-700 truncate">{info.name}</span>
+              <span className="num font-mono">{fmt(info.total)}</span>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 font-bold mt-1 pt-1 border-t border-slate-200 text-sm">
+          <span>{title} 計</span>
+          <span className="text-right num font-mono">{fmt(sectionTotal)}</span>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-lg p-5">
+          <h4 className="text-sm font-bold text-slate-900 mb-3">カテゴリ別小計</h4>
+          {renderSection('本体工事', body, result.bodyTotal, 'bg-blue-100 text-blue-900')}
+          {renderSection('付帯工事', side, result.sideTotal, 'bg-amber-100 text-amber-900')}
+          {renderSection('諸経費', overhead, result.overheadTotal, 'bg-green-100 text-green-900')}
+          {result.optionsTotal > 0 && (
+            <div className="mb-4">
+              <div className="text-xs font-bold px-2 py-1 rounded mb-1 bg-orange-100 text-orange-900">オプション工事</div>
+              <div className="grid grid-cols-2 font-bold mt-1 pt-1 border-t border-slate-200 text-sm text-orange-700">
+                <span>オプション工事 計</span>
+                <span className="text-right num font-mono">{fmt(result.optionsTotal)}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="bg-slate-900 text-white rounded-lg p-5 flex flex-col justify-between">
+          <div>
+            <div className="text-xs text-slate-400 mb-2">税抜合計</div>
+            <div className="num text-2xl font-mono font-bold">{fmt(result.subtotal)}</div>
+            <div className="text-xs text-slate-400 mt-3 mb-1">消費税(10%)</div>
+            <div className="num text-lg font-mono">{fmt(result.tax)}</div>
+          </div>
+          <div className="border-t border-slate-700 pt-3 mt-3">
+            <div className="text-xs text-amber-300 mb-1">税込総合計</div>
+            <div className="num text-2xl sm:text-3xl font-mono font-bold text-amber-200">{fmt(result.total)}</div>
+            <div className="text-xs text-slate-400 mt-2 num">坪単価: {fmt(result.tsuboCost)} 円/坪</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PrintPreview({ project, result, companyInfo, onChange }) {
+  const format = project.printFormat || 'standard';
+  const setFormat = (f) => onChange(p => ({ ...p, printFormat: f }));
+
+  // 有効かつ金額ゼロでない項目のみ集計（カテゴリ単位）
+  const byGroup = {};
+  result.lines.forEach(l => {
+    if (!l.enabled) return;          // 無効項目スキップ
+    if (l.amount <= 0) return;        // 0円項目もスキップ
+    if (!byGroup[l.categoryGroup]) byGroup[l.categoryGroup] = { name: l.categoryName, category: l.category, total: 0, lines: [] };
+    byGroup[l.categoryGroup].total += l.amount;
+    byGroup[l.categoryGroup].lines.push(l);
+  });
+  // 全項目0円のカテゴリも除外（lines数=0なら除外、合計0なら除外）
+  const filteredByGroup = Object.fromEntries(
+    Object.entries(byGroup).filter(([_, info]) => info.lines.length > 0 && info.total > 0)
+  );
+
+  return (
+    <div>
+      <div className="bg-slate-100 px-4 py-3 flex justify-between items-center no-print flex-wrap gap-2">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-sm text-slate-600">📄 見積書プレビュー</span>
+          <select value={format} onChange={e => setFormat(e.target.value)}
+            className="border border-slate-300 bg-white rounded px-2 py-1 text-sm">
+            <option value="standard">① シンプル（集計のみ）</option>
+            <option value="detailed">② 内訳付き（カテゴリ別小計＋全内訳）</option>
+            <option value="formal">③ 正式見積書（押印欄付き・罫線多め）</option>
+          </select>
+          <span className="text-xs text-slate-500">💡 PDF保存はブラウザの「印刷」→「PDFとして保存」で可能</span>
+        </div>
+        <button onClick={() => window.print()} className="px-4 py-2 text-sm bg-slate-900 text-white rounded hover:bg-slate-700">🖨 印刷</button>
+      </div>
+
+      {format === 'standard' && <FormatStandard project={project} result={result} companyInfo={companyInfo} byGroup={filteredByGroup} />}
+      {format === 'detailed' && <FormatDetailed project={project} result={result} companyInfo={companyInfo} byGroup={filteredByGroup} />}
+      {format === 'formal' && <FormatFormal project={project} result={result} companyInfo={companyInfo} byGroup={filteredByGroup} />}
+    </div>
+  );
+}
+
+// 書式① シンプル
+function FormatStandard({ project, result, companyInfo, byGroup }) {
+  return (
+    <div className="bg-white p-8 shadow-inner">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold tracking-widest">御 見 積 書</h1>
+      </div>
+      <div className="grid grid-cols-2 gap-8 mb-8">
+        <div>
+          <div className="text-lg font-bold border-b border-slate-400 pb-2">{project.clientName ? `${cleanClientName(project.clientName)} 様` : '○○○○ 様'}</div>
+          <div className="text-sm text-slate-600 mt-3">
+            <div>工事名: {project.name}</div>
+            {project.siteAddress && <div>現場: {project.siteAddress}</div>}
+            <div>下記の通りお見積もり申し上げます。</div>
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="text-sm text-slate-600">発行日: {fmtDate(new Date().toISOString())}</div>
+          <div className="mt-2 text-sm">
+            <div className="font-bold">{companyInfo?.name || ''}</div>
+            <div className="text-xs text-slate-600">{companyInfo?.address || ''}</div>
+            <div className="text-xs text-slate-600">{companyInfo?.phone || ''}</div>
+            {companyInfo?.email && <div className="text-xs text-slate-600">{companyInfo.email}</div>}
+            {companyInfo?.representative && <div className="text-xs text-slate-600 mt-1">代表 {companyInfo.representative}</div>}
+            {project.staffName && <div className="text-xs text-slate-600">担当 {project.staffName}</div>}
+            {companyInfo?.stampImage && (
+              <div className="mt-2 flex justify-end">
+                <img src={companyInfo.stampImage} alt="印" className="h-14 w-14 object-contain" />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="border-2 border-slate-800 p-4 mb-6 flex items-center justify-between">
+        <span className="text-lg font-bold">税込総額</span>
+        <div className="text-right">
+          <span className="num text-3xl font-bold">¥{fmt(result.total)}</span>
+          <span className="text-sm text-slate-500 ml-2">({fmt(result.subtotal)} + 消費税 {fmt(result.tax)})</span>
+        </div>
+      </div>
+      <div className="text-xs text-slate-600 mb-4 grid grid-cols-4 gap-2 border border-slate-200 rounded p-2">
+        <div>延床: <span className="num font-semibold">{project.scale.tsuboFloor}坪</span></div>
+        <div>階数: <span className="font-semibold">{project.scale.floorCount}階建</span></div>
+        <div>屋根: <span className="font-semibold">{project.scale.roofShape}</span></div>
+        <div>坪単価(税込): <span className="num font-semibold">{fmt(result.tsuboCost)}円/坪</span></div>
+      </div>
+      <h3 className="font-bold text-lg mb-2">工事内訳</h3>
+      <SummaryTable byGroup={byGroup} result={result} />
+      <FooterNotes />
+    </div>
+  );
+}
+
+// 書式② 内訳付き
+function FormatDetailed({ project, result, companyInfo, byGroup }) {
+  return (
+    <div className="bg-white p-8 shadow-inner">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold tracking-widest">御 見 積 書</h1>
+        <div className="text-sm text-slate-500 mt-1">（明細付き）</div>
+      </div>
+      <div className="grid grid-cols-2 gap-8 mb-6">
+        <div>
+          <div className="text-lg font-bold border-b border-slate-400 pb-2">{project.clientName ? `${cleanClientName(project.clientName)} 様` : '○○○○ 様'}</div>
+          <div className="text-sm text-slate-600 mt-3">
+            <div>工事名: {project.name}</div>
+            {project.siteAddress && <div>現場: {project.siteAddress}</div>}
+          </div>
+        </div>
+        <div className="text-right text-sm">
+          <div className="text-slate-600">発行日: {fmtDate(new Date().toISOString())}</div>
+          <div className="mt-2 font-bold">{companyInfo?.name || ''}</div>
+          <div className="text-xs text-slate-600">{companyInfo?.address || ''}</div>
+          <div className="text-xs text-slate-600">{companyInfo?.phone || ''}</div>
+          {companyInfo?.email && <div className="text-xs text-slate-600">{companyInfo.email}</div>}
+          {companyInfo?.stampImage && (
+            <div className="mt-2 flex justify-end">
+              <img src={companyInfo.stampImage} alt="印" className="h-14 w-14 object-contain" />
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="border-2 border-slate-800 p-3 mb-6 flex items-center justify-between">
+        <span className="text-base font-bold">税込総額</span>
+        <span className="num text-2xl font-bold">¥{fmt(result.total)}</span>
+      </div>
+      <h3 className="font-bold text-base mb-2">工事種別 小計</h3>
+      <SummaryTable byGroup={byGroup} result={result} />
+
+      <div className="print-page-break"></div>
+      <h3 className="font-bold text-base mt-6 mb-2">内訳明細</h3>
+      {Object.entries(byGroup).map(([g, info]) => (
+        info.lines.length > 0 && (
+          <div key={g} className="mb-4 print-avoid-break">
+            <div className="font-bold bg-slate-200 px-2 py-1 text-sm">{g}. {info.name}（小計 {fmt(info.total)} 円）</div>
+            <table className="w-full text-xs border-collapse" style={{tableLayout: 'fixed'}}>
+              <colgroup>
+                <col style={{width:'48px'}} />
+                <col style={{width:'180px'}} />
+                <col />
+                <col style={{width:'72px'}} />
+                <col style={{width:'40px'}} />
+                <col style={{width:'80px'}} />
+                <col style={{width:'96px'}} />
+              </colgroup>
+              <thead>
+                <tr className="bg-slate-100 border-b border-slate-300">
+                  <th className="px-2 py-1 text-left">No.</th>
+                  <th className="px-2 py-1 text-left">内訳名</th>
+                  <th className="px-2 py-1 text-left">規格・仕様</th>
+                  <th className="px-2 py-1 text-right">数量</th>
+                  <th className="px-2 py-1 text-left">単位</th>
+                  <th className="px-2 py-1 text-right">単価</th>
+                  <th className="px-2 py-1 text-right">金額</th>
+                </tr>
+              </thead>
+              <tbody>
+                {info.lines.map(l => (
+                  <tr key={l.no} className="border-b border-slate-100">
+                    <td className="px-2 py-1 font-mono">{l.displayNo || l.no}</td>
+                    <td className="px-2 py-1 truncate" title={l.name}>{l.name}</td>
+                    <td className="px-2 py-1 text-slate-600 truncate" title={l.spec}>{l.spec}</td>
+                    <td className="px-2 py-1 text-right num font-mono">{l.quantity.toFixed(l.quantity % 1 === 0 ? 0 : 2)}</td>
+                    <td className="px-2 py-1">{l.unit}</td>
+                    <td className="px-2 py-1 text-right num font-mono">{fmt(l.effectivePrice)}</td>
+                    <td className="px-2 py-1 text-right num font-mono font-semibold">{fmt(l.amount)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )
+      ))}
+      <FooterNotes />
+    </div>
+  );
+}
+
+// 書式③ 正式見積書（押印・罫線多め）
+function FormatFormal({ project, result, companyInfo, byGroup }) {
+  return (
+    <div className="bg-white p-8 shadow-inner">
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold tracking-widest border-b-4 border-slate-800 inline-block pb-2 px-8">御 見 積 書</h1>
+        <div className="text-sm text-slate-600 mt-3">No. {project.id.slice(-8).toUpperCase()}</div>
+      </div>
+      <div className="grid grid-cols-[1fr_auto] gap-8 mb-6">
+        <div className="border border-slate-400 p-4">
+          <div className="text-base font-bold mb-3">{project.clientName ? cleanClientName(project.clientName) : '○○○○'} <span className="text-sm">様</span></div>
+          <table className="w-full text-sm">
+            <tbody>
+              <tr className="border-t border-slate-200"><td className="py-1.5 text-slate-600 w-24">件名</td><td className="py-1.5">{project.name}</td></tr>
+              <tr className="border-t border-slate-200"><td className="py-1.5 text-slate-600">工事場所</td><td className="py-1.5">{project.siteAddress || '—'}</td></tr>
+              <tr className="border-t border-slate-200"><td className="py-1.5 text-slate-600">工事概要</td><td className="py-1.5">{project.scale.tsuboFloor}坪・{project.scale.floorCount}階建・{project.scale.roofShape}屋根</td></tr>
+              <tr className="border-t border-slate-200"><td className="py-1.5 text-slate-600">有効期限</td><td className="py-1.5">発行日より30日</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div className="text-sm text-slate-600 text-right mb-3">発行日: {fmtDate(new Date().toISOString())}</div>
+          <div className="border border-slate-400 p-3 text-sm">
+            <div className="font-bold text-base">{companyInfo?.name || ''}</div>
+            <div className="text-xs text-slate-600 mt-1">{companyInfo?.address || ''}</div>
+            <div className="text-xs text-slate-600">TEL {companyInfo?.phone || ''}</div>
+            {companyInfo?.email && <div className="text-xs text-slate-600">{companyInfo.email}</div>}
+            <div className="text-xs text-slate-600 mt-2">代表 {companyInfo?.representative || ''}</div>
+            <div className="text-xs text-slate-600">担当 {project.staffName || ''}</div>
+            <div className="mt-3 flex items-center justify-end">
+              {companyInfo?.stampImage ? (
+                <img src={companyInfo.stampImage} alt="印" className="h-16 w-16 object-contain" />
+              ) : (
+                <div className="inline-block border-2 border-red-700 text-red-700 px-3 py-2 rounded font-bold text-xs">印</div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-4 border-double border-slate-800 p-4 mb-6">
+        <div className="text-center">
+          <div className="text-sm text-slate-600 mb-1">下記の通りお見積もり申し上げます</div>
+          <div className="num text-4xl font-bold tracking-wider mt-2">¥ {fmt(result.total)} <span className="text-base text-slate-600">（税込）</span></div>
+          <div className="text-xs text-slate-500 mt-2">（うち消費税 {fmt(result.tax)} 円）</div>
+        </div>
+      </div>
+
+      <SummaryTable byGroup={byGroup} result={result} bordered />
+
+      <div className="mt-6 grid grid-cols-2 gap-4 text-xs">
+        <div className="border border-slate-300 p-2">
+          <div className="font-bold mb-1">支払条件</div>
+          <div className="text-slate-600">契約時 30%／上棟時 30%／引渡時 40%（応相談）</div>
+        </div>
+        <div className="border border-slate-300 p-2">
+          <div className="font-bold mb-1">工期</div>
+          <div className="text-slate-600">契約後 約 4〜5ヶ月（規模により変動）</div>
+        </div>
+      </div>
+      <FooterNotes />
+    </div>
+  );
+}
+
+function SummaryTable({ byGroup, result, bordered }) {
+  const cls = bordered ? "border border-slate-400" : "";
+  return (
+    <table className={`w-full text-sm border-collapse ${cls}`}>
+      <thead>
+        <tr className="bg-slate-100 border-b-2 border-slate-400">
+          <th className={`px-2 py-1.5 text-left ${bordered ? 'border-r border-slate-300' : ''}`}>No.</th>
+          <th className={`px-2 py-1.5 text-left ${bordered ? 'border-r border-slate-300' : ''}`}>工種</th>
+          <th className="px-2 py-1.5 text-right">金額(円)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(byGroup).map(([g, info]) => (
+          <tr key={g} className="border-b border-slate-200">
+            <td className={`px-2 py-1.5 font-mono ${bordered ? 'border-r border-slate-300' : ''}`}>{g}</td>
+            <td className={`px-2 py-1.5 ${bordered ? 'border-r border-slate-300' : ''}`}>{info.name}</td>
+            <td className="px-2 py-1.5 text-right num font-mono">{fmt(info.total)}</td>
+          </tr>
+        ))}
+        <tr className="border-b border-slate-300 font-bold bg-slate-50">
+          <td colSpan="2" className="px-2 py-1.5 text-right">本体工事計</td>
+          <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.bodyTotal)}</td>
+        </tr>
+        <tr className="border-b border-slate-300 font-bold bg-slate-50">
+          <td colSpan="2" className="px-2 py-1.5 text-right">付帯工事計</td>
+          <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.sideTotal)}</td>
+        </tr>
+        <tr className="border-b border-slate-300 font-bold bg-slate-50">
+          <td colSpan="2" className="px-2 py-1.5 text-right">諸経費計</td>
+          <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.overheadTotal)}</td>
+        </tr>
+        {result.optionsTotal > 0 && (
+          <tr className="border-b border-slate-300 font-bold bg-slate-50">
+            <td colSpan="2" className="px-2 py-1.5 text-right">オプション工事</td>
+            <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.optionsTotal)}</td>
+          </tr>
+        )}
+        <tr className="border-b-2 border-slate-400 font-bold">
+          <td colSpan="2" className="px-2 py-2 text-right">税抜合計</td>
+          <td className="px-2 py-2 text-right num font-mono">{fmt(result.subtotal)}</td>
+        </tr>
+        <tr className="border-b border-slate-300">
+          <td colSpan="2" className="px-2 py-1.5 text-right">消費税(10%)</td>
+          <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.tax)}</td>
+        </tr>
+        <tr className="border-b-4 border-slate-800 bg-slate-100 font-bold text-base">
+          <td colSpan="2" className="px-2 py-2 text-right">税込総合計</td>
+          <td className="px-2 py-2 text-right num font-mono">¥{fmt(result.total)}</td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
+function FooterNotes() {
+  return (
+    <div className="mt-6 text-xs text-slate-500 leading-relaxed">
+      <p>※ 本見積書の有効期限は発行日より30日間です。</p>
+      <p>※ 別途追加工事が発生した場合は、別途お見積もりいたします。</p>
+      <p>※ 諸条件・支払条件等は別途ご相談ください。</p>
+    </div>
+  );
+}
+
+// ============ マスタ管理 ============
+function MasterManager({ masters, setMasters }) {
+  return (
+    <div>
+      <h2 className="text-2xl font-bold text-slate-900 mb-4">マスタ管理</h2>
+      <RateMasterEditor masters={masters} setMasters={setMasters} />
+    </div>
+  );
+}
+
+function RateMasterEditor({ masters, setMasters }) {
+  const [collapsed, setCollapsed] = useState({});
+  const update = (no, key, val) => {
+    setMasters(m => ({
+      ...m,
+      rateMaster: m.rateMaster.map(r => r.no === no ? { ...r, [key]: val } : r)
+    }));
+  };
+  const resetAll = () => {
+    if (!confirm('単価マスタを初期値（標準仕様）に戻しますか?\n単価・内訳名・規格・有効/無効すべてリセットされます。\n(ユーザー追加項目もすべて削除されます)')) return;
+    setMasters(m => ({ ...m, rateMaster: APP_DATA_INITIAL.rateMaster }));
+  };
+  const toggleCollapse = (g) => setCollapsed(c => ({ ...c, [g]: !c[g] }));
+  const toggleGroupAll = (groupCode, newState) => {
+    setMasters(m => ({
+      ...m,
+      rateMaster: m.rateMaster.map(r => r.categoryGroup === groupCode ? { ...r, disabled: !newState } : r)
+    }));
+  };
+  const addMasterItem = (groupCode, categoryName, categoryType) => {
+    // 同カテゴリ内の最大番号を探して+1
+    const sameGroup = masters.rateMaster.filter(r => r.categoryGroup === groupCode);
+    let maxNum = 0;
+    sameGroup.forEach(r => {
+      const m = String(r.no).match(/-(\d+)$/);
+      if (m) {
+        const n = parseInt(m[1], 10);
+        if (n > maxNum) maxNum = n;
+      }
+    });
+    const newItem = {
+      no: `${groupCode}-${maxNum + 1}`,
+      name: '新規項目',
+      spec: '',
+      quantityFormula: '1',  // 自動計算なし(固定で1)
+      unit: '式',
+      price: 0,
+      category: categoryType,
+      categoryGroup: groupCode,
+      categoryName: categoryName,
+      userAdded: true  // ユーザー追加マーク
+    };
+    setMasters(m => ({ ...m, rateMaster: [...m.rateMaster, newItem] }));
+  };
+  const deleteMasterItem = (no) => {
+    const item = masters.rateMaster.find(r => r.no === no);
+    if (!item) return;
+    if (!item.userAdded) {
+      alert('初期項目は削除できません。「有効」チェックを外して非表示にしてください。');
+      return;
+    }
+    if (!confirm(`項目「${item.no} ${item.name}」を削除しますか?\n(ユーザー追加項目のみ削除可能)`)) return;
+    setMasters(m => ({ ...m, rateMaster: m.rateMaster.filter(r => r.no !== no) }));
+  };
+
+  // カテゴリ別グループ化
+  const groups = useMemo(() => {
+    const g = {};
+    masters.rateMaster.forEach(item => {
+      const key = item.categoryGroup;
+      if (!g[key]) g[key] = { categoryGroup: key, categoryName: item.categoryName, category: item.category, items: [] };
+      g[key].items.push(item);
+    });
+    // 各グループ内で「有効な項目」に対して表示用連番を付与
+    Object.values(g).forEach(grp => {
+      let n = 0;
+      grp.items.forEach(item => {
+        if (!item.disabled) {
+          n++;
+          item._displayNo = `${grp.categoryGroup}-${n}`;
+        } else {
+          item._displayNo = item.no; // 無効化項目は元の番号のまま薄く表示
+        }
+      });
+    });
+    return Object.values(g);
+  }, [masters.rateMaster]);
+
+  const totalItems = masters.rateMaster.length;
+  const activeItems = masters.rateMaster.filter(r => !r.disabled).length;
+
+  return (
+    <div>
+      <div className="bg-blue-50 border-l-4 border-blue-400 p-3 mb-3 rounded text-xs text-blue-900">
+        📦 <strong>マスタの変更は「新しく作る見積」と「マスタを最新に更新した既存見積」にだけ反映されます。</strong>既存の見積（=作成済みの見積）にはそのままでは影響しません。<br />
+        既存の見積を最新マスタで再計算したい場合は、その見積を開いて画面上部の「🔄 マスタを最新に更新」ボタンを押してください。手動編集した数量・単価・カスタム追加項目は保護されます。<br />
+        元に戻すには「初期値に戻す」ボタンで標準仕様に復旧できます（マスタのみ、既存見積には影響しません）。
+      </div>
+      <div className="bg-pink-50 border-l-4 border-pink-400 p-3 mb-3 rounded text-xs text-pink-900">
+        ★ <strong>ユーザー追加項目について:</strong> 各カテゴリの「＋ 内訳追加」で新しい項目を追加できます。追加項目は <strong>ピンク背景</strong> と <strong>★マーク</strong> で表示されます。<br />
+        ⚠️ 追加項目は <strong>規模(坪数・面積など)に応じた自動数量計算は適用されません</strong>。見積編集の内訳明細で数量を手動入力してください（初期値は「1 式」）。<br />
+        単位欄も自由に編集できます。追加項目のみ「×」ボタンで削除可能（初期項目は削除不可、「有効」を外して非表示にしてください）。
+      </div>
+      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+        <p className="text-sm text-slate-600">
+          単価マスタ: 有効 <strong>{activeItems}</strong> / 全 {totalItems} 内訳
+        </p>
+        <button onClick={resetAll} className="text-xs px-3 py-1 border border-slate-400 text-slate-700 rounded hover:bg-slate-100">初期値に戻す</button>
+      </div>
+      <div className="space-y-3">
+        {groups.map(g => {
+          const isCollapsed = collapsed[g.categoryGroup];
+          const catColor = g.category === '本体工事' ? 'bg-blue-100 text-blue-900 border-blue-300' :
+                           g.category === '付帯工事' ? 'bg-amber-100 text-amber-900 border-amber-300' :
+                           'bg-green-100 text-green-900 border-green-300';
+          const groupActive = g.items.filter(i => !i.disabled).length;
+          const groupTotal = g.items.length;
+          return (
+            <div key={g.categoryGroup} className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+              <div className={`${catColor} px-3 py-2 border-b flex items-center justify-between flex-wrap gap-2`}>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => toggleCollapse(g.categoryGroup)} className="text-xs hover:bg-white/30 rounded px-1">
+                    {isCollapsed ? '▶' : '▼'}
+                  </button>
+                  <span className="font-mono font-bold text-sm">{g.categoryGroup}.</span>
+                  <span className="font-bold text-sm">{g.categoryName}</span>
+                  <span className="text-xs ml-2">有効 {groupActive}/{groupTotal} 件</span>
+                </div>
+                <div className="flex items-center gap-1 flex-wrap">
+                  <button onClick={() => addMasterItem(g.categoryGroup, g.categoryName, g.category)}
+                    className="text-xs px-2 py-0.5 border border-current bg-white/50 rounded hover:bg-white">＋ 内訳追加</button>
+                  <button onClick={() => toggleGroupAll(g.categoryGroup, true)}
+                    className="text-xs px-2 py-0.5 border border-current rounded hover:bg-white/30">全有効</button>
+                  <button onClick={() => toggleGroupAll(g.categoryGroup, false)}
+                    className="text-xs px-2 py-0.5 border border-current rounded hover:bg-white/30">全無効</button>
+                </div>
+              </div>
+              {!isCollapsed && (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs" style={{tableLayout: 'fixed'}}>
+                    <colgroup>
+                      <col style={{width:'40px'}} />
+                      <col style={{width:'56px'}} />
+                      <col style={{width:'180px'}} />
+                      <col />
+                      <col style={{width:'112px'}} />
+                      <col style={{width:'60px'}} />
+                      <col style={{width:'40px'}} />
+                    </colgroup>
+                    <thead className="bg-slate-50">
+                      <tr className="text-slate-600 text-left border-b border-slate-200">
+                        <th className="px-2 py-1.5 text-center">有効</th>
+                        <th className="px-2 py-1.5">No.</th>
+                        <th className="px-2 py-1.5">内訳名</th>
+                        <th className="px-2 py-1.5">規格</th>
+                        <th className="px-2 py-1.5 text-right">単価</th>
+                        <th className="px-2 py-1.5">単位</th>
+                        <th className="px-2 py-1.5"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {g.items.map(item => {
+                        const isActive = !item.disabled;
+                        const isUserAdded = !!item.userAdded;
+                        return (
+                          <tr key={item.no} className={`border-t border-slate-100 ${!isActive ? 'opacity-40' : ''} ${isUserAdded ? 'bg-pink-50' : ''}`}>
+                            <td className="px-2 py-1 text-center">
+                              <input type="checkbox" checked={isActive}
+                                onChange={e => update(item.no, 'disabled', !e.target.checked)} />
+                            </td>
+                            <td className="px-2 py-1 font-mono">
+                              {item._displayNo || item.no}
+                              {isUserAdded && <span className="ml-1 text-pink-600" title="ユーザー追加項目">★</span>}
+                            </td>
+                            <td className="px-2 py-1">
+                              <input type="text" value={item.name}
+                                onChange={e => update(item.no, 'name', e.target.value)}
+                                className="w-full border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1.5 py-0.5 truncate" />
+                            </td>
+                            <td className="px-2 py-1 text-slate-700">
+                              <input type="text" value={item.spec || ''}
+                                onChange={e => update(item.no, 'spec', e.target.value)}
+                                className="w-full border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1.5 py-0.5 truncate" />
+                            </td>
+                            <td className="px-2 py-1 text-right num font-mono">
+                              <input type="number" value={item.price} onChange={e => update(item.no, 'price', parseFloat(e.target.value) || 0)}
+                                className="w-24 text-right border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1.5 py-0.5 num font-mono" />
+                            </td>
+                            <td className="px-2 py-1">
+                              {isUserAdded ? (
+                                <input type="text" value={item.unit}
+                                  onChange={e => update(item.no, 'unit', e.target.value)}
+                                  className="w-full border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1 py-0.5" />
+                              ) : (
+                                item.unit
+                              )}
+                            </td>
+                            <td className="px-2 py-1 text-center">
+                              {isUserAdded && (
+                                <button onClick={() => deleteMasterItem(item.no)}
+                                  className="text-xs text-red-600 hover:bg-red-50 rounded px-1" title="この項目を削除">×</button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Settings({ state, setState, masters, setMasters }) {
+  const exportAll = () => {
+    const exported = { ...state, masters, _exportedAt: new Date().toISOString(), _version: '1.0' };
+    downloadJson(exported, `見積データ_全体_${fmtDate(new Date().toISOString())}.json`);
+  };
+  const exportProject = (pid) => {
+    const p = state.projects.find(x => x.id === pid); if (!p) return;
+    downloadJson({ project: p, masters, _exportedAt: new Date().toISOString(), _version: '1.0' }, `見積_${p.name}_${fmtDate(new Date().toISOString())}.json`);
+  };
+  const importAll = (e) => {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const obj = JSON.parse(ev.target.result);
+        if (obj.project && !obj.projects) {
+          // 単一見積
+          if (!confirm(`見積「${obj.project.name}」をインポートしますか?`)) return;
+          const p = { ...obj.project, id: uuid(), name: obj.project.name + ' (取込)', updatedAt: new Date().toISOString() };
+          setState(s => ({ ...s, projects: [p, ...s.projects] }));
+          alert('インポートしました');
+        } else {
+          if (!confirm('既存のデータを上書きしますか?')) return;
+          if (obj.projects) setState({ projects: obj.projects, companyInfo: obj.companyInfo || state.companyInfo });
+          if (obj.masters) setMasters(obj.masters);
+          alert('インポートしました');
+        }
+      } catch (err) { alert('JSONの読み込みに失敗: ' + err.message); }
+    };
+    reader.readAsText(file);
+  };
+  const setCompany = (key, val) => setState(s => ({ ...s, companyInfo: { ...s.companyInfo, [key]: val } }));
+  const resetAll = () => {
+    if (!confirm('すべてのデータを初期化しますか?（見積・マスタ含めて全消去）')) return;
+    if (!confirm('本当にすべて消去しますか?')) return;
+    localStorage.removeItem(LS_KEY); localStorage.removeItem(LS_MASTER_KEY);
+    location.reload();
+  };
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold text-slate-900 mb-4">設定</h2>
+      <div className="space-y-4">
+        <div className="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 className="font-bold text-slate-900 mb-3">会社情報（見積書に表示）</h3>
+          <div className="space-y-3">
+            <TextField label="会社名" value={state.companyInfo?.name} onChange={v => setCompany('name', v)} />
+            <TextField label="住所" value={state.companyInfo?.address} onChange={v => setCompany('address', v)} />
+            <TextField label="電話" value={state.companyInfo?.phone} onChange={v => setCompany('phone', v)} />
+            <TextField label="メールアドレス" value={state.companyInfo?.email} onChange={v => setCompany('email', v)} />
+            <TextField label="代表者" value={state.companyInfo?.representative} onChange={v => setCompany('representative', v)} />
+          </div>
+          <div className="mt-4 pt-4 border-t border-slate-200">
+            <h4 className="font-semibold text-slate-700 mb-2 text-sm">🖋 印鑑画像（任意・正式見積書に自動挿入）</h4>
+            <p className="text-xs text-slate-500 mb-2">透過PNG推奨。アップロードすると「③ 正式見積書」の押印欄に自動表示されます。</p>
+            <div className="flex items-center gap-3 flex-wrap">
+              {state.companyInfo?.stampImage && (
+                <div className="border border-slate-300 rounded p-1 bg-white">
+                  <img src={state.companyInfo.stampImage} alt="印鑑" className="h-16 w-16 object-contain" />
+                </div>
+              )}
+              <input type="file" accept="image/*"
+                onChange={e => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  if (file.size > 500 * 1024) {
+                    alert('画像サイズが大きすぎます。500KB以下の画像を使ってください。');
+                    return;
+                  }
+                  const reader = new FileReader();
+                  reader.onload = ev => setCompany('stampImage', ev.target.result);
+                  reader.readAsDataURL(file);
+                }}
+                className="text-xs" />
+              {state.companyInfo?.stampImage && (
+                <button onClick={() => setCompany('stampImage', '')}
+                  className="text-xs px-3 py-1 border border-red-300 text-red-600 rounded hover:bg-red-50">削除</button>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-white border border-slate-200 rounded-lg p-5">
+            <h3 className="font-bold mb-3">📤 エクスポート</h3>
+            <button onClick={exportAll} className="w-full text-left px-3 py-2 border border-slate-300 rounded text-sm hover:bg-slate-50 mb-2">全データJSONエクスポート（バックアップ）</button>
+            <div className="text-xs text-slate-500 mt-3 mb-2">単一見積エクスポート:</div>
+            <div className="space-y-1 max-h-40 overflow-y-auto">
+              {state.projects.map(p => (
+                <button key={p.id} onClick={() => exportProject(p.id)}
+                  className="block w-full text-left px-3 py-1.5 border border-slate-200 rounded text-xs hover:bg-slate-50 truncate">
+                  📄 {p.name}
+                </button>
+              ))}
+              {state.projects.length === 0 && <div className="text-xs text-slate-400">見積がありません</div>}
+            </div>
+          </div>
+          <div className="bg-white border border-slate-200 rounded-lg p-5">
+            <h3 className="font-bold mb-3">📥 インポート</h3>
+            <label className="block">
+              <input type="file" accept=".json" onChange={importAll} className="hidden" />
+              <span className="block w-full text-left px-3 py-2 border border-slate-300 rounded text-sm hover:bg-slate-50 cursor-pointer">JSONファイルを選択（全体/単一見積 自動判定）</span>
+            </label>
+            <div className="text-xs text-slate-500 mt-3 leading-relaxed">
+              全データ: 既存を上書き<br/>単一見積: 既存に追加（新IDで取り込み）
+            </div>
+          </div>
+        </div>
+        <div className="bg-red-50 border border-red-200 rounded-lg p-5">
+          <h3 className="font-bold text-red-900 mb-2">⚠️ データ初期化</h3>
+          <p className="text-xs text-red-700 mb-3">見積・マスタ含めて全削除します。必ずバックアップしてから実行してください。</p>
+          <button onClick={resetAll} className="px-3 py-1.5 border border-red-400 text-red-700 rounded text-sm hover:bg-red-100">全データを初期化</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TextField({ label, value, onChange }) {
+  return (
+    <div>
+      <label className="text-xs text-slate-600 font-semibold">{label}</label>
+      <input type="text" value={value || ''} onChange={e => onChange(e.target.value)}
+        className="block mt-1 border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-3 py-2 w-full text-sm" />
+    </div>
+  );
+}
+
+function downloadJson(obj, filename) {
+  const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
