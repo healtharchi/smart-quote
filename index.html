@@ -61,6 +61,37 @@ function cleanClientName(name) {
   return String(name).replace(/[\s　]*(様|さま|サマ|殿|御中)$/, '').trim();
 }
 
+// 連番 → アルファベット列コード (1→A, 26→Z, 27→AA, 28→AB, ... 53→BA, ...)
+// Excelの列名と同じ規則
+function codeFromNumber(n) {
+  let s = '';
+  while (n > 0) {
+    n--;
+    s = String.fromCharCode(65 + (n % 26)) + s;
+    n = Math.floor(n / 26);
+  }
+  return s;
+}
+
+// 使用済みコードを除外して、次に利用可能なカテゴリーコードを返す
+// 既存のA,B,...,AB に続けて AC, AD, ... と振る。万一抜けがあっても若い順に詰める。
+function nextAvailableCategoryCode(usedCodes) {
+  const used = new Set((usedCodes || []).map(c => String(c).toUpperCase()));
+  for (let i = 1; i < 10000; i++) {
+    const code = codeFromNumber(i);
+    if (!used.has(code)) return code;
+  }
+  // 念のためフォールバック
+  return 'X' + Date.now().toString(36).toUpperCase();
+}
+
+// ソート用比較: 短いコードを先に、同じ長さなら辞書順 (A < B < ... < Z < AA < AB ...)
+function compareCategoryCode(a, b) {
+  const sa = String(a || ''); const sb = String(b || '');
+  if (sa.length !== sb.length) return sa.length - sb.length;
+  return sa < sb ? -1 : sa > sb ? 1 : 0;
+}
+
 // ============ 計算エンジン ============
 function computeScaleParams(input) {
   const t = parseFloat(input.tsuboFloor) || 32;
@@ -1060,6 +1091,50 @@ function TabDetails({ project, onChange, result }) {
     };
     onChange(p => ({ ...p, customItems: [...(p.customItems || []), c] }));
   };
+
+  // この見積限定で、新しいカテゴリーを追加 (customItems経由・他見積には影響しない)
+  const addCustomCategory = () => {
+    const name = prompt('新しいカテゴリー名を入力してください\n(この見積限定のカテゴリーになります)\n\n例: 太陽光発電、ガレージ、エクストラ工事 など', '');
+    if (name === null) return;
+    const trimmed = name.trim();
+    if (!trimmed) { alert('カテゴリー名が空です'); return; }
+
+    const typeInput = prompt('区分を選んでください (番号で入力)\n  1: 本体工事\n  2: 付帯工事\n  3: 諸経費', '1');
+    if (typeInput === null) return;
+    const typeMap = { '1': '本体工事', '2': '付帯工事', '3': '諸経費' };
+    const category = typeMap[String(typeInput).trim()];
+    if (!category) { alert('区分が無効です。1〜3 のいずれかを入力してください'); return; }
+
+    // 同名カテゴリの確認
+    if (result.lines.some(l => l.categoryName === trimmed)) {
+      if (!confirm(`カテゴリー名「${trimmed}」は既に存在します。\n別のコードで新規追加しますか?`)) return;
+    }
+
+    // 使用済みコードを集めて次のコードを採番
+    // (スナップショット内の通常項目 + 既存customItems の両方を網羅)
+    const usedCodes = new Set();
+    result.lines.forEach(l => usedCodes.add(l.categoryGroup));
+    const code = nextAvailableCategoryCode([...usedCodes]);
+
+    // 空カテゴリーは UI に表示されないため初期項目を1件作成
+    const c = {
+      id: uuid(),
+      no: `${code}-1`,
+      name: '新規項目',
+      spec: '',
+      quantity: 1,
+      unit: '式',
+      price: 0,
+      category,
+      categoryGroup: code,
+      categoryName: trimmed,
+      enabled: true
+    };
+    onChange(p => ({ ...p, customItems: [...(p.customItems || []), c] }));
+    // この見積のフィルタが「カテゴリ別」絞り込みになっている場合、新カテゴリが見えなくなるのを防ぐためにリセット
+    setFilter({ category: 'all', group: 'all' });
+    alert(`カテゴリー「${code}. ${trimmed}」を追加しました。\n区分: ${category}\n\n初期項目「${code}-1 新規項目」が作成されています。\n名称・単価などを編集してご利用ください。\n\n※ このカテゴリーはこの見積限定です。会社全体に追加する場合はマスタ管理から行ってください。`);
+  };
   const updateCustom = (id, key, val) => {
     onChange(p => ({ ...p, customItems: (p.customItems || []).map(c => c.id === id ? { ...c, [key]: val } : c) }));
   };
@@ -1068,7 +1143,15 @@ function TabDetails({ project, onChange, result }) {
   };
   const toggleCollapse = (g) => setCollapsed(c => ({ ...c, [g]: !c[g] }));
 
-  const groupCodes = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB'];
+  // フィルタ用の項目コード一覧を現データから動的に作成 (ユーザー追加カテゴリも含む)
+  const groupCodes = useMemo(() => {
+    const set = new Set();
+    result.lines.forEach(l => {
+      if (l.masterDisabled) return; // マスタで無効化されているものは選択肢に出さない
+      set.add(l.categoryGroup);
+    });
+    return [...set].sort(compareCategoryCode);
+  }, [result.lines]);
 
   // 共通のセルスタイル
   const editableCell = "border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1.5 py-0.5";
@@ -1092,6 +1175,9 @@ function TabDetails({ project, onChange, result }) {
           <option value="all">すべて</option>
           {groupCodes.map(g => <option key={g} value={g}>{g}</option>)}
         </select>
+        <button onClick={addCustomCategory}
+          className="ml-2 text-xs px-2 py-1 border border-pink-400 text-pink-700 bg-pink-50 rounded hover:bg-pink-100 font-bold"
+          title="この見積限定のカテゴリーを追加(英字コードは自動採番)">＋ 新規カテゴリ追加</button>
         <span className="ml-auto text-xs text-slate-500">{filtered.length} 件表示</span>
       </div>
 
@@ -1269,7 +1355,8 @@ function TabDetails({ project, onChange, result }) {
           </div>
         </div>
         <div className="bg-amber-50 rounded p-2 border border-amber-200">
-          💡 灰色の枠が付いているセルは編集可能。数量と単価のどちらも上書きできます。チェックを外すと「使用しない」（金額0）。各カテゴリ右上の「＋追加」でカスタム項目を追加できます（自動で次の連番、例: A-10）。「▶」でカテゴリを折りたためます。
+          💡 灰色の枠が付いているセルは編集可能。数量と単価のどちらも上書きできます。チェックを外すと「使用しない」（金額0）。各カテゴリ右上の「＋追加」でカスタム項目を追加できます（自動で次の連番、例: A-10）。「▶」でカテゴリを折りたためます。<br />
+          🆕 画面上部の「＋ 新規カテゴリ追加」で<strong>この見積限定の新カテゴリー</strong>を作れます（英字コードは自動採番。例: 既存が AB までなら AC が振られます）。会社全体に追加したい場合はマスタ管理から追加してください。
         </div>
       </div>
     </div>
@@ -1716,6 +1803,45 @@ function RateMasterEditor({ masters, setMasters }) {
     };
     setMasters(m => ({ ...m, rateMaster: [...m.rateMaster, newItem] }));
   };
+
+  // ユーザー定義カテゴリーを新規追加 (英字記号は自動採番)
+  const addMasterCategory = () => {
+    const name = prompt('新しいカテゴリー名を入力してください\n(例: 太陽光発電、ガレージ、外構造作 など)', '');
+    if (name === null) return;
+    const trimmed = name.trim();
+    if (!trimmed) { alert('カテゴリー名が空です'); return; }
+
+    const typeInput = prompt('区分を選んでください (番号で入力)\n  1: 本体工事\n  2: 付帯工事\n  3: 諸経費', '1');
+    if (typeInput === null) return;
+    const typeMap = { '1': '本体工事', '2': '付帯工事', '3': '諸経費' };
+    const category = typeMap[String(typeInput).trim()];
+    if (!category) { alert('区分が無効です。1〜3 のいずれかを入力してください'); return; }
+
+    // 同名カテゴリーの存在チェック (確認のみ・追加自体は許容)
+    if (masters.rateMaster.some(r => r.categoryName === trimmed)) {
+      if (!confirm(`カテゴリー名「${trimmed}」は既に存在します。\n別のコードで新規追加しますか?`)) return;
+    }
+
+    // 使用済みコードを集めて次のコードを採番
+    const usedCodes = masters.rateMaster.map(r => r.categoryGroup);
+    const code = nextAvailableCategoryCode(usedCodes);
+
+    // 空カテゴリーは表示されないため初期項目を1件作成
+    const newItem = {
+      no: `${code}-1`,
+      name: '新規項目',
+      spec: '',
+      quantityFormula: '1',
+      unit: '式',
+      price: 0,
+      category,
+      categoryGroup: code,
+      categoryName: trimmed,
+      userAdded: true
+    };
+    setMasters(m => ({ ...m, rateMaster: [...m.rateMaster, newItem] }));
+    alert(`カテゴリー「${code}. ${trimmed}」を追加しました。\n区分: ${category}\n\n初期項目「${code}-1 新規項目」が作成されています。\n名称・単価などを編集してご利用ください。`);
+  };
   const deleteMasterItem = (no) => {
     const item = masters.rateMaster.find(r => r.no === no);
     if (!item) return;
@@ -1761,7 +1887,8 @@ function RateMasterEditor({ masters, setMasters }) {
         元に戻すには「初期値に戻す」ボタンで標準仕様に復旧できます（マスタのみ、既存見積には影響しません）。
       </div>
       <div className="bg-pink-50 border-l-4 border-pink-400 p-3 mb-3 rounded text-xs text-pink-900">
-        ★ <strong>ユーザー追加項目について:</strong> 各カテゴリの「＋ 内訳追加」で新しい項目を追加できます。追加項目は <strong>ピンク背景</strong> と <strong>★マーク</strong> で表示されます。<br />
+        ★ <strong>ユーザー追加項目について:</strong> 各カテゴリの「＋ 内訳追加」で新しい項目を、画面右上の「＋ 新規カテゴリ追加」で新しいカテゴリーを追加できます。追加項目は <strong>ピンク背景</strong> と <strong>★マーク</strong> で表示されます。<br />
+        🆕 <strong>新規カテゴリーの英字コード（A〜AB のあと AC, AD, ...）は自動採番</strong>です。重複や入力ミスは発生しません。カテゴリー名は日本語で自由に付けられます（例: 太陽光発電、ガレージ、外構造作）。<br />
         ⚠️ 追加項目は <strong>規模(坪数・面積など)に応じた自動数量計算は適用されません</strong>。見積編集の内訳明細で数量を手動入力してください（初期値は「1 式」）。<br />
         単位欄も自由に編集できます。追加項目のみ「×」ボタンで削除可能（初期項目は削除不可、「有効」を外して非表示にしてください）。
       </div>
@@ -1769,7 +1896,12 @@ function RateMasterEditor({ masters, setMasters }) {
         <p className="text-sm text-slate-600">
           単価マスタ: 有効 <strong>{activeItems}</strong> / 全 {totalItems} 内訳
         </p>
-        <button onClick={resetAll} className="text-xs px-3 py-1 border border-slate-400 text-slate-700 rounded hover:bg-slate-100">初期値に戻す</button>
+        <div className="flex items-center gap-2 flex-wrap">
+          <button onClick={addMasterCategory}
+            className="text-xs px-3 py-1 border border-pink-400 text-pink-700 bg-pink-50 rounded hover:bg-pink-100 font-bold"
+            title="新しいカテゴリーを追加(英字コードは自動採番)">＋ 新規カテゴリ追加</button>
+          <button onClick={resetAll} className="text-xs px-3 py-1 border border-slate-400 text-slate-700 rounded hover:bg-slate-100">初期値に戻す</button>
+        </div>
       </div>
       <div className="space-y-3">
         {groups.map(g => {
