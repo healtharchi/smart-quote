@@ -2035,7 +2035,11 @@ function Settings({ state, setState, masters, setMasters }) {
           alert('インポートしました');
         } else {
           if (!confirm('既存のデータを上書きしますか?')) return;
-          if (obj.projects) setState({ projects: obj.projects, companyInfo: obj.companyInfo || state.companyInfo });
+          if (obj.projects) setState(s => ({
+            projects: obj.projects,
+            properties: obj.properties || s.properties || [],  // 物件のみ登録(見積0件)の情報も復元
+            companyInfo: obj.companyInfo || s.companyInfo
+          }));
           if (obj.masters) setMasters(obj.masters);
           alert('インポートしました');
         }
