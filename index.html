@@ -1092,31 +1092,22 @@ function TabDetails({ project, onChange, result }) {
     onChange(p => ({ ...p, customItems: [...(p.customItems || []), c] }));
   };
 
-  // この見積限定で、新しいカテゴリーを追加 (customItems経由・他見積には影響しない)
-  const addCustomCategory = () => {
-    const name = prompt('新しいカテゴリー名を入力してください\n(この見積限定のカテゴリーになります)\n\n例: 太陽光発電、ガレージ、エクストラ工事 など', '');
-    if (name === null) return;
-    const trimmed = name.trim();
-    if (!trimmed) { alert('カテゴリー名が空です'); return; }
-
-    const typeInput = prompt('区分を選んでください (番号で入力)\n  1: 本体工事\n  2: 付帯工事\n  3: 諸経費', '1');
-    if (typeInput === null) return;
-    const typeMap = { '1': '本体工事', '2': '付帯工事', '3': '諸経費' };
-    const category = typeMap[String(typeInput).trim()];
-    if (!category) { alert('区分が無効です。1〜3 のいずれかを入力してください'); return; }
-
-    // 同名カテゴリの確認
-    if (result.lines.some(l => l.categoryName === trimmed)) {
-      if (!confirm(`カテゴリー名「${trimmed}」は既に存在します。\n別のコードで新規追加しますか?`)) return;
-    }
-
-    // 使用済みコードを集めて次のコードを採番
-    // (スナップショット内の通常項目 + 既存customItems の両方を網羅)
-    const usedCodes = new Set();
-    result.lines.forEach(l => usedCodes.add(l.categoryGroup));
-    const code = nextAvailableCategoryCode([...usedCodes]);
-
-    // 空カテゴリーは UI に表示されないため初期項目を1件作成
+  // この見積限定で、新しいカテゴリーを追加 (customItems経由・他見積には影響しない) — モーダルで入力
+  const [addCatModalOpen, setAddCatModalOpen] = useState(false);
+  const addCustomCategoryNextCode = useMemo(() => {
+    const used = new Set();
+    result.lines.forEach(l => used.add(l.categoryGroup));
+    return nextAvailableCategoryCode([...used]);
+  }, [result.lines]);
+  const addCustomCategoryExistingNames = useMemo(
+    () => [...new Set(result.lines.map(l => l.categoryName))],
+    [result.lines]
+  );
+  const handleAddCustomCategoryConfirm = (trimmed, category) => {
+    if (!trimmed) return;
+    const used = new Set();
+    result.lines.forEach(l => used.add(l.categoryGroup));
+    const code = nextAvailableCategoryCode([...used]);
     const c = {
       id: uuid(),
       no: `${code}-1`,
@@ -1131,9 +1122,9 @@ function TabDetails({ project, onChange, result }) {
       enabled: true
     };
     onChange(p => ({ ...p, customItems: [...(p.customItems || []), c] }));
-    // この見積のフィルタが「カテゴリ別」絞り込みになっている場合、新カテゴリが見えなくなるのを防ぐためにリセット
+    // この見積のフィルタが絞り込み中の場合、新カテゴリが見えなくなるのを防ぐためにリセット
     setFilter({ category: 'all', group: 'all' });
-    alert(`カテゴリー「${code}. ${trimmed}」を追加しました。\n区分: ${category}\n\n初期項目「${code}-1 新規項目」が作成されています。\n名称・単価などを編集してご利用ください。\n\n※ このカテゴリーはこの見積限定です。会社全体に追加する場合はマスタ管理から行ってください。`);
+    setAddCatModalOpen(false);
   };
   const updateCustom = (id, key, val) => {
     onChange(p => ({ ...p, customItems: (p.customItems || []).map(c => c.id === id ? { ...c, [key]: val } : c) }));
@@ -1175,11 +1166,18 @@ function TabDetails({ project, onChange, result }) {
           <option value="all">すべて</option>
           {groupCodes.map(g => <option key={g} value={g}>{g}</option>)}
         </select>
-        <button onClick={addCustomCategory}
+        <button onClick={() => setAddCatModalOpen(true)}
           className="ml-2 text-xs px-2 py-1 border border-pink-400 text-pink-700 bg-pink-50 rounded hover:bg-pink-100 font-bold"
           title="この見積限定のカテゴリーを追加(英字コードは自動採番)">＋ 新規カテゴリ追加</button>
         <span className="ml-auto text-xs text-slate-500">{filtered.length} 件表示</span>
       </div>
+      <CategoryAddModal open={addCatModalOpen}
+        title="新規カテゴリー追加"
+        scope="この見積限定（他の見積には影響しません）"
+        existingNames={addCustomCategoryExistingNames}
+        nextCode={addCustomCategoryNextCode}
+        onCancel={() => setAddCatModalOpen(false)}
+        onConfirm={handleAddCustomCategoryConfirm} />
 
       {/* カテゴリ別グループ */}
       <div className="space-y-3">
@@ -1749,6 +1747,103 @@ function FooterNotes() {
   );
 }
 
+// ============ 共通モーダル: カテゴリ追加 ============
+function CategoryAddModal({ open, title, scope, existingNames, nextCode, onCancel, onConfirm }) {
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('本体工事');
+  const inputRef = useRef(null);
+  useEffect(() => {
+    if (open) {
+      setName('');
+      setCategory('本体工事');
+      // 次のティックで autoFocus を効かせる
+      setTimeout(() => inputRef.current?.focus(), 30);
+    }
+  }, [open]);
+
+  if (!open) return null;
+  const trimmed = name.trim();
+  const canSubmit = trimmed.length > 0;
+  const dup = trimmed && existingNames && existingNames.includes(trimmed);
+
+  const submit = () => { if (canSubmit) onConfirm(trimmed, category); };
+  const handleKey = (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); onCancel(); }
+    else if (e.key === 'Enter' && canSubmit) { e.preventDefault(); submit(); }
+  };
+
+  const catStyles = [
+    { v: '本体工事', cls: 'bg-blue-50 border-blue-300 text-blue-900 hover:bg-blue-100', sel: 'bg-blue-600 text-white border-blue-700' },
+    { v: '付帯工事', cls: 'bg-amber-50 border-amber-300 text-amber-900 hover:bg-amber-100', sel: 'bg-amber-600 text-white border-amber-700' },
+    { v: '諸経費',   cls: 'bg-green-50 border-green-300 text-green-900 hover:bg-green-100', sel: 'bg-green-600 text-white border-green-700' },
+  ];
+
+  return (
+    <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 no-print"
+      onClick={onCancel} onKeyDown={handleKey}>
+      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden"
+        onClick={e => e.stopPropagation()}>
+        {/* ヘッダー */}
+        <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-5 py-3 flex items-center justify-between">
+          <div>
+            <h3 className="text-base font-bold">{title}</h3>
+            {scope && <p className="text-xs text-pink-100 mt-0.5">{scope}</p>}
+          </div>
+          <button onClick={onCancel} type="button"
+            className="text-white/80 hover:text-white text-2xl leading-none w-7 h-7 flex items-center justify-center rounded hover:bg-white/20"
+            aria-label="閉じる">×</button>
+        </div>
+
+        {/* 本文 */}
+        <div className="p-5 space-y-4">
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1">
+              カテゴリー名 <span className="text-red-500">*</span>
+            </label>
+            <input ref={inputRef} type="text" value={name} onChange={e => setName(e.target.value)}
+              onKeyDown={handleKey}
+              placeholder="例: 太陽光発電 / ガレージ / 外構造作"
+              className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-300" />
+            {dup && (
+              <p className="mt-1 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded px-2 py-1">
+                ⚠ 同名のカテゴリーが既に存在します（別コードで追加されます）
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-2">区分</label>
+            <div className="grid grid-cols-3 gap-2">
+              {catStyles.map(({ v, cls, sel }) => (
+                <button key={v} type="button" onClick={() => setCategory(v)}
+                  className={`text-sm font-bold px-2 py-2 rounded border transition ${category === v ? sel : cls}`}>
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-slate-50 border border-slate-200 rounded p-2.5 text-xs text-slate-600">
+            自動付与コード: <span className="font-mono font-bold text-slate-900 text-sm">{nextCode}</span>
+            <span className="text-slate-400 mx-1.5">/</span>
+            初期項目「<span className="font-mono">{nextCode}-1 新規項目</span>」も同時作成
+          </div>
+        </div>
+
+        {/* フッター */}
+        <div className="bg-slate-50 border-t border-slate-200 px-5 py-3 flex gap-2 justify-end">
+          <button onClick={onCancel} type="button"
+            className="px-4 py-2 text-sm border border-slate-300 rounded hover:bg-white text-slate-700">キャンセル</button>
+          <button onClick={submit} disabled={!canSubmit} type="button"
+            className={`px-4 py-2 text-sm rounded font-bold transition ${canSubmit ? 'bg-pink-600 text-white hover:bg-pink-700' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}>
+            ＋ 追加する
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ============ マスタ管理 ============
 function MasterManager({ masters, setMasters }) {
   return (
@@ -1804,29 +1899,19 @@ function RateMasterEditor({ masters, setMasters }) {
     setMasters(m => ({ ...m, rateMaster: [...m.rateMaster, newItem] }));
   };
 
-  // ユーザー定義カテゴリーを新規追加 (英字記号は自動採番)
-  const addMasterCategory = () => {
-    const name = prompt('新しいカテゴリー名を入力してください\n(例: 太陽光発電、ガレージ、外構造作 など)', '');
-    if (name === null) return;
-    const trimmed = name.trim();
-    if (!trimmed) { alert('カテゴリー名が空です'); return; }
-
-    const typeInput = prompt('区分を選んでください (番号で入力)\n  1: 本体工事\n  2: 付帯工事\n  3: 諸経費', '1');
-    if (typeInput === null) return;
-    const typeMap = { '1': '本体工事', '2': '付帯工事', '3': '諸経費' };
-    const category = typeMap[String(typeInput).trim()];
-    if (!category) { alert('区分が無効です。1〜3 のいずれかを入力してください'); return; }
-
-    // 同名カテゴリーの存在チェック (確認のみ・追加自体は許容)
-    if (masters.rateMaster.some(r => r.categoryName === trimmed)) {
-      if (!confirm(`カテゴリー名「${trimmed}」は既に存在します。\n別のコードで新規追加しますか?`)) return;
-    }
-
-    // 使用済みコードを集めて次のコードを採番
-    const usedCodes = masters.rateMaster.map(r => r.categoryGroup);
-    const code = nextAvailableCategoryCode(usedCodes);
-
-    // 空カテゴリーは表示されないため初期項目を1件作成
+  // ユーザー定義カテゴリーを新規追加 (英字記号は自動採番) — 入力はモーダルで受ける
+  const [addCatModalOpen, setAddCatModalOpen] = useState(false);
+  const addMasterCategoryNextCode = useMemo(
+    () => nextAvailableCategoryCode(masters.rateMaster.map(r => r.categoryGroup)),
+    [masters.rateMaster]
+  );
+  const addMasterCategoryExistingNames = useMemo(
+    () => [...new Set(masters.rateMaster.map(r => r.categoryName))],
+    [masters.rateMaster]
+  );
+  const handleAddMasterCategoryConfirm = (trimmed, category) => {
+    if (!trimmed) return;
+    const code = nextAvailableCategoryCode(masters.rateMaster.map(r => r.categoryGroup));
     const newItem = {
       no: `${code}-1`,
       name: '新規項目',
@@ -1840,7 +1925,7 @@ function RateMasterEditor({ masters, setMasters }) {
       userAdded: true
     };
     setMasters(m => ({ ...m, rateMaster: [...m.rateMaster, newItem] }));
-    alert(`カテゴリー「${code}. ${trimmed}」を追加しました。\n区分: ${category}\n\n初期項目「${code}-1 新規項目」が作成されています。\n名称・単価などを編集してご利用ください。`);
+    setAddCatModalOpen(false);
   };
   const deleteMasterItem = (no) => {
     const item = masters.rateMaster.find(r => r.no === no);
@@ -1897,12 +1982,19 @@ function RateMasterEditor({ masters, setMasters }) {
           単価マスタ: 有効 <strong>{activeItems}</strong> / 全 {totalItems} 内訳
         </p>
         <div className="flex items-center gap-2 flex-wrap">
-          <button onClick={addMasterCategory}
+          <button onClick={() => setAddCatModalOpen(true)}
             className="text-xs px-3 py-1 border border-pink-400 text-pink-700 bg-pink-50 rounded hover:bg-pink-100 font-bold"
             title="新しいカテゴリーを追加(英字コードは自動採番)">＋ 新規カテゴリ追加</button>
           <button onClick={resetAll} className="text-xs px-3 py-1 border border-slate-400 text-slate-700 rounded hover:bg-slate-100">初期値に戻す</button>
         </div>
       </div>
+      <CategoryAddModal open={addCatModalOpen}
+        title="新規カテゴリー追加"
+        scope="マスタ管理（全見積に反映 / 既存見積は影響なし）"
+        existingNames={addMasterCategoryExistingNames}
+        nextCode={addMasterCategoryNextCode}
+        onCancel={() => setAddCatModalOpen(false)}
+        onConfirm={handleAddMasterCategoryConfirm} />
       <div className="space-y-3">
         {groups.map(g => {
           const isCollapsed = collapsed[g.categoryGroup];
