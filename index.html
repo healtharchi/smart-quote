@@ -92,6 +92,25 @@ function compareCategoryCode(a, b) {
   return sa < sb ? -1 : sa > sb ? 1 : 0;
 }
 
+// 区分(本体工事/付帯工事/諸経費)の並び順ランク。新規追加カテゴリを区分の末尾に配置するために使用。
+function sectionRank(category) {
+  return category === '本体工事' ? 0 : category === '付帯工事' ? 1 : category === '諸経費' ? 2 : 99;
+}
+
+// グループ配列を「区分ごと」に安定ソート(区分内の元の出現順は維持)。
+// これにより、末尾に追加された新カテゴリも自分の区分の最後に表示される。
+function sortGroupsBySection(groupArray) {
+  return groupArray
+    .map((grp, i) => ({ grp, i }))
+    .sort((a, b) => {
+      const ra = sectionRank(a.grp.category);
+      const rb = sectionRank(b.grp.category);
+      if (ra !== rb) return ra - rb;
+      return a.i - b.i; // 同区分内は元の順序を維持(安定ソート)
+    })
+    .map(x => x.grp);
+}
+
 // ============ 計算エンジン ============
 function computeScaleParams(input) {
   const t = parseFloat(input.tsuboFloor) || 32;
@@ -1012,6 +1031,7 @@ function TabDetails({ project, onChange, result }) {
 
   // カテゴリ別グループ化（A, B, C, ... の項目記号ごと）
   // 注: 全項目がmasterDisabledのカテゴリは表示されない
+  // 区分(本体/付帯/諸経費)ごとに並べ、新規追加カテゴリは該当区分の末尾に配置
   const groups = useMemo(() => {
     const g = {};
     filtered.forEach(l => {
@@ -1020,7 +1040,7 @@ function TabDetails({ project, onChange, result }) {
       g[key].lines.push(l);
       g[key].total += l.amount;
     });
-    return Object.values(g);
+    return sortGroupsBySection(Object.values(g));
   }, [filtered]);
 
   const toggleItem = (no) => {
@@ -1453,8 +1473,18 @@ function PrintPreview({ project, result, companyInfo, onChange }) {
     byGroup[l.categoryGroup].lines.push(l);
   });
   // 全項目0円のカテゴリも除外（lines数=0なら除外、合計0なら除外）
+  // さらに区分(本体/付帯/諸経費)ごとに並べ、新規追加カテゴリも該当区分の末尾に配置
   const filteredByGroup = Object.fromEntries(
-    Object.entries(byGroup).filter(([_, info]) => info.lines.length > 0 && info.total > 0)
+    Object.entries(byGroup)
+      .filter(([_, info]) => info.lines.length > 0 && info.total > 0)
+      .map((entry, i) => ({ entry, i }))
+      .sort((a, b) => {
+        const ra = sectionRank(a.entry[1].category);
+        const rb = sectionRank(b.entry[1].category);
+        if (ra !== rb) return ra - rb;
+        return a.i - b.i;
+      })
+      .map(x => x.entry)
   );
 
   return (
@@ -1944,7 +1974,8 @@ function RateMasterEditor({ masters, setMasters }) {
         }
       });
     });
-    return Object.values(g);
+    // 区分(本体/付帯/諸経費)ごとに並べ、新規追加カテゴリは該当区分の末尾に配置
+    return sortGroupsBySection(Object.values(g));
   }, [masters.rateMaster]);
 
   const totalItems = masters.rateMaster.length;
