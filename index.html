@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>スマート見積システム</title>
+<title>スマート見積システム｜HEALTH ARCHI</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -22,14 +22,15 @@
     table { page-break-inside: auto; }
     tr { page-break-inside: avoid; page-break-after: auto; }
     thead { display: table-header-group; }
-    tfoot { display: table-footer-group; }
+    /* 合計(tfoot)は各ページに繰り返さず、表の最後に1回だけ出す */
+    tfoot { display: table-row-group; }
   }
   .print-only { display: none; }
   /* スクロール調整 */
   .scrollable { max-height: 70vh; overflow-y: auto; }
 </style>
 </head>
-<body class="bg-stone-100 text-slate-800 min-h-screen">
+<body class="min-h-screen" style="background:#F8FAFC;color:#1B2B4B;">
 <div id="root"></div>
 
 <script id="app-data" type="application/json">{"version":"1.0.0","generatedAt":"2026-05-16","source":"市場調査.pdf (2026年5月 首都圏木造2階建32坪 中級グレード)","rateMaster":[{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-1","name":"仮設足場","spec":"くさび緊結式・建地〜手摺・昇降階段共","quantity":220.073222435807,"unit":"㎡","price":1200,"amount":264087.866922968,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-2","name":"養生メッシュシート","spec":"防炎1類・建枠共","quantity":220.073222435807,"unit":"㎡","price":350,"amount":77025.6278525323,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-3","name":"仮設電気","spec":"引込・電気使用料(着工〜竣工)","quantity":1,"unit":"式","price":80000,"amount":80000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-4","name":"仮設水道","spec":"引込・水道使用料","quantity":1,"unit":"式","price":45000,"amount":45000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-5","name":"仮設トイレ","spec":"リース・汲取込","quantity":6,"unit":"ヶ月","price":12000,"amount":72000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-6","name":"工事用シート・防塵養生","spec":"ブルーシート他","quantity":1,"unit":"式","price":35000,"amount":35000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-7","name":"遣り方・墨出し","spec":"","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-8","name":"仮設片付・清掃・現場小運搬","spec":"工程中の都度発生","quantity":1,"unit":"式","price":90000,"amount":90000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"A","categoryName":"仮設工事","no":"A-9","name":"工程管理諸費","spec":"工事看板・標識・近隣挨拶","quantity":1,"unit":"式","price":92000,"amount":92000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-1","name":"根切り・床付け","spec":"機械掘削・GL-450","quantity":23.80176,"unit":"㎡","price":4200,"amount":99967.392,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-2","name":"残土場外処分","spec":"ダンプ運搬・処分費共","quantity":28.562112,"unit":"㎡","price":6500,"amount":185653.728,"remark":"","quantityFormula":"建築面積×1.2"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-3","name":"砕石地業","spec":"C-40・厚100mm・転圧共","quantity":52.8928,"unit":"㎡","price":1400,"amount":74049.92,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-4","name":"防湿フィルム","spec":"ポリエチレン0.15mm・重ね30cm","quantity":56.066368,"unit":"㎡","price":350,"amount":19623.2288,"remark":"","quantityFormula":"建築面積×1.06"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-5","name":"捨てコンクリート","spec":"18-8-25・厚50mm","quantity":2.64464,"unit":"㎥","price":22000,"amount":58182.08,"remark":"","quantityFormula":"建築面積×0.05"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-6","name":"配筋(底盤)","spec":"D13@200ダブル","quantity":581.8208,"unit":"kg","price":165,"amount":96000.432,"remark":"","quantityFormula":"建築面積×11"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-7","name":"配筋(立上り)","spec":"D13主筋・D10補強","quantity":419.968832,"unit":"kg","price":170,"amount":71394.70144,"remark":"","quantityFormula":"建築面積×7.94"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-8","name":"基礎型枠","spec":"鋼製型枠","quantity":95.20704,"unit":"㎡","price":2800,"amount":266579.712,"remark":"","quantityFormula":"建築面積×1.80"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-9","name":"ベタ基礎コンクリート","spec":"24-18-20N","quantity":11.4777376,"unit":"㎥","price":26500,"amount":304160.0464,"remark":"","quantityFormula":"建築面積×0.217"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-10","name":"ポンプ圧送","spec":"1日","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-11","name":"アンカーボルト","spec":"M12 L=400","quantity":38.082816,"unit":"本","price":850,"amount":32370.3936,"remark":"","quantityFormula":"建築面積×0.72"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-12","name":"ホールダウン金物用アンカー","spec":"HD25 L=600","quantity":14,"unit":"本","price":2800,"amount":39200,"remark":"","quantityFormula":"14"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-13","name":"基礎天端均しモルタル","spec":"レベラー打設","quantity":52.8928,"unit":"m","price":1200,"amount":63471.36,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-14","name":"基礎止水・打継処理","spec":"","quantity":1,"unit":"式","price":25000,"amount":25000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"B","categoryName":"基礎工事","no":"B-15","name":"基礎工事手間(鉄筋工・型枠工)","spec":"","quantity":1,"unit":"式","price":320000,"amount":320000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-1","name":"構造材一式","spec":"土台・大引・束・通し柱・管柱・梁桁・母屋","quantity":1.1107488,"unit":"坪","price":65000,"amount":116628.624,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-6","name":"間柱・筋交い・火打ち・羽柄材","spec":"KD杉等","quantity":32,"unit":"坪","price":13500,"amount":432000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-7","name":"構造用合板(壁)","spec":"9mm 耐力壁","quantity":220.073222435807,"unit":"㎡","price":1650,"amount":363120.817019081,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-8","name":"構造用合板(床)","spec":"24mm 根太レス","quantity":110.017024,"unit":"㎡","price":2950,"amount":324550.2208,"remark":"","quantityFormula":"延床面積×1.04"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-9","name":"構造用合板(屋根野地)","spec":"12mm","quantity":69.818496,"unit":"㎡","price":1850,"amount":129164.2176,"remark":"","quantityFormula":"屋根面積"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-10","name":"金物類(Zマーク同等)","spec":"柱頭柱脚・梁受け・羽子板等","quantity":32,"unit":"坪","price":6500,"amount":208000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-11","name":"プレカット加工費","spec":"構造材一式","quantity":32,"unit":"坪","price":10500,"amount":336000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-12","name":"大工手間(建方〜造作)","spec":"","quantity":95.04,"unit":"人日","price":30600,"amount":2908224,"remark":"","quantityFormula":"延床坪数×2.97"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-13","name":"建て方応援・レッカー","spec":"4t車・1日","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"C","categoryName":"木工事","no":"C-14","name":"木材・建材小運搬・荷揚げ","spec":"","quantity":1,"unit":"式","price":62300,"amount":62300,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-1","name":"改質アスファルトルーフィング","spec":"940品","quantity":69.818496,"unit":"㎡","price":650,"amount":45382.0224,"remark":"","quantityFormula":"屋根面積"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-2","name":"屋根材本体","spec":"ガルバリウム鋼板 横葺・0.4mm","quantity":69.818496,"unit":"㎡","price":5200,"amount":363056.1792,"remark":"","quantityFormula":"屋根面積"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-3","name":"棟・けらば・軒先役物","spec":"ガルバリウム鋼板曲げ加工","quantity":34.909248,"unit":"m","price":1400,"amount":48872.9472,"remark":"","quantityFormula":"屋根面積×0.50"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-4","name":"雨樋(軒樋・縦樋)","spec":"塩ビPC50相当","quantity":1,"unit":"式","price":75000,"amount":75000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"D","categoryName":"屋根工事","no":"D-5","name":"屋根まわり防水・小役物","spec":"","quantity":1,"unit":"式","price":18000,"amount":18000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-1","name":"透湿防水シート","spec":"タイベック相当","quantity":165.054916826855,"unit":"㎡","price":380,"amount":62720.8683942049,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-2","name":"通気胴縁","spec":"18×45 杉KD","quantity":165.054916826855,"unit":"㎡","price":580,"amount":95731.8517595759,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-3","name":"窯業系サイディング","spec":"15mm 塗装品 ケイミュー中級","quantity":165.054916826855,"unit":"㎡","price":4800,"amount":792263.600768904,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-4","name":"役物・出隅・見切","spec":"サイディング同色","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-5","name":"シーリング(外壁目地)","spec":"変成シリコン2成分","quantity":220.849951456168,"unit":"m","price":700,"amount":154594.966019318,"remark":"","quantityFormula":"外周長×8.53"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-6","name":"軒天材","spec":"ケイカル板6mm・塗装","quantity":32.000144,"unit":"㎡","price":2400,"amount":76800.3456,"remark":"","quantityFormula":"建築面積×0.605"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-7","name":"破風・鼻隠し板金巻","spec":"ガルバリウム鋼板","quantity":34.909248,"unit":"m","price":2200,"amount":76800.3456,"remark":"","quantityFormula":"屋根面積×0.50"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-8","name":"水切り(土台・サッシ)","spec":"ガルバリウム鋼板","quantity":45.0502831809769,"unit":"m","price":1400,"amount":63070.3964533676,"remark":"","quantityFormula":"外周長×1.74"},{"category":"本体工事","categoryGroup":"E","categoryName":"外装工事","no":"E-9","name":"サイディング施工手間(取付別途分)","spec":"サッシ工・配管工計上分","quantity":1,"unit":"式","price":103800,"amount":103800,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-1","name":"石膏ボード(壁)","spec":"12.5mm 不燃","quantity":330.051072,"unit":"㎡","price":1300,"amount":429066.3936,"remark":"","quantityFormula":"延床面積×3.12"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-2","name":"石膏ボード(天井)","spec":"9.5mm","quantity":104.9393152,"unit":"㎡","price":1200,"amount":125927.17824,"remark":"","quantityFormula":"延床面積×0.992"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-3","name":"パテ処理","spec":"一般仕上下地","quantity":434.778816,"unit":"㎡","price":250,"amount":108694.704,"remark":"","quantityFormula":"延床面積×4.11"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-4","name":"ビニールクロス","spec":"量産品AA級","quantity":480.266624,"unit":"㎡","price":1150,"amount":552306.6176,"remark":"","quantityFormula":"延床面積×4.54"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-5","name":"複合フローリング","spec":"12mm 中級グレード","quantity":84.62848,"unit":"㎡","price":5800,"amount":490845.184,"remark":"","quantityFormula":"内装床面積"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-6","name":"クッションフロア","spec":"洗面・トイレ","quantity":9,"unit":"㎡","price":3200,"amount":28800,"remark":"","quantityFormula":"IF(階数>1,6,4)"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-7","name":"畳(琉球風 縁無し)","spec":"和室1部屋分・国産表","quantity":6,"unit":"帖","price":16000,"amount":96000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-8","name":"巾木","spec":"ソフト幅木H60","quantity":179.83552,"unit":"m","price":380,"amount":68337.4976,"remark":"","quantityFormula":"延床面積×1.70"},{"category":"本体工事","categoryGroup":"F","categoryName":"内装工事","no":"F-9","name":"廻り縁","spec":"木製・必要箇所のみ","quantity":59.9804352,"unit":"m","price":450,"amount":26991.19584,"remark":"","quantityFormula":"延床面積×0.567"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-1","name":"玄関ドア","spec":"LIXILジエスタ2 K2 断熱仕様 親子","quantity":1,"unit":"箇所","price":280000,"amount":280000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-2","name":"アルミ樹脂複合サッシ+Low-Eペア","spec":"LIXILサーモスL/YKK APW310相当一式","quantity":1,"unit":"式","price":980000,"amount":980000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-3","name":"室内ドア","spec":"LDK・寝室・各室 / 大建/LIXIL中級・既製品","quantity":7,"unit":"枚","price":52000,"amount":364000,"remark":"","quantityFormula":"7"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-4","name":"引き戸","spec":"既製品上吊","quantity":3,"unit":"枚","price":68000,"amount":204000,"remark":"","quantityFormula":"3"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-5","name":"クローゼット扉","spec":"折戸・引違セット","quantity":4,"unit":"箇所","price":38000,"amount":152000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-6","name":"網戸","spec":"サッシ対応","quantity":8,"unit":"箇所","price":8500,"amount":68000,"remark":"","quantityFormula":"8"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-7","name":"シャッター雨戸","spec":"掃出窓2箇所・手動","quantity":2,"unit":"箇所","price":65000,"amount":130000,"remark":"","quantityFormula":"2"},{"category":"本体工事","categoryGroup":"G","categoryName":"建具工事","no":"G-8","name":"面格子","spec":"アルミ既製","quantity":4,"unit":"箇所","price":8000,"amount":32000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-1","name":"高性能グラスウール(壁)","spec":"HG16K・105mm","quantity":165.054916826855,"unit":"㎡","price":950,"amount":156802.170985512,"remark":"","quantityFormula":"外壁面積"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-2","name":"高性能グラスウール(天井)","spec":"HG16K・155mm","quantity":52.8928,"unit":"㎡","price":1250,"amount":66116,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-3","name":"床下断熱(押出法XPS)","spec":"3種b・65mm","quantity":52.8928,"unit":"㎡","price":1650,"amount":87273.12,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-4","name":"防湿気密シート","spec":"0.2mm","quantity":220.073222435807,"unit":"㎡","price":280,"amount":61620.5022820258,"remark":"","quantityFormula":"外周長×軒高"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-5","name":"気密テープ・先張シート","spec":"一式","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"H","categoryName":"断熱・気密工事","no":"H-6","name":"断熱・気密施工手間","spec":"","quantity":1,"unit":"式","price":102950,"amount":102950,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-1","name":"システムキッチン","spec":"クリナップSTEDIA/LIXILノクト同等 I型2550 食洗機付","quantity":1,"unit":"台","price":720000,"amount":720000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-2","name":"キッチン設置工事","spec":"取付・電気・給排水接続","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-3","name":"ユニットバス","spec":"LIXILアライズ/TOTOサザナ Sタイプ1坪","quantity":1,"unit":"台","price":720000,"amount":720000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-4","name":"UB設置工事","spec":"組立・接続","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-5","name":"洗面化粧台","spec":"LIXILピアラ750/TOTO Vシリーズ","quantity":1,"unit":"台","price":110000,"amount":110000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-6","name":"洗面化粧台設置","spec":"","quantity":1,"unit":"式","price":28000,"amount":28000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-7","name":"トイレ(1階)","spec":"TOTO ZJ1/LIXILアメージュ ウォシュレット一体型","quantity":1,"unit":"台","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-8","name":"トイレ(2階)","spec":"同上","quantity":1,"unit":"台","price":145000,"amount":145000,"remark":"","quantityFormula":"IF(階数>1,1,0)"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-9","name":"トイレ設置工事","spec":"2箇所","quantity":2,"unit":"箇所","price":22000,"amount":44000,"remark":"","quantityFormula":"2"},{"category":"本体工事","categoryGroup":"I","categoryName":"キッチン・浴室・洗面・トイレ・給湯設備","no":"I-10","name":"エコジョーズ給湯器","spec":"リンナイRUF-E2406AW フルオート24号","quantity":1,"unit":"台","price":168000,"amount":168000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-1","name":"屋内配線","spec":"VVF1.6/2.0 一式","quantity":32,"unit":"坪","price":14500,"amount":464000,"remark":"","quantityFormula":"延床坪数"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-2","name":"分電盤","spec":"パナソニックコスモパネル16回路","quantity":1,"unit":"面","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-3","name":"照明器具一式","spec":"LED中級","quantity":1,"unit":"式","price":285000,"amount":285000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-4","name":"スイッチ・コンセント","spec":"コスモシリーズ等","quantity":1,"unit":"式","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-5","name":"インターホン","spec":"パナソニック録画付","quantity":1,"unit":"台","price":38000,"amount":38000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-6","name":"TVアンテナ・分配","spec":"地デジ・BS UHF","quantity":1,"unit":"式","price":75000,"amount":75000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-7","name":"LAN・電話配線","spec":"CAT6 主要4部屋","quantity":1,"unit":"式","price":48000,"amount":48000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-8","name":"火災警報器","spec":"各居室・階段","quantity":6,"unit":"個","price":6500,"amount":39000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"J","categoryName":"電気工事","no":"J-9","name":"換気扇(浴室乾燥含)・24h換気","spec":"3種換気","quantity":1,"unit":"式","price":21000,"amount":21000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-1","name":"屋内給水給湯配管","spec":"架橋ポリエチレン管・さや管ヘッダー","quantity":1,"unit":"式","price":320000,"amount":320000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-2","name":"屋内排水配管","spec":"塩ビVU・VP","quantity":1,"unit":"式","price":240000,"amount":240000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-3","name":"屋内ガス配管","spec":"都市ガス・SGP-VB","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-4","name":"衛生器具取付・接続","spec":"キッチン・洗面・トイレ・浴室","quantity":1,"unit":"式","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-5","name":"給湯器設置・配管接続","spec":"エコジョーズ周り","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-6","name":"通気・排気・防露材巻","spec":"","quantity":1,"unit":"式","price":55000,"amount":55000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"K","categoryName":"給排水・ガス設備工事","no":"K-7","name":"試験・調整","spec":"水圧・通水","quantity":1,"unit":"式","price":40000,"amount":40000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-1","name":"玄関タイル","spec":"300角磁器質","quantity":4,"unit":"㎡","price":9500,"amount":38000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-2","name":"玄関ポーチ仕上","spec":"タイル張・モルタル下地","quantity":6,"unit":"㎡","price":12500,"amount":75000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-3","name":"木部塗装(破風・庇等)","spec":"浸透性塗料","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-4","name":"内部塗装(造作部分)","spec":"水性アクリル","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"L","categoryName":"塗装・左官・タイル工事","no":"L-5","name":"左官(基礎巾木・補修)","spec":"モルタル金鏝","quantity":52.8928,"unit":"㎡","price":1500,"amount":79339.2,"remark":"","quantityFormula":"建築面積"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-1","name":"箱階段","spec":"集成材・受桁・側板共","quantity":1,"unit":"式","price":285000,"amount":285000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-2","name":"階段手すり・廊下手すり","spec":"アルミ・木製","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-3","name":"バルコニー(FRP防水)","spec":"2階バルコニー 6㎡","quantity":6,"unit":"㎡","price":18500,"amount":111000,"remark":"","quantityFormula":"6"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-4","name":"バルコニー手摺(アルミ笠木一体)","spec":"","quantity":4,"unit":"m","price":18000,"amount":72000,"remark":"","quantityFormula":"4"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-5","name":"造作家具(下足箱)","spec":"既製/造作併用","quantity":1,"unit":"式","price":110000,"amount":110000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-6","name":"カウンター・棚等造作","spec":"","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-7","name":"美装(竣工クリーニング)","spec":"全室","quantity":105.7856,"unit":"㎡","price":850,"amount":89917.76,"remark":"","quantityFormula":"延床面積"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-8","name":"廃材処分費・産廃マニフェスト","spec":"木くず・石膏ボード・金属類","quantity":1,"unit":"式","price":215000,"amount":215000,"remark":"","quantityFormula":"1"},{"category":"本体工事","categoryGroup":"M","categoryName":"雑工事","no":"M-9","name":"雑材・消耗品","spec":"ビス・ボンド・養生材","quantity":1,"unit":"式","price":65000,"amount":65000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"N","categoryName":"給排水引込工事","no":"N-1","name":"給水引込工事","spec":"本管→宅地内・口径20mm","quantity":1,"unit":"式","price":240000,"amount":240000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"N","categoryName":"給排水引込工事","no":"N-2","name":"排水引込・公共桝設置","spec":"公共桝1基・取付管","quantity":1,"unit":"式","price":140000,"amount":140000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"O","categoryName":"ガス引込工事","no":"O-1","name":"都市ガス引込工事","spec":"道路本管〜メーターまで","quantity":1,"unit":"式","price":180000,"amount":180000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"P","categoryName":"電気引込工事(宅内側)","no":"P-1","name":"電気引込(宅内側引込口配線・分電盤接続)","spec":"主開閉器盤含む","quantity":1,"unit":"式","price":150000,"amount":150000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"Q","categoryName":"地盤改良","no":"Q-1","name":"地盤調査(SWS試験)","spec":"5点","quantity":1,"unit":"式","price":50000,"amount":50000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"Q","categoryName":"地盤改良","no":"Q-2","name":"柱状改良工事(湿式)","spec":"φ600 L=4m×25本","quantity":25,"unit":"本","price":30000,"amount":750000,"remark":"","quantityFormula":"25"},{"category":"付帯工事","categoryGroup":"Q","categoryName":"地盤改良","no":"Q-3","name":"残土搬出","spec":"","quantity":1,"unit":"式","price":50000,"amount":50000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-1","name":"駐車場土間コン","spec":"普通コン15cm・メッシュ筋 2台分","quantity":30,"unit":"㎡","price":12500,"amount":375000,"remark":"","quantityFormula":"30"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-2","name":"アプローチ(タイル/平板)","spec":"","quantity":8,"unit":"㎡","price":18000,"amount":144000,"remark":"","quantityFormula":"8"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-3","name":"境界フェンス(メッシュ)","spec":"H1200・最低限","quantity":25,"unit":"m","price":9500,"amount":237500,"remark":"","quantityFormula":"25"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-4","name":"門柱・ポスト・表札","spec":"機能ポール","quantity":1,"unit":"式","price":145000,"amount":145000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"R","categoryName":"外構基本工事(最低限ライン)","no":"R-5","name":"残土・整地・暗渠","spec":"","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"付帯工事","categoryGroup":"S","categoryName":"カーテン・カーテンレール","no":"S-1","name":"カーテン・カーテンレール","spec":"既製/オーダー併用 全居室","quantity":1,"unit":"式","price":280000,"amount":280000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"T","categoryName":"設計料・監理料","no":"T-1","name":"設計料","spec":"工務店プラン・実施設計","quantity":1,"unit":"式","price":250000,"amount":250000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"T","categoryName":"設計料・監理料","no":"T-2","name":"監理料","spec":"現場監理","quantity":1,"unit":"式","price":100000,"amount":100000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"U","categoryName":"建築確認申請費用","no":"U-1","name":"建築確認申請費(申請代行+審査機関)","spec":"民間検査機関","quantity":1,"unit":"式","price":150000,"amount":150000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"V","categoryName":"中間・完了検査費用","no":"V-1","name":"中間検査手数料","spec":"","quantity":1,"unit":"式","price":35000,"amount":35000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"V","categoryName":"中間・完了検査費用","no":"V-2","name":"完了検査手数料","spec":"","quantity":1,"unit":"式","price":45000,"amount":45000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"W","categoryName":"登記費用","no":"W-1","name":"表題登記","spec":"土地家屋調査士","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"W","categoryName":"登記費用","no":"W-2","name":"所有権保存登記","spec":"司法書士・登録免許税共","quantity":1,"unit":"式","price":85000,"amount":85000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"X","categoryName":"住宅瑕疵担保責任保険料","no":"X-1","name":"住宅瑕疵担保責任保険(まもりすまい等)","spec":"保険料・検査料込","quantity":1,"unit":"式","price":95000,"amount":95000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"Y","categoryName":"地盤保証料","no":"Y-1","name":"地盤保証料","spec":"20年保証","quantity":1,"unit":"式","price":50000,"amount":50000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"Z","categoryName":"火災・地震保険","no":"Z-1","name":"火災・地震保険(5年一括・参考計上)","spec":"","quantity":1,"unit":"式","price":180000,"amount":180000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"AA","categoryName":"現場経費","no":"AA-1","name":"現場経費","spec":"現場監督人件費・現場運営費・法定福利費","quantity":1,"unit":"式","price":750000,"amount":750000,"remark":"","quantityFormula":"1"},{"category":"諸経費","categoryGroup":"AB","categoryName":"一般管理費","no":"AB-1","name":"一般管理費","spec":"本社経費・利益","quantity":1,"unit":"式","price":850000,"amount":850000,"remark":"","quantityFormula":"1"}]}</script>
@@ -213,7 +214,7 @@ function getEffectivePrice(item, manualOverride) {
   if (manualOverride !== undefined && manualOverride !== null && manualOverride !== '') {
     return { price: parseFloat(manualOverride) || 0, source: 'manual' };
   }
-  return { price: item.price, source: 'default' };
+  return { price: parseFloat(item.price) || 0, source: 'default' };
 }
 
 function computeEstimate(project, masters) {
@@ -279,13 +280,33 @@ function computeEstimate(project, masters) {
   const overheadTotal = allLines.filter(l => l.category === '諸経費').reduce((s, l) => s + l.amount, 0);
 
   const optionsTotal = (project.options || []).reduce((s, o) => s + (parseFloat(o.amount) || 0), 0);
-  const subtotal = bodyTotal + sideTotal + overheadTotal + optionsTotal;
+  const rawSubtotal = bodyTotal + sideTotal + overheadTotal + optionsTotal;
+  // 端数調整＝「単位を選んだ時点の金額で計算した固定の値引き額」。固定にすることで項目の増減がそのまま総額へ反映される。
+  const roundingUnit = parseInt((project.rounding && project.rounding.unit) || 0) || 0;
+  const roundingAmount = Number((project.rounding && project.rounding.amount) || 0); // ≤0
+  let subtotal = rawSubtotal;
+  let roundingAdjust = 0;
+  if (roundingUnit > 0 && roundingAmount < 0) {
+    roundingAdjust = roundingAmount;
+    subtotal = rawSubtotal + roundingAdjust;
+    if (subtotal < 0) { subtotal = rawSubtotal; roundingAdjust = 0; }
+  }
   const tax = Math.round(subtotal * 0.1);
   const total = subtotal + tax;
   const tsuboCost = sp.tsuboFloor > 0 ? total / sp.tsuboFloor : 0;
 
-  return { scale: sp, lines: allLines, bodyTotal, sideTotal, overheadTotal, optionsTotal, subtotal, tax, total, tsuboCost };
+  return { scale: sp, lines: allLines, bodyTotal, sideTotal, overheadTotal, optionsTotal, rawSubtotal, roundingUnit, roundingAdjust, subtotal, tax, total, tsuboCost };
 }
+
+// 端数調整の単位の選択肢
+const ROUNDING_OPTIONS = [
+  { v: 0, l: 'なし（端数を切らない）' },
+  { v: 100, l: '100円単位で切り捨て' },
+  { v: 1000, l: '1,000円単位で切り捨て' },
+  { v: 10000, l: '1万円単位で切り捨て' },
+  { v: 100000, l: '10万円単位で切り捨て' },
+  { v: 1000000, l: '100万円単位で切り捨て' }
+];
 
 // ============ Storage ============
 function loadAll() {
@@ -350,7 +371,8 @@ function defaultProject(name, masters) {
     manualPrices: {},
     manualQuantities: {},
     options: [],
-    printFormat: 'standard'
+    printFormat: 'standard',
+    rounding: { unit: 0, amount: 0 }
   };
 }
 
@@ -504,8 +526,8 @@ function App() {
           <Settings state={state} setState={setState} masters={masters} setMasters={setMasters} />
         )}
       </main>
-      <footer className="border-t border-slate-200 bg-white text-xs text-slate-500 py-3 text-center no-print">
-        v1.0 / データはブラウザ内に保存されます / 初期値: 2026年5月 首都圏中級32坪 標準仕様
+      <footer className="border-t border-slate-200 bg-white text-xs text-slate-500 py-4 text-center no-print">
+        <span className="font-bold" style={{ color: '#1B2B4B' }}>HEALTH <span style={{ color: '#F08300' }}>ARCHI</span></span>　スマート見積システム（木造在来工法）/ データはお使いのブラウザ内に保存されます / 初期値: 2026年5月 首都圏中級32坪 標準仕様
       </footer>
     </div>
   );
@@ -518,11 +540,11 @@ function Header({ view, setView, savedAt }) {
     { id: 'settings', label: '設定', icon: '🔧' }
   ];
   return (
-    <header className="bg-white border-b border-slate-200 no-print">
+    <header className="no-print text-white shadow-md" style={{ backgroundColor: '#1B2B4B' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between flex-wrap gap-2">
-        <div className="flex items-center gap-3">
-          <div className="text-base sm:text-lg font-bold text-slate-900">🏠 スマート見積システム</div>
-          <div className="text-xs text-slate-400">v1.0</div>
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="font-bold text-lg tracking-wide whitespace-nowrap">HEALTH <span style={{ color: '#F08300' }}>ARCHI</span></span>
+          <span className="text-slate-300 text-sm truncate">｜スマート見積システム（木造在来工法）</span>
         </div>
         <nav className="flex gap-1 items-center">
           {navs.map(n => {
@@ -530,23 +552,24 @@ function Header({ view, setView, savedAt }) {
               (n.id === 'property-list' && (view.name === 'list' || view.name === 'edit'));
             return (
               <button key={n.id} onClick={() => setView({ name: n.id })}
-                className={`px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded transition ${
-                  isActive ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}>
+                className={`px-3 py-2 text-sm rounded font-medium transition ${
+                  isActive ? 'bg-white text-[#1B2B4B] font-bold' : 'text-white/90 hover:bg-white/10'
+                }`} style={{ minHeight: '44px' }}>
                 <span className="mr-1">{n.icon}</span>
                 <span className="hidden sm:inline">{n.label}</span>
               </button>
             );
           })}
           <a href="guide.html" target="_blank" rel="noopener"
-            className="px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded transition text-blue-700 hover:bg-blue-50 border border-blue-200"
+            className="border border-white/40 hover:bg-white/10 text-white text-sm font-medium px-3 py-2 rounded whitespace-nowrap flex items-center gap-1"
+            style={{ minHeight: '44px' }}
             title="新しいタブで使い方ガイドを開く">
-            <span className="mr-1">📖</span>
+            <span>📖</span>
             <span className="hidden sm:inline">使い方ガイド</span>
           </a>
         </nav>
         {savedAt && (
-          <div className="text-xs text-slate-400 w-full sm:w-auto sm:order-last text-right">
+          <div className="text-xs text-slate-300 w-full sm:w-auto sm:order-last text-right">
             💾 自動保存: {savedAt.toLocaleTimeString('ja-JP')}
           </div>
         )}
@@ -592,7 +615,7 @@ function PropertyList({ projects, properties, masters, onOpen, onAddProperty, on
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900">物件一覧</h2>
           <p className="text-sm text-slate-500 mt-1">登録物件: {propMap.length} 件 / 見積: {projects.length} 件</p>
         </div>
-        <button onClick={onAddProperty} className="px-4 py-2 text-sm bg-slate-900 text-white rounded-md hover:bg-slate-700">＋ 物件の登録</button>
+        <button onClick={onAddProperty} className="px-5 text-sm ha-cta text-white font-bold rounded-lg" style={{ backgroundColor: '#C85400', minHeight: '48px' }}>＋ 物件の登録</button>
       </div>
       {propMap.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-lg p-12 text-center">
@@ -662,12 +685,12 @@ function ProjectList({ projects, masters, propertyFilter, onBack, onOpen, onAdd,
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900">{propertyFilter}</h2>
           <p className="text-sm text-slate-700 mt-2 font-semibold">📄 見積一覧 <span className="text-slate-500 font-normal">({filtered.length} 件)</span></p>
         </div>
-        <button onClick={onAdd} className="px-4 py-2 text-sm bg-slate-900 text-white rounded-md hover:bg-slate-700">＋ この物件で新規見積</button>
+        <button onClick={onAdd} className="px-5 text-sm text-white font-bold rounded-lg" style={{ backgroundColor: '#C85400', minHeight: '48px' }}>＋ この物件で新規見積</button>
       </div>
       {filtered.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-lg p-12 text-center">
           <p className="text-slate-500">この物件にはまだ見積がありません</p>
-          <button onClick={onAdd} className="mt-4 px-4 py-2 bg-slate-900 text-white rounded text-sm">最初の見積を作る</button>
+          <button onClick={onAdd} className="mt-4 px-5 text-white rounded-lg text-sm font-bold" style={{ backgroundColor: '#C85400', minHeight: '48px' }}>最初の見積を作る</button>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -799,7 +822,7 @@ function ProjectEditor({ project, masters, companyInfo, onChange, onBack, onRefr
       <div className={`bg-slate-50 border border-slate-200 rounded-b-lg ${tab === 'print' ? 'p-0' : 'p-3 sm:p-6'}`}>
         {tab === 'scale' && <TabScale project={project} onChange={onChange} result={result} />}
         {tab === 'details' && <TabDetails project={project} onChange={onChange} result={result} />}
-        {tab === 'result' && <TabResult project={project} result={result} companyInfo={companyInfo} />}
+        {tab === 'result' && <TabResult project={project} result={result} companyInfo={companyInfo} onChange={onChange} />}
         {tab === 'print' && <PrintPreview project={project} result={result} companyInfo={companyInfo} onChange={onChange} />}
       </div>
     </div>
@@ -831,7 +854,7 @@ function TabScale({ project, onChange, result }) {
           <div className="space-y-4">
             <Field label="延床坪数" value={project.scale.tsuboFloor} unit="坪"
               conversion={`= ${(parseFloat(project.scale.tsuboFloor || 0) * 3.3058).toFixed(2)} ㎡`}
-              onChange={v => setScale('tsuboFloor', parseFloat(v) || 0)} />
+              onChange={v => setScale('tsuboFloor', v)} />
             <SelectField label="階数" value={project.scale.floorCount}
               options={[{v:1,l:'1階(平屋)'},{v:2,l:'2階'},{v:3,l:'3階'}]}
               onChange={v => setFloorCount(v)}
@@ -861,7 +884,7 @@ function TabScale({ project, onChange, result }) {
             )}
 
             <Field label="軒高" value={project.scale.eavesHeight} unit="m" step="0.1"
-              onChange={v => setScale('eavesHeight', parseFloat(v) || 0)}
+              onChange={v => setScale('eavesHeight', v)}
               help={`平屋3.5m / 2階6.5m / 3階9.5m が目安。最高高さではなく軒高です。`} />
             <SelectField label="屋根形状" value={project.scale.roofShape}
               options={[{v:'切妻',l:'切妻 (1.32)'},{v:'寄棟',l:'寄棟 (1.40)'},{v:'片流れ',l:'片流れ (1.20)'},{v:'陸屋根',l:'陸屋根 (1.05)'}]}
@@ -922,37 +945,6 @@ function TabScale({ project, onChange, result }) {
 
       <div className="mt-4 bg-amber-50 border-l-4 border-amber-400 p-3 text-xs text-amber-900 rounded">
         💡 軒高が一定でない場合（部分的に高さが違う等）は、平均的な値を入れてください。大きく違う場合は内訳明細タブで該当項目（足場・外壁・断熱壁）の数量を直接編集できます。
-      </div>
-
-      {/* オプション工事セクション */}
-      <div className="mt-6 bg-orange-50 border border-orange-200 rounded-lg p-4 sm:p-5">
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="text-sm font-bold text-slate-900">🔧 オプション工事</h4>
-          <button onClick={() => setOptions([...opts, { id: uuid(), name: '', amount: 0 }])}
-            className="text-xs px-3 py-1 border border-orange-400 text-orange-700 rounded hover:bg-orange-100">＋ 追加</button>
-        </div>
-        <p className="text-xs text-slate-600 mb-3">太陽光・解体・追加外構など、見積ごとに金額が変わるもの</p>
-        <OptionPresets options={opts} setOptions={setOptions} />
-        {opts.length > 0 && (
-          <div className="space-y-2 mt-3">
-            {opts.map((o, i) => (
-              <div key={o.id || i} className="bg-white rounded p-2 flex items-center gap-2">
-                <input type="text" value={o.name} onChange={e => {
-                  const newOpts = [...opts]; newOpts[i] = { ...o, name: e.target.value }; setOptions(newOpts);
-                }} className="flex-1 border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 text-sm" placeholder="工事名" />
-                <input type="number" value={o.amount} onChange={e => {
-                  const newOpts = [...opts]; newOpts[i] = { ...o, amount: parseFloat(e.target.value) || 0 }; setOptions(newOpts);
-                }} className="border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-2 py-1 text-sm w-32 text-right num font-mono" />
-                <span className="text-xs text-slate-500">円</span>
-                <button onClick={() => setOptions(opts.filter((_, j) => j !== i))}
-                  className="text-xs text-red-600 px-2 hover:bg-red-50 rounded">削除</button>
-              </div>
-            ))}
-            <div className="text-right text-sm font-semibold text-orange-700 mt-2">
-              小計: <span className="num">{fmt(opts.reduce((s, o) => s + (parseFloat(o.amount) || 0), 0))}</span> 円
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -1053,8 +1045,7 @@ function TabDetails({ project, onChange, result }) {
   const editPrice = (no, val) => {
     onChange(p => {
       const mp = { ...(p.manualPrices || {}) };
-      if (val === '' || val === null) delete mp[no];
-      else mp[no] = parseFloat(val) || 0;
+      mp[no] = val;   // 空文字も保持（クリアして打ち直せるように）。計算側は空＝標準単価として扱う。
       return { ...p, manualPrices: mp };
     });
   };
@@ -1067,8 +1058,7 @@ function TabDetails({ project, onChange, result }) {
   const editQuantity = (no, val) => {
     onChange(p => {
       const mq = { ...(p.manualQuantities || {}) };
-      if (val === '' || val === null) delete mq[no];
-      else mq[no] = parseFloat(val) || 0;
+      mq[no] = val;   // 空文字も保持（クリアして打ち直せるように）。計算側は空＝自動値として扱う。
       return { ...p, manualQuantities: mq };
     });
   };
@@ -1381,7 +1371,16 @@ function TabDetails({ project, onChange, result }) {
   );
 }
 
-function TabResult({ project, result, companyInfo }) {
+function TabResult({ project, result, companyInfo, onChange }) {
+  const roundingUnit = (project.rounding && project.rounding.unit) || 0;
+  // 単位を選んだ「今の金額」で固定の値引き額を計算して保存（以後は固定＝項目の増減がそのまま総額に反映される）
+  const applyRounding = (u) => {
+    const unit = parseInt(u) || 0;
+    const raw = result.rawSubtotal || 0;
+    const amount = (unit > 0 && raw > 0) ? (Math.floor(raw / unit) * unit - raw) : 0;
+    onChange && onChange(p => ({ ...p, rounding: { unit, amount } }));
+  };
+  const setRoundingUnit = (u) => applyRounding(u);
   // カテゴリ別合計を集計、本体/付帯/諸経費で分類
   const byGroup = {};
   result.lines.forEach(l => {
@@ -1441,9 +1440,17 @@ function TabResult({ project, result, companyInfo }) {
             </div>
           )}
         </div>
-        <div className="bg-slate-900 text-white rounded-lg p-5 flex flex-col justify-between">
+        <div className="text-white rounded-lg p-5 flex flex-col justify-between" style={{ backgroundColor: '#1B2B4B' }}>
           <div>
-            <div className="text-xs text-slate-400 mb-2">税抜合計</div>
+            {result.roundingAdjust !== 0 && (
+              <>
+                <div className="text-xs text-slate-400 mb-1">小計（端数調整前）</div>
+                <div className="num text-lg font-mono text-slate-300">{fmt(result.rawSubtotal)}</div>
+                <div className="text-xs text-amber-300 mt-2 mb-1">お値引き（端数調整）</div>
+                <div className="num text-lg font-mono text-amber-200">{fmt(result.roundingAdjust)}</div>
+              </>
+            )}
+            <div className="text-xs text-slate-400 mt-3 mb-2">税抜合計</div>
             <div className="num text-2xl font-mono font-bold">{fmt(result.subtotal)}</div>
             <div className="text-xs text-slate-400 mt-3 mb-1">消費税(10%)</div>
             <div className="num text-lg font-mono">{fmt(result.tax)}</div>
@@ -1453,6 +1460,31 @@ function TabResult({ project, result, companyInfo }) {
             <div className="num text-2xl sm:text-3xl font-mono font-bold text-amber-200">{fmt(result.total)}</div>
             <div className="text-xs text-slate-400 mt-2 num">坪単価: {fmt(result.tsuboCost)} 円/坪</div>
           </div>
+        </div>
+      </div>
+
+      {/* 端数調整（切り捨て） */}
+      <div className="mt-4 bg-white border border-slate-200 rounded-lg p-4 sm:p-5">
+        <h4 className="text-sm font-bold mb-1" style={{ color: '#1B2B4B' }}>💴 端数の調整（お値引き）</h4>
+        <p className="text-xs text-slate-600 mb-3">税抜合計を下の単位で切り捨て、差額を「お値引き（端数調整）」として計上します。<strong>値引き額は選んだ時点で固定</strong>されるので、あとで項目を追加・削除しても、そのぶんはきちんと総額に反映されます（再度キリよくしたいときは「今の金額で切り直す」）。</p>
+        <div className="flex items-center gap-3 flex-wrap">
+          <select value={roundingUnit} onChange={e => setRoundingUnit(e.target.value)}
+            className="border-2 rounded-lg px-3 text-sm font-bold" style={{ borderColor: '#1B2B4B', minHeight: '48px', color: '#1B2B4B' }}>
+            {ROUNDING_OPTIONS.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
+          </select>
+          {roundingUnit > 0 && (
+            <button onClick={() => applyRounding(roundingUnit)}
+              className="px-4 text-sm font-bold text-white rounded-lg" style={{ backgroundColor: '#1B2B4B', minHeight: '48px' }}>
+              今の金額で切り直す
+            </button>
+          )}
+          {result.roundingAdjust !== 0 ? (
+            <span className="text-sm">
+              お値引き <span className="num font-bold" style={{ color: '#C85400' }}>{fmt(result.roundingAdjust)}</span> 円　→　税抜合計 <span className="num font-bold">{fmt(result.subtotal)}</span> 円
+            </span>
+          ) : (
+            <span className="text-sm text-slate-500">端数調整なし（そのままの金額）</span>
+          )}
         </div>
       </div>
     </div>
@@ -1500,7 +1532,7 @@ function PrintPreview({ project, result, companyInfo, onChange }) {
           </select>
           <span className="text-xs text-slate-500">💡 PDF保存はブラウザの「印刷」→「PDFとして保存」で可能</span>
         </div>
-        <button onClick={() => window.print()} className="px-4 py-2 text-sm bg-slate-900 text-white rounded hover:bg-slate-700">🖨 印刷</button>
+        <button onClick={() => window.print()} className="px-5 text-sm font-bold text-white rounded-lg" style={{ backgroundColor: '#1B2B4B', minHeight: '48px' }}>🖨 印刷する</button>
       </div>
 
       {format === 'standard' && <FormatStandard project={project} result={result} companyInfo={companyInfo} byGroup={filteredByGroup} />}
@@ -1749,6 +1781,18 @@ function SummaryTable({ byGroup, result, bordered }) {
             <td colSpan="2" className="px-2 py-1.5 text-right">オプション工事</td>
             <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.optionsTotal)}</td>
           </tr>
+        )}
+        {result.roundingAdjust !== 0 && (
+          <>
+            <tr className="border-b border-slate-200">
+              <td colSpan="2" className="px-2 py-1.5 text-right">小計</td>
+              <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.rawSubtotal)}</td>
+            </tr>
+            <tr className="border-b border-slate-300 font-bold" style={{ color: '#C85400' }}>
+              <td colSpan="2" className="px-2 py-1.5 text-right">お値引き（端数調整）</td>
+              <td className="px-2 py-1.5 text-right num font-mono">{fmt(result.roundingAdjust)}</td>
+            </tr>
+          </>
         )}
         <tr className="border-b-2 border-slate-400 font-bold">
           <td colSpan="2" className="px-2 py-2 text-right">税抜合計</td>
@@ -2088,7 +2132,7 @@ function RateMasterEditor({ masters, setMasters }) {
                                 className="w-full border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1.5 py-0.5 truncate" />
                             </td>
                             <td className="px-2 py-1 text-right num font-mono">
-                              <input type="number" value={item.price} onChange={e => update(item.no, 'price', parseFloat(e.target.value) || 0)}
+                              <input type="number" value={item.price} onChange={e => update(item.no, 'price', e.target.value)}
                                 className="w-24 text-right border border-slate-300 bg-slate-50 hover:bg-white focus:bg-white focus:border-blue-500 focus:outline-none rounded px-1.5 py-0.5 num font-mono" />
                             </td>
                             <td className="px-2 py-1">
