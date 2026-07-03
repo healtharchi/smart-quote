@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MJTX97M6NY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MJTX97M6NY');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>スマート見積システム｜HEALTH ARCHI</title>
@@ -2314,5 +2322,13 @@ root.render(<App />);
   (0, eval)(code);
 })();
 </script>
+<!-- HEALTH ARCHI 共通フッター（実験室・LINE導線） -->
+<footer style="background:#1B2B4B;color:#FFFFFF;text-align:center;padding:24px 16px;font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;font-size:15px;line-height:2;">
+  <div style="font-weight:700;margin-bottom:4px;">HEALTH <span style="color:#F08300;">ARCHI</span> 実験室の無料ツール</div>
+  <div>
+    <a href="https://healtharchi.com/tools" style="color:#FFFFFF;text-decoration:underline;margin:0 12px;">他の無料ツールを見る</a>
+    <a href="https://line.me/R/ti/p/@045hrvke" onclick="try{gtag('event','line_click',{'tool_name':'smart-quote'});}catch(e){}" style="color:#F08300;text-decoration:underline;font-weight:700;margin:0 12px;">新ツールの先行案内をLINEで受け取る</a>
+  </div>
+</footer>
 </body>
 </html>
