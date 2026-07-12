@@ -12,6 +12,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>スマート見積システム｜HEALTH ARCHI</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"スマート見積（木造新築版）","url":"https://healtharchi.github.io/smart-quote/","applicationCategory":"BusinessApplication","operatingSystem":"Webブラウザ","description":"木造在来工法の新築専用。坪数と仕様を選ぶと概算見積の骨格ができる。","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"publisher":{"@type":"Organization","name":"HEALTH ARCHI","url":"https://healtharchi.com/"}}</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -1540,7 +1541,10 @@ function PrintPreview({ project, result, companyInfo, onChange }) {
           </select>
           <span className="text-xs text-slate-500">💡 PDF保存はブラウザの「印刷」→「PDFとして保存」で可能</span>
         </div>
-        <button onClick={() => window.print()} className="px-5 text-sm font-bold text-white rounded-lg" style={{ backgroundColor: '#1B2B4B', minHeight: '48px' }}>🖨 印刷する</button>
+        <div className="flex items-center gap-2">
+          <button type="button" data-ha-share className="px-5 text-sm font-bold rounded-lg flex items-center gap-1" style={{ backgroundColor: '#FFFFFF', color: '#1B2B4B', border: '1px solid #E8E4DE', minHeight: '48px' }}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 共有</button>
+          <button onClick={() => window.print()} className="px-5 text-sm font-bold text-white rounded-lg" style={{ backgroundColor: '#1B2B4B', minHeight: '48px' }}>🖨 印刷する</button>
+        </div>
       </div>
 
       {format === 'standard' && <FormatStandard project={project} result={result} companyInfo={companyInfo} byGroup={filteredByGroup} />}
@@ -2330,5 +2334,6 @@ root.render(<App />);
     <a href="https://line.me/R/ti/p/@045hrvke" onclick="try{gtag('event','line_click',{'tool_name':'smart-quote'});}catch(e){}" style="color:#F08300;text-decoration:underline;font-weight:700;margin:0 12px;">新ツールの先行案内をLINEで受け取る</a>
   </div>
 </footer>
+<script src="https://healtharchi.com/share.js" defer></script>
 </body>
 </html>
